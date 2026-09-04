@@ -977,8 +977,9 @@ footer {
           <tr><td>Peak during capture</td><td class="mono strong">281 MB</td><td>Only 28 MB above idle</td></tr>
           <tr><td>tcpdump itself</td><td class="mono">7 MB</td><td>It streams, it does not buffer</td></tr>
           <tr><td>Swap used</td><td class="mono">0</td><td>Never came close</td></tr>
-          <tr><td>Card read</td><td class="mono">69.7 MB/s</td><td>Stock card that came with the build</td></tr>
-          <tr><td>Card write</td><td class="mono">12.1 MB/s</td><td>Flat from 16 MiB to 256 MiB, no falloff</td></tr>
+          <tr><td>Card write, mid-range</td><td class="mono">12.1 MB/s</td><td>Flat from 16 MiB to 256 MiB, no falloff</td></tr>
+          <tr><td>Card write, Samsung 128 GB</td><td class="mono strong">21.7 MB/s</td><td>Also flat; about 1.75&times; the other</td></tr>
+          <tr><td>Card read, both</td><td class="mono">67&ndash;70 MB/s</td><td><strong>Identical</strong> &mdash; this is the board&rsquo;s ceiling, not the card</td></tr>
           <tr><td>Capture to card vs to RAM</td><td class="mono">0% loss both</td><td>Storage was not a limit at the rate tested</td></tr>
         </tbody>
       </table>
@@ -993,9 +994,14 @@ footer {
         need it.
       </p>
       <p>
-        <strong>A mid-range card is fine.</strong> The card that came with our build sustains about
-        12 MB/s, which is roughly fifteen times what a busy 2.4 GHz capture was writing. Buying A2 and
-        V30 buys headroom and a guarantee, not a fix for a problem you are likely to have.
+        <strong>A mid-range card is fine.</strong> Two cards measured on this board sustain 12 and
+        22 MB/s, against the roughly 0.8 MB/s a busy 2.4 GHz capture was actually writing. Buying A2
+        and V30 buys headroom and a guarantee, not a fix for a problem you are likely to have.
+      </p>
+      <p>
+        <strong>Ignore read speed when judging a card here.</strong> Both cards read at 67&ndash;70 MB/s
+        despite writing at very different rates, because read is capped by the RK3528&rsquo;s SD host
+        controller. A benchmark that leads with read numbers will tell you nothing about this board.
       </p>
     </div>
 
@@ -1023,7 +1029,12 @@ footer {
       </p>
     </div>
 
-    <pre><span class="cm"># On the sensor.</span>
+    <pre><span class="cm"># On the sensor. The image checks this itself once per boot and</span>
+<span class="cm"># publishes the result, but you can ask any time:</span>
+sudo wc-storage-check
+<span class="cm">#   GOOD: SD card writes at 21.7 MB/s.</span>
+
+<span class="cm"># Or measure it by hand:</span>
 sudo dd if=/dev/zero of=/var/tmp/w.bin bs=1M count=64 conv=fdatasync
 sudo rm /var/tmp/w.bin</pre>
 
