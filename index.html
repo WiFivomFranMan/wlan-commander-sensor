@@ -473,7 +473,7 @@ footer {
   <div class="shell">
     <div class="masthead-grid">
       <div>
-        <div class="eyebrow">WLAN Commander &nbsp;/&nbsp; sensor image &nbsp;/&nbsp; v1.0.0</div>
+        <div class="eyebrow">WLAN Commander &nbsp;/&nbsp; sensor image &nbsp;/&nbsp; v1.0.1</div>
         <h1>NanoPi Zero2<span class="thin">Wi-Fi 7 capture sensor</span></h1>
         <p class="lede">
           An Armbian image that turns a <strong>FriendlyElec NanoPi Zero2</strong> and an
@@ -496,11 +496,11 @@ footer {
     </div>
 
     <div class="getrow">
-      <a class="btn" href="https://github.com/WiFivomFranMan/wlan-commander-sensor/releases/download/v1.0.0/wlan-commander-nanopi-zero2-v1.0.0-bleedingedge.img.xz">
-        Download v1.0.0 <span class="sz">.img.xz &middot; 418 MB</span>
+      <a class="btn" href="https://github.com/WiFivomFranMan/wlan-commander-sensor/releases/download/v1.0.1/wlan-commander-nanopi-zero2-v1.0.1-bleedingedge.img.xz">
+        Download v1.0.1 <span class="sz">.img.xz &middot; 418 MB</span>
       </a>
       <div class="hash">
-        <span class="mono">sha256 caf24df945bc92dc5955fae5c68cd0f775d905ef5874a2c2406c8947baae0629</span>
+        <span class="mono">sha256 93af0312dbdd0f480ae3a591a390bf5d8a82fb878c25b58626226eec0a1b9af3</span>
       </div>
     </div>
   </div>
@@ -695,7 +695,7 @@ footer {
           <tr>
             <td>USB-C gadget</td>
             <td>NCM ethernet plus a serial console</td>
-            <td>Host reaches the sensor at 192.168.7.1</td>
+            <td>Host reaches the sensor at 198.18.42.1</td>
             <td><span class="chip chip-ok">Verified</span></td>
           </tr>
           <tr>
@@ -766,8 +766,9 @@ footer {
       </div>
       <div class="feat">
         <h3>USB-C is a whole sensor link</h3>
-        <p>One cable to a laptop gives an NCM ethernet interface at 192.168.7.1 and a serial
-        console, so a unit in a case is still reachable when the network is not.</p>
+        <p>One cable to a laptop gives an ethernet interface at <code>198.18.42.1</code> and a
+        serial console, so a unit in a case is reachable when the network is not. That is
+        WLANPi's own addressing, on reserved space that cannot collide with the host's network.</p>
       </div>
       <div class="feat">
         <h3>Orb Sensor, unclaimed</h3>
@@ -801,7 +802,7 @@ footer {
           <h3>Write the card</h3>
           <p>Any standard imaging tool reads the <code>.img.xz</code> directly. From a shell:</p>
           <pre><span class="cm"># Replace /dev/sdX with the card. The wrong device loses its data.</span>
-xz -dc wlan-commander-nanopi-zero2-v1.0.0-bleedingedge.img.xz \
+xz -dc wlan-commander-nanopi-zero2-v1.0.1-bleedingedge.img.xz \
   | sudo dd of=/dev/sdX bs=4M status=progress conv=fsync</pre>
         </div>
       </div>
@@ -820,7 +821,8 @@ xz -dc wlan-commander-nanopi-zero2-v1.0.0-bleedingedge.img.xz \
         <div class="step-n">03</div>
         <div>
           <h3>Log in</h3>
-          <p>User <code>wlanpi</code>, password <code>wlanpi</code>. No SSH key is installed
+          <p>User <code>wlanpi</code>, password <code>wlanpi</code>, over the network or straight
+          down the USB-C cable at <code>ssh wlanpi@198.18.42.1</code>. No SSH key is installed
           unless you put one in the build tree beforehand.</p>
           <p class="warn">A reflash resets the password and removes any key you added by hand.
           Change the password before putting a unit on a network you do not control.</p>
@@ -926,7 +928,7 @@ WC_ORB=no ./build.sh          <span class="cm"># leave Orb Sensor out</span></pr
       </div>
       <div>
         <div class="eyebrow">Provenance</div>
-        <p class="mono">commit b5689d4<br>armbian 6d07521a<br>branch bleedingedge</p>
+        <p class="mono">commit c96ae9a<br>armbian 6d07521a<br>branch bleedingedge</p>
       </div>
       <div>
         <div class="eyebrow">Lineage</div>
