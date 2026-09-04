@@ -616,6 +616,9 @@ footer {
 
 .spec dd a.mono, .part-links a { color: var(--accent); }
 .spec dd a.mono { text-decoration: underline; text-underline-offset: 2px; }
+
+.btn-ghost { background: transparent; color: var(--accent); border: 1px solid var(--rule-strong); }
+.btn-ghost:hover { border-color: var(--accent); filter: none; }
 </style>
 
 <header class="masthead">
@@ -643,6 +646,7 @@ footer {
     </div>
     <div class="getrow">
       <a class="btn" href="./">Get the image <span class="sz">v1.0.1 &middot; 418 MB</span></a>
+      <a class="btn btn-ghost" href="antennas.html">Antenna shootout &rarr;</a>
       <div class="hash">Every part below is listed with its manufacturer part number or ASIN, so a
       dead link is an inconvenience rather than a dead end.</div>
     </div>
@@ -721,7 +725,7 @@ footer {
           <img class="part-thumb" src="images/antenna.jpg" alt="Tri-band antennas, RP-SMA male" loading="lazy" width="72" height="72">
           <span class="sum-text">
             <span class="sum-title">Tri-band antennas, RP-SMA male</span>
-            <span class="sum-line">6 GHz capable, centre socket</span>
+            <span class="sum-line">6 GHz capable &middot; eight measured, see the shootout</span>
           </span>
           <span class="chip chip-ok">Required</span>
           <span class="sum-chev" aria-hidden="true">+</span>
@@ -729,9 +733,9 @@ footer {
         <div class="part-detail">
           <div class="part-photo"><img src="images/antenna.jpg" alt="Tri-band antennas, RP-SMA male" loading="lazy"></div>
           <div class="part-body">
-            <p class="part-note">Two. They must cover 6 GHz and they must be <strong>RP-SMA male</strong>. Read <a href="#connector">the connector trap</a> first: this is the part of the build that has already cost us a week of bad measurements.</p>
-            <dl class="spec"><div><dt>Connector</dt><dd><strong>RP-SMA male</strong>, centre socket</dd></div><div><dt>Bands</dt><dd>2.4, 5 and 6 GHz (5925&ndash;7125 MHz)</dd></div><div><dt>Gain</dt><dd>5 dBi is plenty; high gain narrows coverage</dd></div><div><dt>Style</dt><dd>Flexible dipole. Orb tested Leankon 6E dipoles</dd></div></dl>
-            <p class="part-links"><a href="https://www.amazon.com/Antenna-Tri-Band-Omnidirectional-Antennas-Desktop/dp/B0CJDWDNL1">Tri-band 5 dBi pair</a></p>
+            <p class="part-note">Two. They must cover 6 GHz and they must be <strong>RP-SMA male</strong>. Read <a href="#connector">the connector trap</a> first: this is the part of the build that has already cost us a week of bad measurements. We measured eight of them across all three bands &mdash; see the <a href="antennas.html">antenna shootout</a> before picking.</p>
+            <dl class="spec"><div><dt>Connector</dt><dd><strong>RP-SMA male</strong>, centre socket</dd></div><div><dt>Bands</dt><dd>2.4, 5 and 6 GHz (5925&ndash;7125 MHz)</dd></div><div><dt>If it lives in a pocket</dt><dd><strong>Osprey LHCP</strong> &mdash; most compact tested, and circular polarisation costs nothing on throughput</dd></div><div><dt>If it lives on a desk</dt><dd><strong>5&Prime; Oscium</strong> &mdash; best average across all three bands, no weak band</dd></div><div><dt>2.4 GHz winner</dt><dd>7&Prime; Ducky, &minus;18.0 dBm avg</dd></div><div><dt>5 GHz winner</dt><dd>Dixingtek 2&Prime;, &minus;26.7 dBm avg</dd></div><div><dt>6 GHz winner</dt><dd>7&Prime; Ducky, &minus;21.7 dBm avg</dd></div><div><dt>Gain</dt><dd>5 dBi is plenty; high gain narrows coverage</dd></div></dl>
+            <p class="part-links"><a href="https://www.amazon.com/Antenna-Tri-Band-Omnidirectional-Antennas-Desktop/dp/B0CJDWDNL1">Tri-band 5 dBi pair</a> &middot; <a href="antennas.html">Antenna shootout &rarr;</a></p>
           </div>
         </div>
       </details>
