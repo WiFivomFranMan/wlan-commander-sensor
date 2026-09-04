@@ -31,6 +31,7 @@
   --gold:   #C8963E;
   --pad:    #7FA8C4;
   --pad-2:  #9CC0D8;
+  --photo-bg: #FFFFFF;
 
   --shell: 1180px;
   --measure: 68ch;
@@ -62,6 +63,7 @@
     --gold:   #D8A44E;
     --pad:    #3F6A86;
     --pad-2:  #4E819F;
+    --photo-bg: #E9EBEE;
   }
 }
 
@@ -90,6 +92,7 @@
   --gold:   #D8A44E;
   --pad:  #3F6A86;
   --pad-2:  #4E819F;
+  --photo-bg: #E9EBEE;
 }
 
 * { box-sizing: border-box; }
@@ -492,34 +495,73 @@ footer {
 
 
 /* ---------- build page ---------- */
-/* .hash exists for checksums on the index page; here it holds prose, so let it wrap on words. */
-.getrow .hash { word-break: normal; overflow-wrap: anywhere; max-width: 52ch; }
 .eyebrow a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--rule-strong); }
 .eyebrow a:hover { color: var(--accent); }
 .strong { font-weight: 700; }
+.getrow .hash { word-break: normal; overflow-wrap: anywhere; max-width: 52ch; }
 
 .bom { display: grid; gap: 0; }
 
-.part {
-  display: grid;
-  grid-template-columns: 132px minmax(0, 1fr);
-  gap: 28px;
-  padding: 26px 0;
-  border-top: 1px solid var(--rule);
-  align-items: start;
-}
+/* Each part is a native <details>: the list stays scannable, the specs are one click away. */
+.part { border-top: 1px solid var(--rule); }
 .part:last-child { border-bottom: 1px solid var(--rule); }
 
-.part-art {
-  background: var(--surface);
+.part > summary {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) auto 20px;
+  gap: 18px;
+  align-items: center;
+  padding: 14px 4px;
+  cursor: pointer;
+  list-style: none;
+}
+.part > summary::-webkit-details-marker { display: none; }
+.part > summary:hover .sum-title { color: var(--accent); }
+.part > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 2px; }
+
+.part-thumb {
+  width: 72px; height: 72px;
+  object-fit: contain;
+  background: var(--photo-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 4px;
+  display: block;
+}
+.part-thumb-none {
+  display: flex; align-items: center; justify-content: center;
+  font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.08em;
+  color: var(--ink-3);
+  background: var(--surface-2);
+}
+
+.sum-text { display: grid; gap: 2px; min-width: 0; }
+.sum-title { font-family: Archivo, sans-serif; font-size: 17px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); }
+.sum-line { font-size: 14.5px; color: var(--ink-3); }
+
+.sum-chev {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 17px; color: var(--ink-3); text-align: center; line-height: 1;
+}
+.part[open] > summary .sum-chev { transform: rotate(45deg); }
+.sum-chev { transition: transform 0.15s ease; }
+@media (prefers-reduced-motion: reduce) { .sum-chev { transition: none; } }
+
+.part-detail {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 28px;
+  padding: 4px 4px 26px 4px;
+  align-items: start;
+}
+.part-detail:only-child, .part-detail > .part-body:only-child { grid-template-columns: minmax(0, 1fr); }
+.part-photo {
+  background: var(--photo-bg);
   border: 1px solid var(--rule);
   border-radius: 3px;
   padding: 10px;
 }
-.part-art svg { display: block; width: 100%; height: auto; }
-
-.part-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
-.part-head h3 { margin: 0; font-size: 18px; font-weight: 700; letter-spacing: -0.015em; }
+.part-photo img { display: block; width: 100%; height: auto; border-radius: 2px; }
 
 .part-note { margin: 0 0 14px; font-size: 15.5px; color: var(--ink-2); max-width: var(--measure); }
 .part-note strong { color: var(--ink); }
@@ -527,23 +569,20 @@ footer {
 .spec { margin: 0; display: grid; gap: 0; }
 .spec > div {
   display: grid;
-  grid-template-columns: 132px minmax(0, 1fr);
+  grid-template-columns: 140px minmax(0, 1fr);
   gap: 16px;
-  padding: 6px 0;
+  padding: 7px 0;
   border-top: 1px solid var(--rule);
 }
 .spec dt {
   font-family: "JetBrains Mono", monospace;
-  font-size: 10.5px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  padding-top: 2px;
+  font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-3); padding-top: 2px;
 }
 .spec dd { margin: 0; font-size: 14.5px; color: var(--ink-2); }
 .spec dd strong { color: var(--ink); }
 
-.part-links { margin: 12px 0 0; font-size: 13.5px; color: var(--ink-3); }
+.part-links { margin: 14px 0 0; font-size: 13.5px; color: var(--ink-3); }
 
 .callout {
   border: 1px solid var(--rule);
@@ -554,14 +593,10 @@ footer {
   margin: 22px 0 0;
 }
 .callout-good { border-left-color: var(--ok); }
-.callout-warn { border-left-color: var(--accent); }
 .callout-label {
   font-family: "JetBrains Mono", monospace;
-  font-size: 10.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  margin-bottom: 8px;
+  font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ink-3); margin-bottom: 8px;
 }
 .callout p { margin: 0 0 12px; font-size: 15.5px; color: var(--ink-2); max-width: var(--measure); }
 .callout p:last-child { margin-bottom: 0; }
@@ -571,8 +606,11 @@ footer {
 .sv-ok { font-family: Archivo, sans-serif; font-size: 15px; font-weight: 600; fill: var(--accent); }
 
 @media (max-width: 720px) {
-  .part { grid-template-columns: minmax(0, 1fr); gap: 16px; }
-  .part-art { max-width: 160px; }
+  .part > summary { grid-template-columns: 56px minmax(0, 1fr) auto; gap: 14px; }
+  .part-thumb { width: 56px; height: 56px; }
+  .sum-chev { display: none; }
+  .part-detail { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .part-photo { max-width: 220px; }
   .spec > div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
 }
 </style>
@@ -592,7 +630,7 @@ footer {
       </div>
       <div class="masthead-side">
         <div class="statlist">
-          <div class="statrow"><span class="stat-label">Parts</span><span class="val">6 required, 4 optional</span></div>
+          <div class="statrow"><span class="stat-label">Parts</span><span class="val">5 required, 4 optional</span></div>
           <div class="statrow"><span class="stat-label">Radio</span><span class="val">Intel BE200, Wi-Fi 7</span></div>
           <div class="statrow"><span class="stat-label">Tools</span><span class="val">Small Phillips driver</span></div>
           <div class="statrow"><span class="stat-label">Soldering</span><span class="val">None</span></div>
@@ -614,196 +652,105 @@ footer {
   <section>
     <div class="sec-head">
       <h2>Bill of materials</h2>
-      <div class="eyebrow">required first</div>
+      <div class="eyebrow">tap a row for detail</div>
     </div>
 
     <div class="bom">
-
-      <article class="part">
-        <div class="part-art">
-          <svg viewBox="0 0 120 80" role="img" aria-label="Single board computer outline">
-            <rect x="10" y="14" width="100" height="52" rx="3" fill="var(--pcb)" stroke="var(--rule-strong)"></rect>
-            <rect x="18" y="22" width="26" height="26" rx="2" fill="var(--chip)"></rect>
-            <rect x="50" y="24" width="16" height="12" rx="1" fill="var(--chip)"></rect>
-            <rect x="74" y="20" width="30" height="18" rx="2" fill="var(--metal)"></rect>
-            <rect x="74" y="46" width="18" height="10" rx="1" fill="var(--metal)"></rect>
-            <g fill="var(--gold)">
-              <rect x="18" y="56" width="2" height="6"></rect><rect x="23" y="56" width="2" height="6"></rect>
-              <rect x="28" y="56" width="2" height="6"></rect><rect x="33" y="56" width="2" height="6"></rect>
-            </g>
-          </svg>
-        </div>
-        <div class="part-body">
-          <div class="part-head">
-            <h3>NanoPi Zero2</h3>
-            <span class="chip chip-ok">Required</span>
+      <details class="part">
+        <summary>
+          <img class="part-thumb" src="images/nanopi-zero2.jpg" alt="NanoPi Zero2" loading="lazy" width="72" height="72">
+          <span class="sum-text">
+            <span class="sum-title">NanoPi Zero2</span>
+            <span class="sum-line">2 GB, no eMMC, with case</span>
+          </span>
+          <span class="chip chip-ok">Required</span>
+          <span class="sum-chev" aria-hidden="true">+</span>
+        </summary>
+        <div class="part-detail">
+          <div class="part-photo"><img src="images/nanopi-zero2.jpg" alt="NanoPi Zero2" loading="lazy"></div>
+          <div class="part-body">
+            <p class="part-note">Buy the <strong>2 GB, no eMMC, with case</strong> option. Skip the bundled Wi-Fi card and SD card: the card that ships with it is not a BE200, and you will supply your own SD.</p>
+            <dl class="spec"><div><dt>SoC</dt><dd>Rockchip RK3528A, quad-core Cortex-A53</dd></div><div><dt>Memory</dt><dd>2 GB LPDDR4X (1 GB variant also sold)</dd></div><div><dt>Expansion</dt><dd>M.2 Key E slot, PCIe</dd></div><div><dt>Network</dt><dd>Gigabit Ethernet, Realtek RTL8211F PHY</dd></div><div><dt>Power / data</dt><dd>USB-C</dd></div><div><dt>Console</dt><dd>UART header, 3.3 V, 1,500,000 baud</dd></div><div><dt>Source</dt><dd>FriendlyElec &middot; Amazon <span class="mono">B0DHLF6WL5</span></dd></div></dl>
+            <p class="part-links"><a href="https://www.amazon.com/dp/B0DHLF6WL5">Amazon</a> &middot; <a href="https://www.friendlyelec.com/index.php?route=product/product&amp;product_id=304">FriendlyElec</a> &middot; <a href="https://wiki.friendlyelec.com/wiki/index.php/NanoPi_Zero2">Wiki</a></p>
           </div>
-          <p class="part-note">Buy the <strong>2 GB, no eMMC, with case</strong> option. Skip the bundled
-          Wi-Fi card and SD card: the card that ships with it is not a BE200, and you will supply your own SD.</p>
-          <dl class="spec">
-            <div><dt>SoC</dt><dd>Rockchip RK3528A, quad-core Cortex-A53</dd></div>
-            <div><dt>Memory</dt><dd>2 GB LPDDR4X (1 GB variant also sold)</dd></div>
-            <div><dt>Expansion</dt><dd>M.2 Key E slot, PCIe</dd></div>
-            <div><dt>Network</dt><dd>Gigabit Ethernet, Realtek RTL8211F PHY</dd></div>
-            <div><dt>Power / data</dt><dd>USB-C</dd></div>
-            <div><dt>Console</dt><dd>UART header, 3.3 V, 1,500,000 baud</dd></div>
-            <div><dt>Source</dt><dd>FriendlyElec &middot; Amazon <span class="mono">B0DHLF6WL5</span></dd></div>
-          </dl>
-          <p class="part-links">
-            <a href="https://www.amazon.com/dp/B0DHLF6WL5">Amazon</a> &middot;
-            <a href="https://www.friendlyelec.com/index.php?route=product/product&amp;product_id=304">FriendlyElec</a> &middot;
-            <a href="https://wiki.friendlyelec.com/wiki/index.php/NanoPi_Zero2">Wiki</a>
-          </p>
         </div>
-      </article>
-
-      <article class="part">
-        <div class="part-art">
-          <svg viewBox="0 0 120 80" role="img" aria-label="M.2 2230 wireless card outline">
-            <path d="M14 26 h74 a3 3 0 0 1 3 3 v22 a3 3 0 0 1 -3 3 h-74 z" fill="var(--pcb)" stroke="var(--rule-strong)"></path>
-            <rect x="22" y="32" width="34" height="16" rx="2" fill="var(--chip)"></rect>
-            <circle cx="66" cy="36" r="3" fill="var(--metal)"></circle>
-            <circle cx="66" cy="46" r="3" fill="var(--metal)"></circle>
-            <g fill="var(--gold)">
-              <rect x="14" y="50" width="3" height="6"></rect><rect x="19" y="50" width="3" height="6"></rect>
-              <rect x="26" y="50" width="3" height="6"></rect><rect x="31" y="50" width="3" height="6"></rect>
-              <rect x="36" y="50" width="3" height="6"></rect>
-            </g>
-            <rect x="94" y="34" width="12" height="14" rx="2" fill="none" stroke="var(--rule-strong)" stroke-dasharray="2 2"></rect>
-          </svg>
-        </div>
-        <div class="part-body">
-          <div class="part-head">
-            <h3>Intel BE200, non-vPro</h3>
-            <span class="chip chip-ok">Required</span>
+      </details>
+      <details class="part">
+        <summary>
+          <img class="part-thumb" src="images/intel-be200.jpg" alt="Intel BE200, non-vPro" loading="lazy" width="72" height="72">
+          <span class="sum-text">
+            <span class="sum-title">Intel BE200, non-vPro</span>
+            <span class="sum-line">Intel <span class="mono">282726</span> &middot; must say &ldquo;No vPro&rdquo;</span>
+          </span>
+          <span class="chip chip-ok">Required</span>
+          <span class="sum-chev" aria-hidden="true">+</span>
+        </summary>
+        <div class="part-detail">
+          <div class="part-photo"><img src="images/intel-be200.jpg" alt="Intel BE200, non-vPro" loading="lazy"></div>
+          <div class="part-body">
+            <p class="part-note">The part number matters. See <a href="#be200">Get the BE200 variant right</a> before ordering &mdash; the label on the card itself reads <span class="mono">BE200NGW</span> either way, so a photo cannot tell you which variant is in the box.</p>
+            <dl class="spec"><div><dt>Intel part</dt><dd><span class="mono strong">282726</span></dd></div><div><dt>Model</dt><dd><span class="mono strong">BE200.NGWG.NV</span></dd></div><div><dt>Variant</dt><dd><strong>Non-vPro</strong>, listed as &ldquo;No vPro&rdquo;</dd></div><div><dt>Form factor</dt><dd>M.2 2230, Key E</dd></div><div><dt>Radio</dt><dd>Wi-Fi 7, 2&times;2, tri-band, plus Bluetooth</dd></div><div><dt>Max width</dt><dd>160 MHz on 5 and 6 GHz</dd></div><div><dt>Driver</dt><dd><span class="mono">iwlmld</span>, firmware core 106</dd></div><div><dt>Source</dt><dd>Amazon <span class="mono">B0DFKF4T56</span></dd></div></dl>
+            <p class="part-links"><a href="https://www.amazon.com/dp/B0DFKF4T56">Amazon</a></p>
           </div>
-          <p class="part-note">The part number matters. See
-          <a href="#be200">Get the BE200 variant right</a> below before ordering.</p>
-          <dl class="spec">
-            <div><dt>Intel part</dt><dd class="mono strong">282726</dd></div>
-            <div><dt>Model</dt><dd class="mono strong">BE200.NGWG.NV</dd></div>
-            <div><dt>Variant</dt><dd><strong>Non-vPro</strong>, listed as "No vPro"</dd></div>
-            <div><dt>Form factor</dt><dd>M.2 2230, Key E</dd></div>
-            <div><dt>Radio</dt><dd>Wi-Fi 7, 2&times;2, tri-band, plus Bluetooth</dd></div>
-            <div><dt>Max width</dt><dd>160 MHz on 5 and 6 GHz</dd></div>
-            <div><dt>Driver</dt><dd><span class="mono">iwlmld</span>, firmware core 106</dd></div>
-            <div><dt>Source</dt><dd>Amazon <span class="mono">B0DFKF4T56</span></dd></div>
-          </dl>
-          <p class="part-links"><a href="https://www.amazon.com/dp/B0DFKF4T56">Amazon</a></p>
         </div>
-      </article>
-
-      <article class="part">
-        <div class="part-art">
-          <svg viewBox="0 0 120 80" role="img" aria-label="Coaxial pigtail with connectors at each end">
-            <path d="M22 40 C 44 18, 74 62, 96 40" fill="none" stroke="var(--metal)" stroke-width="3"></path>
-            <rect x="12" y="35" width="12" height="10" rx="2" fill="var(--gold)"></rect>
-            <circle cx="98" cy="40" r="9" fill="none" stroke="var(--gold)" stroke-width="3"></circle>
-            <circle cx="98" cy="40" r="2" fill="var(--gold)"></circle>
-          </svg>
-        </div>
-        <div class="part-body">
-          <div class="part-head">
-            <h3>MHF4 to RP-SMA pigtails</h3>
-            <span class="chip chip-ok">Required</span>
+      </details>
+      <details class="part">
+        <summary>
+          <img class="part-thumb" src="images/mhf4-pigtail.jpg" alt="MHF4 to RP-SMA pigtails" loading="lazy" width="72" height="72">
+          <span class="sum-text">
+            <span class="sum-title">MHF4 to RP-SMA pigtails</span>
+            <span class="sum-line">15 cm, RP-SMA female, 4-pack</span>
+          </span>
+          <span class="chip chip-ok">Required</span>
+          <span class="sum-chev" aria-hidden="true">+</span>
+        </summary>
+        <div class="part-detail">
+          <div class="part-photo"><img src="images/mhf4-pigtail.jpg" alt="MHF4 to RP-SMA pigtails" loading="lazy"></div>
+          <div class="part-body">
+            <p class="part-note">Two needed, sold in fours. These carry the signal from the card&rsquo;s tiny MHF4 sockets out to the case.</p>
+            <dl class="spec"><div><dt>Ends</dt><dd>MHF4 (U.FL) to <strong>RP-SMA female</strong></dd></div><div><dt>Length</dt><dd>15 cm / 5.9 in</dd></div><div><dt>Impedance</dt><dd>50 &Omega;</dd></div><div><dt>Quantity</dt><dd>4 per pack</dd></div><div><dt>Fits</dt><dd>M.2 NGFF cards. <strong>Not</strong> Mini PCIe</dd></div><div><dt>Source</dt><dd>Amazon <span class="mono">B07S2LYC1F</span></dd></div></dl>
+            <p class="part-links"><a href="https://www.amazon.com/dp/B07S2LYC1F">Amazon</a></p>
           </div>
-          <p class="part-note">Two needed, sold in fours. These carry the signal from the card's tiny
-          MHF4 sockets out to the case.</p>
-          <dl class="spec">
-            <div><dt>Ends</dt><dd>MHF4 (U.FL) to <strong>RP-SMA female</strong></dd></div>
-            <div><dt>Length</dt><dd>15 cm / 5.9 in</dd></div>
-            <div><dt>Impedance</dt><dd>50 &Omega;</dd></div>
-            <div><dt>Quantity</dt><dd>4 per pack</dd></div>
-            <div><dt>Fits</dt><dd>M.2 NGFF cards. <strong>Not</strong> Mini PCIe</dd></div>
-            <div><dt>Source</dt><dd>Amazon <span class="mono">B07S2LYC1F</span></dd></div>
-          </dl>
-          <p class="part-links"><a href="https://www.amazon.com/dp/B07S2LYC1F">Amazon</a></p>
         </div>
-      </article>
-
-      <article class="part">
-        <div class="part-art">
-          <svg viewBox="0 0 120 80" role="img" aria-label="Two dipole antennas">
-            <rect x="34" y="10" width="9" height="46" rx="4" fill="var(--metal)"></rect>
-            <rect x="33" y="54" width="11" height="12" rx="2" fill="var(--gold)"></rect>
-            <rect x="72" y="16" width="9" height="40" rx="4" fill="var(--metal)" transform="rotate(24 76 36)"></rect>
-            <rect x="71" y="54" width="11" height="12" rx="2" fill="var(--gold)"></rect>
-          </svg>
-        </div>
-        <div class="part-body">
-          <div class="part-head">
-            <h3>Tri-band antennas, RP-SMA male</h3>
-            <span class="chip chip-ok">Required</span>
+      </details>
+      <details class="part">
+        <summary>
+          <img class="part-thumb" src="images/antenna.jpg" alt="Tri-band antennas, RP-SMA male" loading="lazy" width="72" height="72">
+          <span class="sum-text">
+            <span class="sum-title">Tri-band antennas, RP-SMA male</span>
+            <span class="sum-line">6 GHz capable, centre socket</span>
+          </span>
+          <span class="chip chip-ok">Required</span>
+          <span class="sum-chev" aria-hidden="true">+</span>
+        </summary>
+        <div class="part-detail">
+          <div class="part-photo"><img src="images/antenna.jpg" alt="Tri-band antennas, RP-SMA male" loading="lazy"></div>
+          <div class="part-body">
+            <p class="part-note">Two. They must cover 6 GHz and they must be <strong>RP-SMA male</strong>. Read <a href="#connector">the connector trap</a> first: this is the part of the build that has already cost us a week of bad measurements.</p>
+            <dl class="spec"><div><dt>Connector</dt><dd><strong>RP-SMA male</strong>, centre socket</dd></div><div><dt>Bands</dt><dd>2.4, 5 and 6 GHz (5925&ndash;7125 MHz)</dd></div><div><dt>Gain</dt><dd>5 dBi is plenty; high gain narrows coverage</dd></div><div><dt>Style</dt><dd>Flexible dipole. Orb tested Leankon 6E dipoles</dd></div></dl>
+            <p class="part-links"><a href="https://www.amazon.com/Antenna-Tri-Band-Omnidirectional-Antennas-Desktop/dp/B0CJDWDNL1">Tri-band 5 dBi pair</a></p>
           </div>
-          <p class="part-note">Two. They must cover 6 GHz and they must be
-          <strong>RP-SMA male</strong>. Read <a href="#connector">the connector trap</a> first: this
-          is the part of the build that has already cost us a week of bad measurements.</p>
-          <dl class="spec">
-            <div><dt>Connector</dt><dd><strong>RP-SMA male</strong>, centre socket</dd></div>
-            <div><dt>Bands</dt><dd>2.4, 5 and 6 GHz (5925&ndash;7125 MHz)</dd></div>
-            <div><dt>Gain</dt><dd>5 dBi is plenty; high gain narrows coverage</dd></div>
-            <div><dt>Style</dt><dd>Flexible dipole. Orb tested Leankon 6E dipoles</dd></div>
-          </dl>
-          <p class="part-links">
-            <a href="https://www.amazon.com/Antenna-Tri-Band-Omnidirectional-Antennas-Desktop/dp/B0CJDWDNL1">Tri-band 5 dBi pair</a>
-          </p>
         </div>
-      </article>
-
-      <article class="part">
-        <div class="part-art">
-          <svg viewBox="0 0 120 80" role="img" aria-label="microSD card outline">
-            <path d="M42 16 h30 a3 3 0 0 1 3 3 v42 a3 3 0 0 1 -3 3 h-32 a3 3 0 0 1 -3 -3 v-34 z" fill="var(--metal)" stroke="var(--rule-strong)"></path>
-            <g fill="var(--gold)">
-              <rect x="44" y="20" width="4" height="9" rx="1"></rect><rect x="51" y="20" width="4" height="9" rx="1"></rect>
-              <rect x="58" y="20" width="4" height="9" rx="1"></rect><rect x="65" y="20" width="4" height="9" rx="1"></rect>
-            </g>
-          </svg>
-        </div>
-        <div class="part-body">
-          <div class="part-head">
-            <h3>microSD card</h3>
-            <span class="chip chip-ok">Required</span>
+      </details>
+      <details class="part">
+        <summary>
+          <img class="part-thumb" src="images/sdcard.jpg" alt="microSD card" loading="lazy" width="72" height="72">
+          <span class="sum-text">
+            <span class="sum-title">microSD card</span>
+            <span class="sum-line">A2 / V30 minimum &middot; any size, it auto-expands</span>
+          </span>
+          <span class="chip chip-ok">Required</span>
+          <span class="sum-chev" aria-hidden="true">+</span>
+        </summary>
+        <div class="part-detail">
+          <div class="part-photo"><img src="images/sdcard.jpg" alt="microSD card" loading="lazy"></div>
+          <div class="part-body">
+            <p class="part-note">Any size from 8 GB up. The image expands to fill the card on first boot, so buy for capture headroom, not for the image. <strong>Sustained write speed is the spec that matters</strong> &mdash; see <a href="#sdcard">the card is the bottleneck</a>.</p>
+            <dl class="spec"><div><dt>Minimum</dt><dd>A2 and V30, so 30 MB/s sustained write</dd></div><div><dt>Known good</dt><dd>SanDisk Extreme microSDXC &mdash; C10, U3, V30, A2 <span class="mono">B07FCMKK5X</span></dd></div><div><dt>Size</dt><dd>32&ndash;64 GB is a sensible middle</dd></div><div><dt>Endurance</dt><dd>&ldquo;High endurance&rdquo; is a nice-to-have, not required</dd></div><div><dt>Before trusting it</dt><dd>Benchmark the write speed. A card can read perfectly and write at a crawl</dd></div><div><dt>Avoid</dt><dd>The cheaper SanDisk <em>Ultra</em> line is A1/U1 and does not meet this</dd></div></dl>
+            
           </div>
-          <p class="part-note">Any size from 8 GB up. The image expands to fill the card on first boot,
-          so buy for capture headroom, not for the image. <strong>Sustained write speed is the spec that
-          matters</strong> &mdash; see <a href="#sdcard">the card is the bottleneck</a>.</p>
-          <dl class="spec">
-            <div><dt>Minimum</dt><dd>A2 and V30, so 30 MB/s sustained write</dd></div>
-            <div><dt>Size</dt><dd>32&ndash;64 GB is a sensible middle</dd></div>
-            <div><dt>Endurance</dt><dd>"High endurance" is a nice-to-have, not required</dd></div>
-            <div><dt>Before trusting it</dt><dd>Benchmark the write speed. A card can read perfectly and write at a crawl</dd></div>
-          </dl>
         </div>
-      </article>
-
-      <article class="part">
-        <div class="part-art">
-          <svg viewBox="0 0 120 80" role="img" aria-label="Thermal pad sheet">
-            <rect x="24" y="26" width="72" height="28" rx="2" fill="var(--pad)" stroke="var(--rule-strong)"></rect>
-            <path d="M24 26 l6 -6 h72 l-6 6 z" fill="var(--pad-2)" stroke="var(--rule-strong)"></path>
-            <path d="M96 26 l6 -6 v28 l-6 6 z" fill="var(--pad-2)" stroke="var(--rule-strong)"></path>
-          </svg>
-        </div>
-        <div class="part-body">
-          <div class="part-head">
-            <h3>0.5 mm thermal pad</h3>
-            <span class="chip chip-ok">Required</span>
-          </div>
-          <p class="part-note">Orb's own guide is blunt about this: "A 0.5 mm thermal pad on the BE200
-          is required &mdash; don't skip it. The card needs the pad to transfer heat to the case and run
-          reliably." The thickness is not a suggestion; it is what bridges the gap to the case.</p>
-          <dl class="spec">
-            <div><dt>Product</dt><dd>ARCTIC TP-3</dd></div>
-            <div><dt>Thickness</dt><dd><strong>0.5 mm</strong>, matching Orb's requirement exactly</dd></div>
-            <div><dt>Sheet</dt><dd>120 &times; 20 mm, 4 per pack</dd></div>
-            <div><dt>Why it matters here</dt><dd>Mainline has no thermal zone for this SoC, so nothing throttles on your behalf</dd></div>
-            <div><dt>Source</dt><dd>Amazon <span class="mono">B09V518BXM</span></dd></div>
-          </dl>
-          <p class="part-links"><a href="https://www.amazon.com/dp/B09V518BXM">Amazon</a></p>
-        </div>
-      </article>
-
+      </details>
     </div>
   </section>
 
@@ -811,82 +758,86 @@ footer {
   <section>
     <div class="sec-head">
       <h2>Worth adding</h2>
-      <div class="eyebrow">optional</div>
+      <div class="eyebrow">nice to have</div>
     </div>
 
     <div class="bom">
-
-      <article class="part">
-        <div class="part-art">
-          <svg viewBox="0 0 120 80" role="img" aria-label="Right angle USB-C cable">
-            <path d="M28 40 h44 v-16" fill="none" stroke="var(--metal)" stroke-width="4"></path>
-            <rect x="16" y="34" width="14" height="12" rx="6" fill="var(--gold)"></rect>
-            <rect x="66" y="12" width="12" height="14" rx="6" fill="var(--gold)"></rect>
-          </svg>
+      <details class="part">
+        <summary>
+          <img class="part-thumb" src="images/thermal-pad.jpg" alt="0.5 mm thermal pad" loading="lazy" width="72" height="72">
+          <span class="sum-text">
+            <span class="sum-title">0.5 mm thermal pad</span>
+            <span class="sum-line">Case includes one; this is a better one</span>
+          </span>
+          <span class="chip chip-untested">Upgrade</span>
+          <span class="sum-chev" aria-hidden="true">+</span>
+        </summary>
+        <div class="part-detail">
+          <div class="part-photo"><img src="images/thermal-pad.jpg" alt="0.5 mm thermal pad" loading="lazy"></div>
+          <div class="part-body">
+            <p class="part-note">The case already ships with a pad, so this is not something the build needs to work &mdash; the stock one is just thin and cheap. Orb is firm that <em>a</em> pad is required: &ldquo;the card needs the pad to transfer heat to the case and run reliably.&rdquo; Replacing it with a decent 0.5 mm pad is a cheap upgrade, and it matters more here than on most boards because mainline has no thermal zone for this SoC, so nothing throttles on your behalf.</p>
+            <dl class="spec"><div><dt>Product</dt><dd>ARCTIC TP-3</dd></div><div><dt>Thickness</dt><dd><strong>0.5 mm</strong>, matching the stock pad</dd></div><div><dt>Sheet</dt><dd>120 &times; 20 mm, 4 per pack</dd></div><div><dt>Do not go thicker</dt><dd>Too thick stops the case closing flat and makes contact worse</dd></div><div><dt>Source</dt><dd>Amazon <span class="mono">B09V518BXM</span></dd></div></dl>
+            <p class="part-links"><a href="https://www.amazon.com/dp/B09V518BXM">Amazon</a></p>
+          </div>
         </div>
-        <div class="part-body">
-          <div class="part-head"><h3>Short right-angle USB-C cable</h3><span class="chip chip-untested">Optional</span></div>
-          <p class="part-note">Powers the sensor and carries the network link at the same time. Plug it into a
-          laptop or phone and the sensor appears at <span class="mono">198.18.42.1</span> with no
-          ethernet involved. The right angle keeps it from levering on the port in a bag.</p>
-          <dl class="spec">
-            <div><dt>Product</dt><dd>JUXINICE 90&deg; USB-C male to male</dd></div>
-            <div><dt>Length</dt><dd>10 cm / 4 in, flat and pliable</dd></div>
-            <div><dt>Quantity</dt><dd>2 per pack</dd></div>
-            <div><dt>Source</dt><dd>Amazon <span class="mono">B0CSW84W7J</span></dd></div>
-          </dl>
-          <p class="part-links"><a href="https://www.amazon.com/dp/B0CSW84W7J">Amazon</a></p>
+      </details>
+      <details class="part">
+        <summary>
+          <img class="part-thumb" src="images/usbc-cable.jpg" alt="Short right-angle USB-C cable" loading="lazy" width="72" height="72">
+          <span class="sum-text">
+            <span class="sum-title">Short right-angle USB-C cable</span>
+            <span class="sum-line">10 cm, powers and networks in one</span>
+          </span>
+          <span class="chip chip-untested">Optional</span>
+          <span class="sum-chev" aria-hidden="true">+</span>
+        </summary>
+        <div class="part-detail">
+          <div class="part-photo"><img src="images/usbc-cable.jpg" alt="Short right-angle USB-C cable" loading="lazy"></div>
+          <div class="part-body">
+            <p class="part-note">Powers the sensor and carries the network link at the same time. Plug it into a laptop or phone and the sensor appears at <span class="mono">198.18.42.1</span> with no ethernet involved. The right angle keeps it from levering on the port in a bag.</p>
+            <dl class="spec"><div><dt>Product</dt><dd>JUXINICE 90&deg; USB-C male to male</dd></div><div><dt>Length</dt><dd>10 cm / 4 in, flat and pliable</dd></div><div><dt>Quantity</dt><dd>2 per pack</dd></div><div><dt>Source</dt><dd>Amazon <span class="mono">B0CSW84W7J</span></dd></div></dl>
+            <p class="part-links"><a href="https://www.amazon.com/dp/B0CSW84W7J">Amazon</a></p>
+          </div>
         </div>
-      </article>
-
-      <article class="part">
-        <div class="part-art">
-          <svg viewBox="0 0 120 80" role="img" aria-label="Two magnet rings">
-            <circle cx="46" cy="40" r="20" fill="none" stroke="var(--metal)" stroke-width="7"></circle>
-            <circle cx="78" cy="40" r="20" fill="none" stroke="var(--rule-strong)" stroke-width="7" opacity="0.55"></circle>
-          </svg>
+      </details>
+      <details class="part">
+        <summary>
+          <img class="part-thumb" src="images/magnet-ring.jpg" alt="MagSafe magnet rings" loading="lazy" width="72" height="72">
+          <span class="sum-text">
+            <span class="sum-title">MagSafe magnet rings</span>
+            <span class="sum-line">Magnetic mounting</span>
+          </span>
+          <span class="chip chip-untested">Optional</span>
+          <span class="sum-chev" aria-hidden="true">+</span>
+        </summary>
+        <div class="part-detail">
+          <div class="part-photo"><img src="images/magnet-ring.jpg" alt="MagSafe magnet rings" loading="lazy"></div>
+          <div class="part-body">
+            <p class="part-note">For sticking the finished sensor to something steel, or to a 3D-printed mount. Sold for DIY and print-in projects rather than as a phone accessory.</p>
+            <dl class="spec"><div><dt>Type</dt><dd>Magnet ring, MagSafe-compatible</dd></div><div><dt>Quantity</dt><dd>2 per pack</dd></div><div><dt>Intended use</dt><dd>DIY and 3D printing, accessory side</dd></div><div><dt>Source</dt><dd>Amazon <span class="mono">B0GYSGWTKV</span></dd></div></dl>
+            <p class="part-links"><a href="https://www.amazon.com/dp/B0GYSGWTKV">Amazon</a></p>
+          </div>
         </div>
-        <div class="part-body">
-          <div class="part-head"><h3>MagSafe magnet rings</h3><span class="chip chip-untested">Optional</span></div>
-          <p class="part-note">For sticking the finished sensor to something steel, or to a 3D-printed
-          mount. Sold for DIY and print-in projects rather than as a phone accessory.</p>
-          <dl class="spec">
-            <div><dt>Type</dt><dd>Magnet ring, MagSafe-compatible</dd></div>
-            <div><dt>Quantity</dt><dd>2 per pack</dd></div>
-            <div><dt>Intended use</dt><dd>DIY and 3D printing, accessory side</dd></div>
-            <div><dt>Source</dt><dd>Amazon <span class="mono">B0GYSGWTKV</span></dd></div>
-          </dl>
-          <p class="part-links"><a href="https://www.amazon.com/dp/B0GYSGWTKV">Amazon</a></p>
+      </details>
+      <details class="part">
+        <summary>
+          <span class="part-thumb part-thumb-none" aria-hidden="true">UART</span>
+          <span class="sum-text">
+            <span class="sum-title">USB serial console cable</span>
+            <span class="sum-line">Only if the console matters to you</span>
+          </span>
+          <span class="chip chip-untested">Optional</span>
+          <span class="sum-chev" aria-hidden="true">+</span>
+        </summary>
+        <div class="part-detail">
+          
+          <div class="part-body">
+            <p class="part-note">Only needed if you want to watch the board boot, or recover one that will not come up on the network. <strong>Do not buy a cheap CP2102</strong> for this board &mdash; see <a href="#uart">the console runs at 1.5 Mbaud</a>.</p>
+            <dl class="spec"><div><dt>Recommended</dt><dd>FTDI TTL-232R-3V3</dd></div><div><dt>Chip</dt><dd>FT232R, 300 baud to <strong>3 Mbaud</strong></dd></div><div><dt>Logic level</dt><dd>3.3 V signals</dd></div><div><dt>Wire colours</dt><dd>Documented by FTDI: black GND, orange TX, yellow RX, red +5 V</dd></div><div><dt>Connect</dt><dd>GND, TX, RX only. <strong>Leave red disconnected</strong></dd></div></dl>
+            <p class="part-links"><a href="https://ftdichip.com/products/ttl-232r-3v3/">FTDI</a></p>
+          </div>
         </div>
-      </article>
-
-      <article class="part">
-        <div class="part-art">
-          <svg viewBox="0 0 120 80" role="img" aria-label="USB serial adapter cable">
-            <rect x="12" y="32" width="20" height="16" rx="2" fill="var(--metal)"></rect>
-            <path d="M32 40 h40" stroke="var(--metal)" stroke-width="4" fill="none"></path>
-            <path d="M72 40 h22" stroke="#111" stroke-width="2.5" fill="none"></path>
-            <path d="M72 33 h22" stroke="#d08c2a" stroke-width="2.5" fill="none"></path>
-            <path d="M72 47 h22" stroke="#c8b400" stroke-width="2.5" fill="none"></path>
-            <g fill="var(--gold)"><rect x="94" y="30" width="6" height="5"></rect><rect x="94" y="37" width="6" height="5"></rect><rect x="94" y="44" width="6" height="5"></rect></g>
-          </svg>
-        </div>
-        <div class="part-body">
-          <div class="part-head"><h3>USB serial console cable</h3><span class="chip chip-untested">Optional</span></div>
-          <p class="part-note">Only needed if you want to watch the board boot, or recover one that will
-          not come up on the network. <strong>Do not buy a cheap CP2102</strong> for this board &mdash; see
-          <a href="#uart">the console runs at 1.5 Mbaud</a>.</p>
-          <dl class="spec">
-            <div><dt>Recommended</dt><dd>FTDI TTL-232R-3V3</dd></div>
-            <div><dt>Chip</dt><dd>FT232R, 300 baud to <strong>3 Mbaud</strong></dd></div>
-            <div><dt>Logic level</dt><dd>3.3 V signals</dd></div>
-            <div><dt>Wire colours</dt><dd>Documented by FTDI: black GND, orange TX, yellow RX, red +5 V</dd></div>
-            <div><dt>Connect</dt><dd>GND, TX, RX only. <strong>Leave red disconnected</strong></dd></div>
-          </dl>
-          <p class="part-links"><a href="https://ftdichip.com/products/ttl-232r-3v3/">FTDI</a></p>
-        </div>
-      </article>
-
+      </details>
     </div>
   </section>
 
@@ -1061,8 +1012,8 @@ sudo rm /var/tmp/w.bin</pre>
       <div class="step">
         <div class="step-n">02</div>
         <div>
-          <h3>Apply the 0.5 mm thermal pad</h3>
-          <p>Cut a piece to cover the BE200's shield can and lay it on top. It bridges the gap to the
+          <h3>Fit the thermal pad</h3>
+          <p>The case comes with one. Use it, or swap in a better 0.5 mm pad. Cut a piece to cover the BE200's shield can and lay it on top. It bridges the gap to the
           case, which is the only heatsink this card gets. Do not substitute a thicker pad to "be
           safe": too thick stops the case closing flat and makes contact worse.</p>
         </div>
@@ -1158,19 +1109,19 @@ screen /dev/cu.usbserial-XXXX 1500000</pre>
   <!-- ================= PHOTOS ================= -->
   <section>
     <div class="sec-head">
-      <h2>A note on the pictures</h2>
-      <div class="eyebrow">why they are drawings</div>
+      <h2>About the photographs</h2>
+      <div class="eyebrow">hosted here, not hotlinked</div>
     </div>
     <div class="prose">
       <p>
-        The illustrations above are drawn rather than mirrored from the listings. Product photos on a
-        retail page belong to the seller, and re-hosting them creates a licensing problem that a build
-        page does not need. The part numbers, dimensions and specifications are facts, and those are
-        recorded here in full, which is what actually protects you when a listing disappears.
+        The product photographs are the sellers&rsquo; and are served from this site rather than linked
+        to Amazon, so the page keeps working when a listing is pulled. The specifications beside them
+        are facts, recorded in full for the same reason: a dead link should cost you a search, not the
+        build.
       </p>
       <p>
-        Photographs of a real build would be better than either, and you own those outright. Send them
-        over and they go in.
+        Photographs of a real build would be better than any of these, and you own those outright.
+        Send them over and they go in.
       </p>
     </div>
   </section>
