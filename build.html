@@ -769,8 +769,8 @@ footer {
         <div class="part-detail">
           <div class="part-photo"><img src="images/sdcard.jpg" alt="microSD card" loading="lazy"></div>
           <div class="part-body">
-            <p class="part-note">Any size from 8 GB up. The image expands to fill the card on first boot, so buy for capture headroom, not for the image. <strong>Sustained write speed is the spec that matters</strong> &mdash; see <a href="#sdcard">the card is the bottleneck</a>.</p>
-            <dl class="spec"><div><dt>Minimum</dt><dd>A2 and V30, so 30 MB/s sustained write</dd></div><div><dt>Known good</dt><dd>SanDisk Extreme microSDXC &mdash; C10, U3, V30, A2 <a class="mono" href="https://www.amazon.com/dp/B07FCMKK5X">B07FCMKK5X</a></dd></div><div><dt>Size</dt><dd>32&ndash;64 GB is a sensible middle</dd></div><div><dt>Endurance</dt><dd>&ldquo;High endurance&rdquo; is a nice-to-have, not required</dd></div><div><dt>Before trusting it</dt><dd>Benchmark the write speed. A card can read perfectly and write at a crawl</dd></div><div><dt>Avoid</dt><dd>The cheaper SanDisk <em>Ultra</em> line is A1/U1 and does not meet this</dd></div></dl>
+            <p class="part-note">Any size from 8 GB up. The image expands to fill the card on first boot, so buy for capture headroom, not for the image. Buy A2 and V30 for headroom, and see <a href="#sdcard">what a running sensor actually uses</a> for the measurements.</p>
+            <dl class="spec"><div><dt>Minimum</dt><dd>A2 and V30, so 30 MB/s sustained write</dd></div><div><dt>Known good</dt><dd>SanDisk Extreme microSDXC &mdash; C10, U3, V30, A2 <a class="mono" href="https://www.amazon.com/dp/B07FCMKK5X">B07FCMKK5X</a></dd></div><div><dt>Size</dt><dd>32&ndash;64 GB is a sensible middle</dd></div><div><dt>Endurance</dt><dd>&ldquo;High endurance&rdquo; is a nice-to-have, not required</dd></div><div><dt>Before trusting it</dt><dd>Benchmark the write speed. A card can read perfectly and write at a crawl</dd></div><div><dt>Note</dt><dd>The cheaper SanDisk <em>Ultra</em> line is A1/U1. The stock card in our build managed 12 MB/s regardless</dd></div></dl>
             <p class="part-links"><a href="https://www.amazon.com/dp/B07FCMKK5X">SanDisk Extreme on Amazon</a></p>
           </div>
         </div>
@@ -955,16 +955,16 @@ footer {
     </p>
   </section>
 
-  <!-- ================= SD CARD ================= -->
+  <!-- ================= MEASURED ================= -->
   <section id="sdcard">
     <div class="sec-head">
-      <h2>The card is the bottleneck, not the RAM</h2>
+      <h2>What a running sensor actually uses</h2>
       <div class="eyebrow">measured 2026-09-04</div>
     </div>
     <div class="prose">
       <p>
-        We measured a running sensor during capture to settle both questions. Memory turned out not to
-        be the constraint at all. Storage was, badly.
+        Rather than guess at the RAM and storage a capture sensor needs, we measured one during
+        capture.
       </p>
     </div>
 
@@ -974,40 +974,56 @@ footer {
         <tbody>
           <tr><td>Total RAM</td><td class="mono">1.92 GiB</td><td>The 2 GB board</td></tr>
           <tr><td>Idle</td><td class="mono">253 MB</td><td>Full system, Orb running</td></tr>
-          <tr><td>Peak during capture</td><td class="mono">281 MB</td><td>Only 28 MB above idle</td></tr>
+          <tr><td>Peak during capture</td><td class="mono strong">281 MB</td><td>Only 28 MB above idle</td></tr>
           <tr><td>tcpdump itself</td><td class="mono">7 MB</td><td>It streams, it does not buffer</td></tr>
           <tr><td>Swap used</td><td class="mono">0</td><td>Never came close</td></tr>
-          <tr><td>Card read</td><td class="mono">69.7 MB/s</td><td>Healthy</td></tr>
-          <tr><td>Card write</td><td class="mono strong">959 kB/s</td><td><strong>Roughly 1/70th of its read speed</strong></td></tr>
-          <tr><td>Capture at 0.83 MB/s</td><td class="mono strong">51% packets lost</td><td>160,621 dropped against 152,625 kept</td></tr>
+          <tr><td>Card read</td><td class="mono">69.7 MB/s</td><td>Stock card that came with the build</td></tr>
+          <tr><td>Card write</td><td class="mono">12.1 MB/s</td><td>Flat from 16 MiB to 256 MiB, no falloff</td></tr>
+          <tr><td>Capture to card vs to RAM</td><td class="mono">0% loss both</td><td>Storage was not a limit at the rate tested</td></tr>
         </tbody>
       </table>
     </div>
 
-    <div class="callout callout-warn">
+    <div class="callout">
       <div class="callout-label">What this tells you</div>
       <p>
-        <strong>1 GB of RAM would be enough.</strong> Peak usage during capture was 281 MB. We still
-        suggest the 2 GB board because the price gap is small and it leaves room for larger in-memory
-        work later, but do not buy it expecting capture to need it.
+        <strong>1 GB of RAM would be enough.</strong> Peak usage during capture was 281 MB, and
+        <span class="mono">tcpdump</span> streams to disk rather than buffering in memory. We still
+        suggest the 2 GB board because the price gap is small, but do not buy it expecting capture to
+        need it.
       </p>
       <p>
-        <strong>A slow SD card silently destroys captures.</strong> The card in our unit reads at full
-        speed and writes at under 1 MB/s, which is the signature of a failing or counterfeit card. It
-        threw away half of every capture and logged an I/O error on boot, while looking completely
-        healthy from the outside.
+        <strong>A mid-range card is fine.</strong> The card that came with our build sustains about
+        12 MB/s, which is roughly fifteen times what a busy 2.4 GHz capture was writing. Buying A2 and
+        V30 buys headroom and a guarantee, not a fix for a problem you are likely to have.
+      </p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">An honest loose end</div>
+      <p>
+        One 180-second capture on a busy channel lost <strong>51% of its frames</strong> &mdash;
+        160,621 dropped against 152,625 written &mdash; at roughly 1,700 packets per second. We first
+        blamed the SD card. That was wrong: re-testing showed the same card writing at 12 MB/s with no
+        errors, and capturing to RAM instead of to the card made no difference at all.
+      </p>
+      <p>
+        <strong>The cause is still unidentified.</strong> Ambient traffic has since dropped to about
+        150 packets per second, where nothing drops in any configuration, so we cannot currently
+        reproduce it. If you see heavy loss on a busy channel, the card is not the first place to
+        look.
       </p>
     </div>
 
     <div class="prose">
       <p>
-        So: buy <strong>A2 and V30</strong> or better, which guarantees 30 MB/s sustained write, and
-        benchmark the card before you trust it. Orb itself is not the reason &mdash; it wrote zero
-        sectors in a quiet minute and is not a meaningful write load. Capture is.
+        Benchmarking a new card before trusting it is still worth the thirty seconds, because a card
+        that reads normally can still write slowly, and a capture gives no sign when it is losing
+        frames.
       </p>
     </div>
 
-    <pre><span class="cm"># On the sensor. Anything under about 10 MB/s will cost you frames.</span>
+    <pre><span class="cm"># On the sensor.</span>
 sudo dd if=/dev/zero of=/var/tmp/w.bin bs=1M count=64 conv=fdatasync
 sudo rm /var/tmp/w.bin</pre>
 
