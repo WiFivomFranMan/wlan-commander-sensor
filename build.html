@@ -619,13 +619,71 @@ footer {
 
 .btn-ghost { background: transparent; color: var(--accent); border: 1px solid var(--rule-strong); }
 .btn-ghost:hover { border-color: var(--accent); filter: none; }
+
+/* ---------- shared site nav (self-contained; do not depend on page tokens) ---------- */
+.wcnav {
+  --wcnav-bg:      rgba(252,252,250,0.88);
+  --wcnav-ink:     #191c22;
+  --wcnav-ink-2:   #6b7280;
+  --wcnav-rule:    #dcdcd6;
+  position: sticky; top: 0; z-index: 100;
+  background: var(--wcnav-bg);
+  border-bottom: 1px solid var(--wcnav-rule);
+  backdrop-filter: saturate(1.4) blur(10px);
+  -webkit-backdrop-filter: saturate(1.4) blur(10px);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .wcnav {
+    --wcnav-bg:    rgba(16,18,21,0.88);
+    --wcnav-ink:   #e9eaee;
+    --wcnav-ink-2: #949aa5;
+    --wcnav-rule:  #2a2d33;
+  }
+}
+:root[data-theme="dark"] .wcnav {
+  --wcnav-bg:    rgba(16,18,21,0.88);
+  --wcnav-ink:   #e9eaee;
+  --wcnav-ink-2: #949aa5;
+  --wcnav-rule:  #2a2d33;
+}
+.wcnav-in {
+  max-width: 1180px; margin: 0 auto; padding: 0 28px;
+  display: flex; align-items: center; gap: 28px; min-height: 48px;
+}
+.wcnav-brand {
+  font-size: 13px; font-weight: 700; letter-spacing: -0.01em;
+  color: var(--wcnav-ink); text-decoration: none; white-space: nowrap;
+}
+.wcnav-brand span { color: var(--wcnav-ink-2); font-weight: 500; }
+.wcnav-links { display: flex; gap: 4px; margin-left: auto; flex-wrap: wrap; }
+.wcnav-links a {
+  display: block; padding: 14px 10px 12px;
+  font-size: 12.5px; font-weight: 500; letter-spacing: 0.01em;
+  color: var(--wcnav-ink-2); text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+.wcnav-links a:hover { color: var(--wcnav-ink); }
+.wcnav-links a[aria-current="page"] {
+  color: var(--wcnav-ink); font-weight: 600;
+  border-bottom-color: currentColor;
+}
+.wcnav-links a:focus-visible { outline: 2px solid currentColor; outline-offset: -4px; border-radius: 2px; }
+@media (max-width: 560px) {
+  .wcnav-in { padding: 0 16px; gap: 12px; min-height: 44px; }
+  .wcnav-brand { font-size: 12px; }
+  .wcnav-links a { padding: 12px 7px 10px; font-size: 12px; }
+}
 </style>
+
+<nav class="wcnav" aria-label="Site"><div class="wcnav-in"><a class="wcnav-brand" href="./">WLAN Commander <span>sensor</span></a><div class="wcnav-links"><a href="./">Image</a><a href="build.html" aria-current="page">Build</a><a href="antennas.html">Antennas</a></div></div></nav>
+
 
 <header class="masthead">
   <div class="shell">
     <div class="masthead-grid">
       <div>
-        <div class="eyebrow"><a href="./">&larr; Sensor image</a> &nbsp;/&nbsp; build guide</div>
+        <div class="eyebrow">build guide</div>
         <h1>Build one<span class="thin">Parts, part numbers, and the two that bite</span></h1>
         <p class="lede">
           What to buy to turn a <strong>NanoPi Zero2</strong> into a Wi-Fi 7 capture sensor, with
@@ -646,7 +704,6 @@ footer {
     </div>
     <div class="getrow">
       <a class="btn" href="./">Get the image <span class="sz">v1.0.1 &middot; 418 MB</span></a>
-      <a class="btn btn-ghost" href="antennas.html">Antenna shootout &rarr;</a>
       <div class="hash">Every part below is listed with its manufacturer part number or ASIN, so a
       dead link is an inconvenience rather than a dead end.</div>
     </div>
