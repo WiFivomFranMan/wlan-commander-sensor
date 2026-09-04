@@ -1,0 +1,948 @@
+<title>NanoPi Zero2 Sensor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800&family=JetBrains+Mono:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+:root {
+  --ground:      #EDEFF2;
+  --surface:     #FFFFFF;
+  --surface-2:   #E4E8ED;
+  --ink:         #161A20;
+  --ink-2:       #4E5762;
+  --ink-3:       #78828E;
+  --rule:        #D2D7DE;
+  --rule-strong: #B4BCC6;
+  --accent:      #B85A18;
+  --accent-soft: #F0E0D2;
+
+  /* Channel-width ramp: cool = narrow, hot = wide. Same convention the
+     signal heatmaps in this project use, where red means strong. */
+  --w40:  #31647F;
+  --w80:  #C07C14;
+  --w160: #B85A18;
+  --w320: #8E2C1C;
+
+  --ok:   #2E6B4F;
+
+  --shell: 1180px;
+  --measure: 68ch;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:      #101319;
+    --surface:     #171B22;
+    --surface-2:   #1F242D;
+    --ink:         #E4E8ED;
+    --ink-2:       #9DA7B3;
+    --ink-3:       #737E8B;
+    --rule:        #272E38;
+    --rule-strong: #3A434F;
+    --accent:      #E08B44;
+    --accent-soft: #33251A;
+
+    --w40:  #5A9CBC;
+    --w80:  #D9A03C;
+    --w160: #E08B44;
+    --w320: #C9563C;
+
+    --ok:   #63AE87;
+  }
+}
+
+:root[data-theme="dark"] {
+  --ground:      #101319;
+  --surface:     #171B22;
+  --surface-2:   #1F242D;
+  --ink:         #E4E8ED;
+  --ink-2:       #9DA7B3;
+  --ink-3:       #737E8B;
+  --rule:        #272E38;
+  --rule-strong: #3A434F;
+  --accent:      #E08B44;
+  --accent-soft: #33251A;
+
+  --w40:  #5A9CBC;
+  --w80:  #D9A03C;
+  --w160: #E08B44;
+  --w320: #C9563C;
+
+  --ok:   #63AE87;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+  font-size: 17px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+
+.shell {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+h1, h2, h3, .eyebrow, .stat-label, th, .btn, .chip {
+  font-family: Archivo, "Helvetica Neue", Arial, sans-serif;
+}
+
+code, kbd, .mono, .val, pre {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-variant-ligatures: none;
+}
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:focus-visible, .btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.eyebrow {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* ---------- masthead ---------- */
+
+.masthead {
+  border-bottom: 1px solid var(--rule);
+  background: var(--surface);
+  padding: 46px 0 0;
+}
+
+.masthead-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  gap: 56px;
+  align-items: start;
+}
+
+h1 {
+  font-size: clamp(38px, 5.4vw, 62px);
+  font-weight: 800;
+  letter-spacing: -0.033em;
+  line-height: 1.02;
+  text-wrap: balance;
+  margin: 14px 0 0;
+}
+
+h1 .thin { font-weight: 500; color: var(--ink-2); display: block; }
+
+.lede {
+  max-width: var(--measure);
+  margin: 22px 0 0;
+  font-size: 19px;
+  color: var(--ink-2);
+}
+
+.lede strong { color: var(--ink); font-weight: 600; }
+
+.masthead-side {
+  border-left: 1px solid var(--rule);
+  padding-left: 28px;
+  margin-top: 6px;
+}
+
+.statlist {
+  display: grid;
+  gap: 0;
+  margin: 0;
+}
+
+.statrow {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  gap: 14px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: baseline;
+}
+.statrow:first-child { border-top: 1px solid var(--rule); }
+
+.stat-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.val {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  word-break: break-word;
+}
+
+.getrow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  margin: 34px 0 0;
+  padding: 0 0 40px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  background: var(--accent);
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 12px 20px;
+  border-radius: 2px;
+}
+.btn .sz {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 400;
+  font-size: 12px;
+  opacity: 0.82;
+}
+.btn:hover { filter: brightness(1.08); }
+
+.hash {
+  font-size: 11.5px;
+  color: var(--ink-3);
+  word-break: break-all;
+  max-width: 46ch;
+  line-height: 1.5;
+}
+
+/* ---------- sections ---------- */
+
+section { padding: 62px 0 0; }
+
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  border-bottom: 1px solid var(--rule-strong);
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+}
+
+h2 {
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.sec-head .eyebrow { margin-left: auto; text-align: right; }
+
+.prose { max-width: var(--measure); }
+.prose p { margin: 0 0 18px; }
+.prose p:last-child { margin-bottom: 0; }
+
+/* ---------- spectrum chart ---------- */
+
+.chart-wrap {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 26px 22px 18px;
+  overflow-x: auto;
+}
+
+.chart-wrap svg { display: block; min-width: 830px; width: 100%; height: auto; }
+
+.sv-band  { font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 700; fill: var(--ink); letter-spacing: 0.06em; }
+.sv-unii  { font-family: "JetBrains Mono", monospace; font-size: 9px;  fill: var(--ink-3); letter-spacing: 0.04em; }
+.sv-freq  { font-family: "JetBrains Mono", monospace; font-size: 9px;  fill: var(--ink-3); font-variant-numeric: tabular-nums; }
+.sv-card  { font-family: Archivo, sans-serif; font-size: 12px; font-weight: 600; fill: var(--ink); }
+.sv-chip  { font-family: "JetBrains Mono", monospace; font-size: 9.5px; fill: var(--ink-3); }
+.sv-inbar { font-family: "JetBrains Mono", monospace; font-size: 10px; font-weight: 700; fill: #FFFFFF; font-variant-numeric: tabular-nums; }
+.sv-rule  { stroke: var(--rule); stroke-width: 1; }
+.sv-tick  { stroke: var(--rule-strong); stroke-width: 1; }
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  align-items: center;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+}
+
+.lg {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: var(--ink-2);
+}
+.lg i {
+  width: 22px;
+  height: 11px;
+  border-radius: 1px;
+  display: inline-block;
+}
+
+.caption {
+  margin: 14px 0 0;
+  font-size: 14px;
+  color: var(--ink-3);
+  max-width: var(--measure);
+  line-height: 1.55;
+}
+
+/* ---------- tables ---------- */
+
+.tablewrap { overflow-x: auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  min-width: 560px;
+}
+
+th {
+  text-align: left;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding: 0 16px 9px 0;
+  border-bottom: 1px solid var(--rule-strong);
+  white-space: nowrap;
+}
+
+td {
+  padding: 12px 16px 12px 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+  color: var(--ink-2);
+}
+
+td:first-child { color: var(--ink); font-weight: 600; font-family: Archivo, sans-serif; font-size: 14.5px; }
+td .mono { font-size: 13px; color: var(--ink); }
+
+.chip {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+.chip-ok    { background: var(--accent-soft); color: var(--accent); }
+.chip-untested { background: transparent; color: var(--ink-3); border: 1px solid var(--rule-strong); }
+
+/* ---------- feature list ---------- */
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(268px, 1fr));
+  gap: 0 40px;
+}
+
+.feat {
+  padding: 18px 0;
+  border-top: 1px solid var(--rule);
+}
+
+.feat h3 {
+  margin: 0 0 5px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+.feat p { margin: 0; font-size: 15px; color: var(--ink-2); line-height: 1.55; }
+.feat code { font-size: 12.5px; color: var(--ink); }
+
+/* ---------- steps ---------- */
+
+.steps { display: grid; gap: 26px; max-width: 860px; }
+
+.step { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 18px; }
+
+.step-n {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  padding-top: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.step h3 { margin: 0 0 6px; font-size: 15px; font-weight: 600; }
+.step p { margin: 0 0 12px; font-size: 15.5px; color: var(--ink-2); max-width: var(--measure); }
+.step p:last-child { margin-bottom: 0; }
+
+pre {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-left: 2px solid var(--rule-strong);
+  border-radius: 2px;
+  padding: 13px 16px;
+  overflow-x: auto;
+  font-size: 12.5px;
+  line-height: 1.65;
+  margin: 0 0 12px;
+  color: var(--ink);
+}
+pre:last-child { margin-bottom: 0; }
+pre .cm { color: var(--ink-3); }
+
+.warn {
+  border-left: 2px solid var(--accent);
+  padding-left: 14px;
+  font-size: 15px;
+  color: var(--ink-2);
+  max-width: var(--measure);
+}
+
+/* ---------- hard list ---------- */
+
+.hard { display: grid; gap: 0; }
+
+.hard-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 260px) minmax(0, 1fr);
+  gap: 32px;
+  padding: 20px 0;
+  border-top: 1px solid var(--rule);
+  align-items: start;
+}
+
+.hard-row h3 {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+.hard-row p { margin: 0; font-size: 15.5px; color: var(--ink-2); max-width: var(--measure); }
+
+/* ---------- footer ---------- */
+
+footer {
+  margin-top: 70px;
+  border-top: 1px solid var(--rule-strong);
+  background: var(--surface);
+  padding: 30px 0 44px;
+}
+
+.footgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 26px 40px;
+}
+
+.footgrid p { margin: 6px 0 0; font-size: 13.5px; color: var(--ink-2); }
+.footgrid .mono { font-size: 12px; color: var(--ink-2); word-break: break-all; }
+
+@media (max-width: 860px) {
+  .masthead-grid { grid-template-columns: minmax(0, 1fr); gap: 34px; }
+  .masthead-side { border-left: 0; padding-left: 0; }
+  .hard-row { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .sec-head { flex-wrap: wrap; gap: 6px 16px; }
+  .sec-head .eyebrow { margin-left: 0; text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+</style>
+
+<header class="masthead">
+  <div class="shell">
+    <div class="masthead-grid">
+      <div>
+        <div class="eyebrow">WLAN Commander &nbsp;/&nbsp; sensor image &nbsp;/&nbsp; v1.0.0</div>
+        <h1>NanoPi Zero2<span class="thin">Wi-Fi 7 capture sensor</span></h1>
+        <p class="lede">
+          An Armbian image that turns a <strong>FriendlyElec NanoPi Zero2</strong> and an
+          M.2 Wi-Fi card into a headless scanning and packet-capture sensor. It runs
+          <strong>mainline Linux 7.3</strong>, so the Intel BE200 uses the kernel's own
+          <code>iwlmld</code> driver rather than an out-of-tree backport, and four other
+          Wi-Fi 6E and Wi-Fi 7 chipsets work without a driver being built per card.
+        </p>
+      </div>
+
+      <div class="masthead-side">
+        <div class="statlist">
+          <div class="statrow"><span class="stat-label">Kernel</span><span class="val">7.3.0-rc1-bleedingedge-rockchip64</span></div>
+          <div class="statrow"><span class="stat-label">Board</span><span class="val">NanoPi Zero2 &middot; Rockchip RK3528</span></div>
+          <div class="statrow"><span class="stat-label">Base</span><span class="val">Armbian &middot; Debian trixie</span></div>
+          <div class="statrow"><span class="stat-label">Image</span><span class="val">418 MB compressed</span></div>
+          <div class="statrow"><span class="stat-label">Built</span><span class="val">4 September 2026</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="getrow">
+      <a class="btn" href="https://github.com/WiFivomFranMan/wlan-commander-sensor/releases/download/v1.0.0/wlan-commander-nanopi-zero2-v1.0.0-bleedingedge.img.xz">
+        Download v1.0.0 <span class="sz">.img.xz &middot; 418 MB</span>
+      </a>
+      <div class="hash">
+        <span class="mono">sha256 caf24df945bc92dc5955fae5c68cd0f775d905ef5874a2c2406c8947baae0629</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="shell">
+
+  <!-- ============ BAND COVERAGE ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>Band coverage by card</h2>
+      <div class="eyebrow">US domain &middot; 2400&ndash;7125 MHz</div>
+    </div>
+
+    <div class="chart-wrap">
+      <svg viewBox="0 0 1000 356" role="img" aria-label="Frequency coverage and maximum channel width for each supported card across the 2.4, 5 and 6 GHz bands.">
+        <defs>
+          <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <rect width="6" height="6" fill="var(--surface-2)"></rect>
+            <line x1="0" y1="0" x2="0" y2="6" stroke="var(--rule-strong)" stroke-width="2"></line>
+          </pattern>
+        </defs>
+
+        <!-- band group headings -->
+        <text class="sv-band" x="170"    y="16">2.4 GHz</text>
+        <text class="sv-band" x="225.1"  y="16">5 GHz</text>
+        <text class="sv-band" x="526.8"  y="16">6 GHz</text>
+
+        <!-- allocation rules and sub-band ticks -->
+        <g>
+          <line class="sv-tick" x1="170"   y1="26" x2="201.1" y2="26"></line>
+          <line class="sv-tick" x1="225.1" y1="26" x2="299.7" y2="26"></line>
+          <line class="sv-tick" x1="344.4" y1="26" x2="502.8" y2="26"></line>
+          <line class="sv-tick" x1="526.8" y1="26" x2="974"   y2="26"></line>
+
+          <line class="sv-tick" x1="170"   y1="22" x2="170"   y2="30"></line>
+          <line class="sv-tick" x1="201.1" y1="22" x2="201.1" y2="30"></line>
+          <line class="sv-tick" x1="225.1" y1="22" x2="225.1" y2="30"></line>
+          <line class="sv-tick" x1="262.4" y1="23" x2="262.4" y2="29"></line>
+          <line class="sv-tick" x1="299.7" y1="22" x2="299.7" y2="30"></line>
+          <line class="sv-tick" x1="344.4" y1="22" x2="344.4" y2="30"></line>
+          <line class="sv-tick" x1="439.4" y1="23" x2="439.4" y2="29"></line>
+          <line class="sv-tick" x1="502.8" y1="22" x2="502.8" y2="30"></line>
+          <line class="sv-tick" x1="526.8" y1="22" x2="526.8" y2="30"></line>
+          <line class="sv-tick" x1="713.1" y1="23" x2="713.1" y2="29"></line>
+          <line class="sv-tick" x1="750.4" y1="23" x2="750.4" y2="29"></line>
+          <line class="sv-tick" x1="880.8" y1="23" x2="880.8" y2="29"></line>
+          <line class="sv-tick" x1="974"   y1="22" x2="974"   y2="30"></line>
+        </g>
+
+        <g>
+          <text class="sv-unii" x="170"   y="42">ISM</text>
+          <text class="sv-unii" x="225.1" y="42">U-NII-1</text>
+          <text class="sv-unii" x="264.4" y="42">2A</text>
+          <text class="sv-unii" x="346.4" y="42">U-NII-2C</text>
+          <text class="sv-unii" x="441.4" y="42">U-NII-3</text>
+          <text class="sv-unii" x="528.8" y="42">U-NII-5</text>
+          <text class="sv-unii" x="715.1" y="42">6</text>
+          <text class="sv-unii" x="752.4" y="42">U-NII-7</text>
+          <text class="sv-unii" x="882.8" y="42">U-NII-8</text>
+        </g>
+
+        <g>
+          <text class="sv-freq" x="170"   y="55">2400</text>
+          <text class="sv-freq" x="225.1" y="55">5150</text>
+          <text class="sv-freq" x="502.8" y="55" text-anchor="end">5895</text>
+          <text class="sv-freq" x="526.8" y="55">5925</text>
+          <text class="sv-freq" x="974"   y="55" text-anchor="end">7125</text>
+        </g>
+
+        <line class="sv-rule" x1="0" y1="64" x2="974" y2="64"></line>
+
+        <!-- ===== card rows ===== -->
+
+        <!-- Intel BE200 -->
+        <g>
+          <text class="sv-card" x="0" y="87">Intel BE200</text>
+          <text class="sv-chip" x="0" y="100">M.2 Key-E &middot; iwlmld</text>
+          <rect x="170"   y="76" width="31.1"  height="26" rx="1" fill="var(--w40)"></rect>
+          <rect x="225.1" y="76" width="277.7" height="26" rx="1" fill="var(--w160)"></rect>
+          <rect x="526.8" y="76" width="447.2" height="26" rx="1" fill="var(--w160)"></rect>
+          <text class="sv-inbar" x="364"   y="93" text-anchor="middle">160 MHz</text>
+          <text class="sv-inbar" x="750.4" y="93" text-anchor="middle">160 MHz</text>
+        </g>
+
+        <!-- MediaTek MT7925U -->
+        <g>
+          <text class="sv-card" x="0" y="139">MediaTek MT7925U</text>
+          <text class="sv-chip" x="0" y="152">USB &middot; mt7925u</text>
+          <rect x="170"   y="128" width="31.1"  height="26" rx="1" fill="var(--w40)"></rect>
+          <rect x="225.1" y="128" width="277.7" height="26" rx="1" fill="var(--w160)"></rect>
+          <rect x="526.8" y="128" width="447.2" height="26" rx="1" fill="var(--w160)"></rect>
+          <text class="sv-inbar" x="364"   y="145" text-anchor="middle">160 MHz</text>
+          <text class="sv-inbar" x="750.4" y="145" text-anchor="middle">160 MHz</text>
+        </g>
+
+        <!-- MediaTek MT7921U -->
+        <g>
+          <text class="sv-card" x="0" y="191">MediaTek MT7921U</text>
+          <text class="sv-chip" x="0" y="204">USB &middot; mt7921u</text>
+          <rect x="170"   y="180" width="31.1"  height="26" rx="1" fill="var(--w40)"></rect>
+          <rect x="225.1" y="180" width="277.7" height="26" rx="1" fill="var(--w80)"></rect>
+          <rect x="526.8" y="180" width="447.2" height="26" rx="1" fill="var(--w160)"></rect>
+          <text class="sv-inbar" x="364"   y="197" text-anchor="middle">80 MHz</text>
+          <text class="sv-inbar" x="750.4" y="197" text-anchor="middle">160 MHz</text>
+        </g>
+
+        <!-- Qualcomm WCN7850 -->
+        <g>
+          <text class="sv-card" x="0" y="243">Qualcomm WCN7850</text>
+          <text class="sv-chip" x="0" y="256">M.2 &middot; ath12k</text>
+          <rect x="170"   y="232" width="31.1"  height="26" rx="1" fill="url(#hatch)" stroke="var(--rule-strong)" stroke-width="1"></rect>
+          <rect x="225.1" y="232" width="277.7" height="26" rx="1" fill="url(#hatch)" stroke="var(--rule-strong)" stroke-width="1"></rect>
+          <rect x="526.8" y="232" width="447.2" height="26" rx="1" fill="url(#hatch)" stroke="var(--rule-strong)" stroke-width="1"></rect>
+          <text class="sv-freq" x="364"   y="249" text-anchor="middle">160 MHz</text>
+          <text class="sv-freq" x="750.4" y="249" text-anchor="middle">320 MHz</text>
+        </g>
+
+        <!-- Realtek RTL8922AU -->
+        <g>
+          <text class="sv-card" x="0" y="295">Realtek RTL8922AU</text>
+          <text class="sv-chip" x="0" y="308">USB &middot; rtw89</text>
+          <rect x="170"   y="284" width="31.1"  height="26" rx="1" fill="url(#hatch)" stroke="var(--rule-strong)" stroke-width="1"></rect>
+          <rect x="225.1" y="284" width="277.7" height="26" rx="1" fill="url(#hatch)" stroke="var(--rule-strong)" stroke-width="1"></rect>
+          <rect x="526.8" y="284" width="447.2" height="26" rx="1" fill="url(#hatch)" stroke="var(--rule-strong)" stroke-width="1"></rect>
+          <text class="sv-freq" x="364"   y="301" text-anchor="middle">160 MHz</text>
+          <text class="sv-freq" x="750.4" y="301" text-anchor="middle">160 MHz</text>
+        </g>
+
+        <line class="sv-rule" x1="0" y1="326" x2="974" y2="326"></line>
+        <text class="sv-unii" x="0" y="344">One linear scale throughout, 0.373 px per MHz. Only the unallocated spectrum between bands is removed.</text>
+      </svg>
+
+      <div class="legend">
+        <span class="lg"><i style="background: var(--w40);"></i>40 MHz</span>
+        <span class="lg"><i style="background: var(--w80);"></i>80 MHz</span>
+        <span class="lg"><i style="background: var(--w160);"></i>160 MHz</span>
+        <span class="lg"><i style="background: var(--w320);"></i>320 MHz</span>
+        <span class="lg"><i style="background: var(--surface-2); border: 1px solid var(--rule-strong);"></i>Driver ships, not run on hardware here</span>
+      </div>
+    </div>
+
+    <p class="caption">
+      Widths are the documented maxima for 5 and 6 GHz capture. The 2.4 GHz segment is
+      only 83.5 MHz wide at this scale, so it carries no label. No USB card here reaches
+      320 MHz; on this image that width exists only on the PCIe Qualcomm part.
+    </p>
+  </section>
+
+  <!-- ============ VERIFIED ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>What was measured on hardware</h2>
+      <div class="eyebrow">3 September 2026</div>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Subject</th>
+            <th>Result</th>
+            <th>Evidence</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Intel BE200</td>
+            <td>Binds <span class="mono">iwlmld</span> with firmware core 106</td>
+            <td>6 GHz capture on channel 165, an AP at &minus;32 dBm</td>
+            <td><span class="chip chip-ok">Verified</span></td>
+          </tr>
+          <tr>
+            <td>MediaTek MT7921U</td>
+            <td>Capture on all three bands, first attempt</td>
+            <td>91, 114 and 108 beacons on 2.4, 5 and 6 GHz</td>
+            <td><span class="chip chip-ok">Verified</span></td>
+          </tr>
+          <tr>
+            <td>MediaTek MT7925U</td>
+            <td>Capture to 160 MHz</td>
+            <td>136 beacons on 6 GHz once the domain was set</td>
+            <td><span class="chip chip-ok">Verified</span></td>
+          </tr>
+          <tr>
+            <td>Ethernet</td>
+            <td>Gigabit link through the RTL8211F PHY</td>
+            <td>Link negotiated at 1000 Mb/s, DHCP lease taken</td>
+            <td><span class="chip chip-ok">Verified</span></td>
+          </tr>
+          <tr>
+            <td>USB-C gadget</td>
+            <td>NCM ethernet plus a serial console</td>
+            <td>Host reaches the sensor at 192.168.7.1</td>
+            <td><span class="chip chip-ok">Verified</span></td>
+          </tr>
+          <tr>
+            <td>Capture without sudo</td>
+            <td><span class="mono">dumpcap</span> holds its own capabilities</td>
+            <td><span class="mono">cap_net_admin,cap_net_raw=eip</span></td>
+            <td><span class="chip chip-ok">Verified</span></td>
+          </tr>
+          <tr>
+            <td>Qualcomm WCN7850</td>
+            <td>Driver and firmware ship in the image</td>
+            <td>No card on hand; 320 MHz unproven</td>
+            <td><span class="chip chip-untested">Not tested</span></td>
+          </tr>
+          <tr>
+            <td>Realtek RTL8922AU</td>
+            <td>Driver and firmware ship in the image</td>
+            <td>No card on hand</td>
+            <td><span class="chip chip-untested">Not tested</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ REGDOM ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>Set the country, or lose 6 GHz</h2>
+      <div class="eyebrow">/etc/modprobe.d/cfg80211-regdom.conf</div>
+    </div>
+
+    <div class="prose">
+      <p>
+        The kernel starts in the world domain, and the world domain has no 6 GHz allocation
+        at all. Intel cards are self-managed and learn their own domain from a scan, so a
+        BE200 never notices. Every other card follows the global domain and silently loses
+        the band.
+      </p>
+      <p>
+        Measured here with both cards in the same sensor: the MT7925U refused to tune
+        6775 MHz and scanned <strong>zero</strong> 6 GHz access points, while the BE200 beside
+        it found <strong>21</strong>. After the domain was set the same adapter tuned 6775 MHz
+        and captured 136 beacons, and the Intel radio stayed self-managed with no firmware
+        errors. The image ships <code>ieee80211_regdom=US</code>. It is a regulatory setting,
+        so change it to match where the sensor physically is.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ IN THE IMAGE ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>What is in the image</h2>
+      <div class="eyebrow">Debian trixie &middot; minimal</div>
+    </div>
+
+    <div class="features">
+      <div class="feat">
+        <h3>It behaves like a WLANPi</h3>
+        <p>Account <code>wlanpi</code>, blanket passwordless sudo, and the same mDNS
+        advertisement, so WLAN Commander's Add Device screen finds it with nothing retyped.</p>
+      </div>
+      <div class="feat">
+        <h3>Capture without sudo</h3>
+        <p><code>dumpcap</code> carries its own capabilities and <code>wlanpi</code> is in the
+        <code>wireshark</code> group, which is what third-party survey apps expect.</p>
+      </div>
+      <div class="feat">
+        <h3>USB-C is a whole sensor link</h3>
+        <p>One cable to a laptop gives an NCM ethernet interface at 192.168.7.1 and a serial
+        console, so a unit in a case is still reachable when the network is not.</p>
+      </div>
+      <div class="feat">
+        <h3>Orb Sensor, unclaimed</h3>
+        <p>Orb 1.5.5 starts on first boot and appears in the Orb app on the same network.
+        Every flashed card is a distinct sensor, never a clone of the build host.</p>
+      </div>
+      <div class="feat">
+        <h3>The build refuses to ship broken</h3>
+        <p>Two gates fail the build outright: one on drivers, firmware, the device tree and
+        boot glue, one on the finished filesystem. A missing M.2 slot cannot reach a card.</p>
+      </div>
+      <div class="feat">
+        <h3>Provenance travels with it</h3>
+        <p>Each image carries a <code>.build-info</code> naming the source commit, the Armbian
+        commit, the kernel branch and whether the tree was clean.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FLASH ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>Flash it and boot it</h2>
+      <div class="eyebrow">microSD &middot; 8 GB or larger</div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">01</div>
+        <div>
+          <h3>Write the card</h3>
+          <p>Any standard imaging tool reads the <code>.img.xz</code> directly. From a shell:</p>
+          <pre><span class="cm"># Replace /dev/sdX with the card. The wrong device loses its data.</span>
+xz -dc wlan-commander-nanopi-zero2-v1.0.0-bleedingedge.img.xz \
+  | sudo dd of=/dev/sdX bs=4M status=progress conv=fsync</pre>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">02</div>
+        <div>
+          <h3>First boot takes about two minutes</h3>
+          <p>The root filesystem resizes and the board reboots once on its own. Look for it on
+          mDNS after that, not before. The hostname comes from the SoC serial rather than the
+          card, so a reflashed sensor keeps the name it had.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">03</div>
+        <div>
+          <h3>Log in</h3>
+          <p>User <code>wlanpi</code>, password <code>wlanpi</code>. No SSH key is installed
+          unless you put one in the build tree beforehand.</p>
+          <p class="warn">A reflash resets the password and removes any key you added by hand.
+          Change the password before putting a unit on a network you do not control.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">04</div>
+        <div>
+          <h3>Bring up a monitor interface</h3>
+          <p>The <code>wc-monitor</code> helper scans first and creates the monitor afterwards,
+          which is the ordering the Intel firmware wants.</p>
+          <pre>sudo wc-monitor up 6775 160</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHY HARD ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>Why the move off 6.1 was hard</h2>
+      <div class="eyebrow">Six builds to a working image</div>
+    </div>
+
+    <div class="prose" style="margin-bottom: 24px;">
+      <p>
+        Mainline is not missing this board. It is missing exactly the pieces a sensor needs,
+        and the old image was welded to the vendor kernel at every joint.
+      </p>
+    </div>
+
+    <div class="hard">
+      <div class="hard-row">
+        <h3>The M.2 slot does not exist upstream</h3>
+        <p>PCIe on the Zero2 comes only from an out-of-tree Armbian patch. If that patch fails
+        to apply the card silently is not there, and a failed patch is only a warning. The build
+        now decompiles the device tree and fails unless the PCIe node reads <code>okay</code>.</p>
+      </div>
+      <div class="hard-row">
+        <h3>No Armbian config enables the BE200 driver</h3>
+        <p><code>CONFIG_IWLMLD</code> has no default, and from 6.18 the BE200 sits behind it.
+        Without the symbol the log says no config was found for the PCI device, which reads
+        like a broken card rather than a missing kernel option.</p>
+      </div>
+      <div class="hard-row">
+        <h3>Firmware has a narrow accepted range</h3>
+        <p>The 7.3 driver loads core-named files from c102 to c107. The 6.18 kernel tops out at
+        c99, so no amount of firmware makes that branch work, which is why the build refuses it
+        outright instead of producing a dead image.</p>
+      </div>
+      <div class="hard-row">
+        <h3>This kernel branch is not one the board supports</h3>
+        <p>The board file only recognises two branches, so a 7.3 image inherits the vendor
+        device-tree name and a console on the wrong UART. That is a board that boots to silence.
+        The image supplies its own boot glue and then checks the result.</p>
+      </div>
+      <div class="hard-row">
+        <h3>User patches do not override core patches</h3>
+        <p>The patcher keys on filename and reads the core directory last, so core wins. An
+        Armbian patch for an unrelated Orange Pi board, space-indented against a tab-indented
+        file, killed the kernel build until a corrected copy could be forced over it.</p>
+      </div>
+      <div class="hard-row">
+        <h3>Nothing upstream watches the temperature</h3>
+        <p>The vendor kernel throttles at 95 &deg;C and cuts power at 120 &deg;C. Mainline has no
+        thermal zone for this SoC at all and runs the top operating point regardless, so case
+        temperature under sustained capture is measured by hand.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BUILD ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>Build it yourself</h2>
+      <div class="eyebrow">Ubuntu or Debian host</div>
+    </div>
+
+    <div class="prose" style="margin-bottom: 20px;">
+      <p>
+        The build clones Armbian at a pinned commit, copies this repository's
+        <code>userpatches/</code> over it and compiles a kernel. Expect 15 to 30 minutes cold
+        and about three warm. Previous images are archived, never deleted.
+      </p>
+    </div>
+
+    <pre>./build.sh                    <span class="cm"># mainline 7.3-rc, the default</span>
+WC_BRANCH=edge ./build.sh     <span class="cm"># mainline 7.2.y, the stable branch</span>
+WC_BRANCH=vendor ./build.sh   <span class="cm"># Rockchip 6.1, rollback only</span>
+WC_ORB=no ./build.sh          <span class="cm"># leave Orb Sensor out</span></pre>
+  </section>
+
+</main>
+
+<footer>
+  <div class="shell">
+    <div class="footgrid">
+      <div>
+        <div class="eyebrow">Downloads</div>
+        <p><a href="https://github.com/WiFivomFranMan/wlan-commander-sensor/releases">All releases</a><br>
+        The build tree that produces these images is not published.</p>
+      </div>
+      <div>
+        <div class="eyebrow">Provenance</div>
+        <p class="mono">commit b5689d4<br>armbian 6d07521a<br>branch bleedingedge</p>
+      </div>
+      <div>
+        <div class="eyebrow">Lineage</div>
+        <p>Began as a fork of Intuitibits' <span class="mono">nanopi-zero2-sensor</span> under MIT,
+        and is now a separate build.</p>
+      </div>
+      <div>
+        <div class="eyebrow">Hardware</div>
+        <p>FriendlyElec NanoPi Zero2, Rockchip RK3528, M.2 Key-E. The board's own Wi-Fi is unused.</p>
+      </div>
+      <div>
+        <div class="eyebrow">Kernel source</div>
+        <p>Stock <a href="https://github.com/armbian/build">Armbian</a> at the commit named in
+        <span class="mono">.build-info</span>, and the configuration it was built with ships in the
+        image at <span class="mono">/boot/config-*</span>.</p>
+      </div>
+    </div>
+  </div>
+</footer>
