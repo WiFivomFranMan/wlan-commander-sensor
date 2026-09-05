@@ -736,12 +736,12 @@ td.strong{font-weight:700;color:var(--ink)}
 .fgo{fill:none;stroke:var(--ink-2);stroke-width:1.6}
 .fna{fill:var(--accent);stroke:none}
 
-.teardown{margin:24px 0 0;padding:0;display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:24px;align-items:start}
-.teardown a{display:block}
+.teardown{margin:24px 0 0;padding:0;display:block}
+.teardown a{display:block;max-width:840px}
 .teardown img{display:block;width:100%;height:auto;border:1px solid var(--rule);border-radius:3px}
-.teardown figcaption{font-size:15px;color:var(--ink-2);max-width:var(--measure);line-height:1.55}
+.teardown figcaption{margin-top:14px;font-size:15px;color:var(--ink-2);max-width:var(--measure);line-height:1.55}
 .teardown figcaption strong{color:var(--ink)}
-@media (max-width:720px){.teardown{grid-template-columns:minmax(0,1fr)}.teardown img{max-width:320px}}
+.fignote{display:block;margin-top:9px;font-size:13.5px;color:var(--ink-3)}
 </style>
 
 <nav class="wcnav" aria-label="Site"><div class="wcnav-in"><a class="wcnav-brand" href="./">WLAN Commander <span>sensor</span></a><div class="wcnav-links"><a href="compare.html" aria-current="page">Shootout</a><a href="./">Image</a><a href="build.html">Build</a><a href="antennas.html">Antennas</a></div></div></nav>
@@ -1344,16 +1344,19 @@ td.strong{font-weight:700;color:var(--ink)}
     </div>
 
     <figure class="teardown">
-      <a href="images/wlanpi-go-inside.jpg" target="_blank" rel="noopener"><img src="images/wlanpi-go-inside.jpg" alt="A WLANPi Go opened up, annotated. Two thin coax cables leave the Intel BE200's MAIN and AUX connectors on the board and run up into the lid, where each terminates at a flat film antenna bonded to the inside of a case wall. Three discs in the middle of the lid are labelled as mounting magnets." loading="lazy"></a>
+      <a href="images/wlanpi-go-inside.jpg" target="_blank" rel="noopener"><img src="images/wlanpi-go-inside.jpg" alt="A WLANPi Go opened up and laid out as it is held, lid on the left and board on the right, with annotations. Two thin coax cables leave the Intel BE200's MAIN and AUX connectors and cross into the lid, one ending at the top edge of the case and one at the side edge. Three discs in the middle of the lid are labelled as mounting magnets." loading="lazy"></a>
       <figcaption>
         <strong>Where the Go&rsquo;s antennas actually are.</strong> Two coax runs leave the
-        BE200&rsquo;s MAIN and AUX connectors and go up into the lid, each ending at a flat film
-        antenna bonded to the inside of a case wall &mdash; one on the <em>top</em> edge, one on the
-        <em>side</em>. The three discs in the middle are mounting magnets and radiate nothing.
-        The side element is the one a palm wraps around when you pick the unit up, which is a
-        plausible mechanism for the hand cost above: the Osprey antennas screw onto external
-        connectors and stand clear of the case in any grip. Card identifiers blurred; the labels
-        are ours, nothing else is retouched.
+        BE200&rsquo;s MAIN and AUX connectors, cross into the lid, and terminate against the case
+        wall &mdash; one at the <em>top</em> edge, one at the <em>side</em>. Held normally, the top
+        element stays clear of you and the side element sits directly under your palm, which is a
+        plausible mechanism for the Go losing roughly twice what the NanoPi does when picked up.
+        The Osprey antennas screw onto external connectors and stand clear of the case in any grip,
+        so there is no equivalent element to cover. The three discs in the middle of the lid are
+        mounting magnets and radiate nothing.
+        <span class="fignote">The photo resolves the coax terminations rather than the elements
+        themselves, which are bonded flat to the inside of the wall. Card identifiers are blurred;
+        the labels are ours, nothing else is retouched.</span>
       </figcaption>
     </figure>
   </section>
