@@ -724,6 +724,17 @@ td.strong{font-weight:700;color:var(--ink)}
 .dumb.tieline{stroke:var(--rule-strong)}
 .devicon{display:inline-block;vertical-align:-3px;margin-right:6px;width:20px;height:14px;flex:none}
 .legend2 span{display:inline-flex;align-items:center}
+
+.bandzone{fill:var(--surface-2);opacity:.45}
+.bandlbl{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;fill:var(--ink-3)}
+.axtitle{font-family:"JetBrains Mono",monospace;font-size:10px;fill:var(--ink-3)}
+.xl{font-size:9px}
+.lgo{fill:none;stroke:var(--ink-2);stroke-width:1.6;stroke-dasharray:4 3}
+.lna{fill:none;stroke:var(--accent);stroke-width:2}
+/* the spectrum chart's own markers -- deliberately NOT .mgo/.mna, which belong to the
+   dumbbell below and must stay neutral there. */
+.fgo{fill:none;stroke:var(--ink-2);stroke-width:1.6}
+.fna{fill:var(--accent);stroke:none}
 </style>
 
 <nav class="wcnav" aria-label="Site"><div class="wcnav-in"><a class="wcnav-brand" href="./">WLAN Commander <span>sensor</span></a><div class="wcnav-links"><a href="compare.html" aria-current="page">Shootout</a><a href="./">Image</a><a href="build.html">Build</a><a href="antennas.html">Antennas</a></div></div></nav>
@@ -785,6 +796,128 @@ td.strong{font-weight:700;color:var(--ink)}
     25 access points louder on the NanoPi, only 4 on the Go.
     On 5 GHz the two are genuinely interchangeable &mdash; 14 to
     14 with 11 ties.</p>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>Across the spectrum</h2><div class="eyebrow">median p95 per frequency, both held</div></div>
+    <div class="chartbox">
+      <svg viewBox="0 0 1000 430" role="img" aria-label="Median p95 RSSI per frequency for both devices, hand-held.">
+<rect class="bandzone" x="52.0" y="22" width="211.8" height="346"></rect>
+<text class="bandlbl" x="157.9" y="36" text-anchor="middle">2.4 GHz</text>
+<rect class="bandzone" x="263.8" y="22" width="466.0" height="346"></rect>
+<text class="bandlbl" x="496.8" y="36" text-anchor="middle">5 GHz</text>
+<rect class="bandzone" x="729.8" y="22" width="254.2" height="346"></rect>
+<text class="bandlbl" x="856.9" y="36" text-anchor="middle">6 GHz</text>
+<line class="gx" x1="52" y1="22.0" x2="984" y2="22.0"></line>
+<text class="ax" x="44" y="25.0" text-anchor="end">-25</text>
+<line class="gx" x1="52" y1="48.1" x2="984" y2="48.1"></line>
+<text class="ax" x="44" y="51.1" text-anchor="end">-30</text>
+<line class="gx" x1="52" y1="74.3" x2="984" y2="74.3"></line>
+<text class="ax" x="44" y="77.3" text-anchor="end">-35</text>
+<line class="gx" x1="52" y1="100.4" x2="984" y2="100.4"></line>
+<text class="ax" x="44" y="103.4" text-anchor="end">-40</text>
+<line class="gx" x1="52" y1="126.5" x2="984" y2="126.5"></line>
+<text class="ax" x="44" y="129.5" text-anchor="end">-45</text>
+<line class="gx" x1="52" y1="152.7" x2="984" y2="152.7"></line>
+<text class="ax" x="44" y="155.7" text-anchor="end">-50</text>
+<line class="gx" x1="52" y1="178.8" x2="984" y2="178.8"></line>
+<text class="ax" x="44" y="181.8" text-anchor="end">-55</text>
+<line class="gx" x1="52" y1="204.9" x2="984" y2="204.9"></line>
+<text class="ax" x="44" y="207.9" text-anchor="end">-60</text>
+<line class="gx" x1="52" y1="231.1" x2="984" y2="231.1"></line>
+<text class="ax" x="44" y="234.1" text-anchor="end">-65</text>
+<line class="gx" x1="52" y1="257.2" x2="984" y2="257.2"></line>
+<text class="ax" x="44" y="260.2" text-anchor="end">-70</text>
+<line class="gx" x1="52" y1="283.3" x2="984" y2="283.3"></line>
+<text class="ax" x="44" y="286.3" text-anchor="end">-75</text>
+<line class="gx" x1="52" y1="309.5" x2="984" y2="309.5"></line>
+<text class="ax" x="44" y="312.5" text-anchor="end">-80</text>
+<line class="gx" x1="52" y1="335.6" x2="984" y2="335.6"></line>
+<text class="ax" x="44" y="338.6" text-anchor="end">-85</text>
+<line class="gx" x1="52" y1="361.7" x2="984" y2="361.7"></line>
+<text class="ax" x="44" y="364.7" text-anchor="end">-90</text>
+<text class="axtitle" transform="rotate(-90 14 195)" x="14" y="195" text-anchor="middle">p95 dBm</text>
+<text class="ax xl" x="73.2" y="384" text-anchor="end" transform="rotate(-45 73.2 384)">2412</text>
+<text class="ax xl" x="115.5" y="384" text-anchor="end" transform="rotate(-45 115.5 384)">2432</text>
+<text class="ax xl" x="157.9" y="384" text-anchor="end" transform="rotate(-45 157.9 384)">2437</text>
+<text class="ax xl" x="200.3" y="384" text-anchor="end" transform="rotate(-45 200.3 384)">2447</text>
+<text class="ax xl" x="242.6" y="384" text-anchor="end" transform="rotate(-45 242.6 384)">2462</text>
+<text class="ax xl" x="285.0" y="384" text-anchor="end" transform="rotate(-45 285.0 384)">5180</text>
+<text class="ax xl" x="327.4" y="384" text-anchor="end" transform="rotate(-45 327.4 384)">5220</text>
+<text class="ax xl" x="369.7" y="384" text-anchor="end" transform="rotate(-45 369.7 384)">5240</text>
+<text class="ax xl" x="412.1" y="384" text-anchor="end" transform="rotate(-45 412.1 384)">5280</text>
+<text class="ax xl" x="454.5" y="384" text-anchor="end" transform="rotate(-45 454.5 384)">5300</text>
+<text class="ax xl" x="496.8" y="384" text-anchor="end" transform="rotate(-45 496.8 384)">5580</text>
+<text class="ax xl" x="539.2" y="384" text-anchor="end" transform="rotate(-45 539.2 384)">5600</text>
+<text class="ax xl" x="581.5" y="384" text-anchor="end" transform="rotate(-45 581.5 384)">5660</text>
+<text class="ax xl" x="623.9" y="384" text-anchor="end" transform="rotate(-45 623.9 384)">5700</text>
+<text class="ax xl" x="666.3" y="384" text-anchor="end" transform="rotate(-45 666.3 384)">5745</text>
+<text class="ax xl" x="708.6" y="384" text-anchor="end" transform="rotate(-45 708.6 384)">5785</text>
+<text class="ax xl" x="751.0" y="384" text-anchor="end" transform="rotate(-45 751.0 384)">5975</text>
+<text class="ax xl" x="793.4" y="384" text-anchor="end" transform="rotate(-45 793.4 384)">6215</text>
+<text class="ax xl" x="835.7" y="384" text-anchor="end" transform="rotate(-45 835.7 384)">6295</text>
+<text class="ax xl" x="878.1" y="384" text-anchor="end" transform="rotate(-45 878.1 384)">6615</text>
+<text class="ax xl" x="920.5" y="384" text-anchor="end" transform="rotate(-45 920.5 384)">6775</text>
+<text class="ax xl" x="962.8" y="384" text-anchor="end" transform="rotate(-45 962.8 384)">6935</text>
+<text class="axtitle" x="52" y="424">MHz &#8594;</text>
+<path class="lgo" d="M73.2,231.1 L115.5,324.1 L157.9,204.9 L200.3,299.0 L242.6,199.7 L285.0,241.5 L327.4,333.0 L369.7,351.3 L412.1,189.3 L454.5,168.9 L496.8,79.5 L539.2,92.0 L581.5,215.4 L623.9,231.1 L666.3,181.9 L708.6,211.2 L751.0,173.6 L793.4,335.6 L835.7,142.2 L878.1,252.0 L920.5,199.7 L962.8,147.4"></path>
+<path class="lna" d="M73.2,214.3 L115.5,299.0 L157.9,180.9 L200.3,246.7 L242.6,212.8 L285.0,257.2 L327.4,333.5 L369.7,340.8 L412.1,200.7 L454.5,168.3 L496.8,37.7 L539.2,105.6 L581.5,204.9 L623.9,220.6 L666.3,184.0 L708.6,184.0 L751.0,200.7 L793.4,352.3 L835.7,117.1 L878.1,246.7 L920.5,184.0 L962.8,148.5"></path>
+<circle class="fgo" cx="73.2" cy="231.1" r="3.7"></circle>
+<circle class="fna" cx="73.2" cy="214.3" r="3.3"></circle>
+<circle class="fgo" cx="115.5" cy="324.1" r="2.7"></circle>
+<circle class="fna" cx="115.5" cy="299.0" r="2.3"></circle>
+<circle class="fgo" cx="157.9" cy="204.9" r="5.0"></circle>
+<circle class="fna" cx="157.9" cy="180.9" r="4.6"></circle>
+<circle class="fgo" cx="200.3" cy="299.0" r="2.7"></circle>
+<circle class="fna" cx="200.3" cy="246.7" r="2.3"></circle>
+<circle class="fgo" cx="242.6" cy="199.7" r="5.0"></circle>
+<circle class="fna" cx="242.6" cy="212.8" r="4.6"></circle>
+<circle class="fgo" cx="285.0" cy="241.5" r="3.4"></circle>
+<circle class="fna" cx="285.0" cy="257.2" r="3.0"></circle>
+<circle class="fgo" cx="327.4" cy="333.0" r="3.0"></circle>
+<circle class="fna" cx="327.4" cy="333.5" r="2.6"></circle>
+<circle class="fgo" cx="369.7" cy="351.3" r="2.7"></circle>
+<circle class="fna" cx="369.7" cy="340.8" r="2.3"></circle>
+<circle class="fgo" cx="412.1" cy="189.3" r="4.3"></circle>
+<circle class="fna" cx="412.1" cy="200.7" r="3.9"></circle>
+<circle class="fgo" cx="454.5" cy="168.9" r="4.3"></circle>
+<circle class="fna" cx="454.5" cy="168.3" r="3.9"></circle>
+<circle class="fgo" cx="496.8" cy="79.5" r="2.7"></circle>
+<circle class="fna" cx="496.8" cy="37.7" r="2.3"></circle>
+<circle class="fgo" cx="539.2" cy="92.0" r="4.3"></circle>
+<circle class="fna" cx="539.2" cy="105.6" r="3.9"></circle>
+<circle class="fgo" cx="581.5" cy="215.4" r="2.7"></circle>
+<circle class="fna" cx="581.5" cy="204.9" r="2.3"></circle>
+<circle class="fgo" cx="623.9" cy="231.1" r="4.3"></circle>
+<circle class="fna" cx="623.9" cy="220.6" r="3.9"></circle>
+<circle class="fgo" cx="666.3" cy="181.9" r="3.0"></circle>
+<circle class="fna" cx="666.3" cy="184.0" r="2.6"></circle>
+<circle class="fgo" cx="708.6" cy="211.2" r="4.0"></circle>
+<circle class="fna" cx="708.6" cy="184.0" r="3.6"></circle>
+<circle class="fgo" cx="751.0" cy="173.6" r="2.7"></circle>
+<circle class="fna" cx="751.0" cy="200.7" r="2.3"></circle>
+<circle class="fgo" cx="793.4" cy="335.6" r="2.7"></circle>
+<circle class="fna" cx="793.4" cy="352.3" r="2.3"></circle>
+<circle class="fgo" cx="835.7" cy="142.2" r="2.7"></circle>
+<circle class="fna" cx="835.7" cy="117.1" r="2.3"></circle>
+<circle class="fgo" cx="878.1" cy="252.0" r="2.7"></circle>
+<circle class="fna" cx="878.1" cy="246.7" r="2.3"></circle>
+<circle class="fgo" cx="920.5" cy="199.7" r="2.7"></circle>
+<circle class="fna" cx="920.5" cy="184.0" r="2.3"></circle>
+<circle class="fgo" cx="962.8" cy="147.4" r="3.4"></circle>
+<circle class="fna" cx="962.8" cy="148.5" r="3.0"></circle>
+</svg>
+      <div class="legend2">
+        <span><svg width="26" height="12" aria-hidden="true"><line x1="1" y1="6" x2="25" y2="6" stroke="currentColor" stroke-width="1.6" stroke-dasharray="4 3"/><circle cx="13" cy="6" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>&nbsp;<svg class="devicon" width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect x="1.5" y="3.5" width="17" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="6" cy="8" r="1.1" fill="currentColor"/></svg>WLANPi Go</span>
+        <span><svg width="26" height="12" aria-hidden="true"><line x1="1" y1="6" x2="25" y2="6" stroke="currentColor" stroke-width="2"/><circle cx="13" cy="6" r="3.6" fill="currentColor"/></svg>&nbsp;<svg class="devicon" width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect x="3" y="5" width="14" height="8" rx="1.6" fill="currentColor"/><path d="M6 5V1.5M14 5V1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>NanoPi + Osprey</span>
+        <span style="color:var(--ink-3)">marker size = access points behind the point</span>
+      </div>
+    </div>
+    <p class="caption">Where the two lines sit apart, one device is genuinely hearing more at that
+    frequency. The overall up-and-down is the neighbourhood, not the hardware &mdash; different
+    access points live on different channels &mdash; so read the <em>gap</em> between the lines
+    rather than the height of either. The smallest markers rest on a single access point and should
+    not be read as a trend.</p>
   </section>
 
   <section>
@@ -1177,49 +1310,6 @@ td.strong{font-weight:700;color:var(--ink)}
         <span style="color:var(--ink-3)">grey = within 1 dB</span>
       </div>
     </div>
-  </section>
-
-  <section>
-    <div class="sec-head"><h2>By channel, both held</h2><div class="eyebrow">channels with 2+ APs</div></div>
-    <div><div class="crow">
-  <div class="cch b2_4">2.4 GHz &middot; ch 1</div>
-  <div class="cbar"><div class="ctrack"><div class="cfill pos" style="width:23.9%;left:50%"></div><div class="czero"></div></div></div>
-  <div class="cval pos">+3.4</div><div class="cn">n=4</div></div><div class="crow">
-  <div class="cch b2_4">2.4 GHz &middot; ch 6</div>
-  <div class="cbar"><div class="ctrack"><div class="cfill pos" style="width:50.0%;left:50%"></div><div class="czero"></div></div></div>
-  <div class="cval pos">+7.1</div><div class="cn">n=11</div></div><div class="crow">
-  <div class="cch b2_4">2.4 GHz &middot; ch 11</div>
-  <div class="cbar"><div class="ctrack"><div class="cfill pos" style="width:10.6%;left:50%"></div><div class="czero"></div></div></div>
-  <div class="cval pos">+1.5</div><div class="cn">n=8</div></div><div class="crow">
-  <div class="cch b5">5 GHz &middot; ch 36</div>
-  <div class="cbar"><div class="ctrack"><div class="cfill neg" style="width:21.1%;right:50%"></div><div class="czero"></div></div></div>
-  <div class="cval neg">-3.0</div><div class="cn">n=3</div></div><div class="crow">
-  <div class="cch b5">5 GHz &middot; ch 44</div>
-  <div class="cbar"><div class="ctrack"><div class="cfill neg" style="width:0.7%;right:50%"></div><div class="czero"></div></div></div>
-  <div class="cval neg">-0.1</div><div class="cn">n=2</div></div><div class="crow">
-  <div class="cch b5">5 GHz &middot; ch 56</div>
-  <div class="cbar"><div class="ctrack"><div class="cfill neg" style="width:15.5%;right:50%"></div><div class="czero"></div></div></div>
-  <div class="cval neg">-2.2</div><div class="cn">n=6</div></div><div class="crow">
-  <div class="cch b5">5 GHz &middot; ch 60</div>
-  <div class="cbar"><div class="ctrack"><div class="cfill pos" style="width:0.0%;left:50%"></div><div class="czero"></div></div></div>
-  <div class="cval pos">+0.0</div><div class="cn">n=6</div></div><div class="crow">
-  <div class="cch b5">5 GHz &middot; ch 120</div>
-  <div class="cbar"><div class="ctrack"><div class="cfill neg" style="width:18.3%;right:50%"></div><div class="czero"></div></div></div>
-  <div class="cval neg">-2.6</div><div class="cn">n=6</div></div><div class="crow">
-  <div class="cch b5">5 GHz &middot; ch 140</div>
-  <div class="cbar"><div class="ctrack"><div class="cfill pos" style="width:14.1%;left:50%"></div><div class="czero"></div></div></div>
-  <div class="cval pos">+2.0</div><div class="cn">n=6</div></div><div class="crow">
-  <div class="cch b5">5 GHz &middot; ch 149</div>
-  <div class="cbar"><div class="ctrack"><div class="cfill neg" style="width:2.1%;right:50%"></div><div class="czero"></div></div></div>
-  <div class="cval neg">-0.3</div><div class="cn">n=2</div></div><div class="crow">
-  <div class="cch b5">5 GHz &middot; ch 157</div>
-  <div class="cbar"><div class="ctrack"><div class="cfill pos" style="width:36.6%;left:50%"></div><div class="czero"></div></div></div>
-  <div class="cval pos">+5.2</div><div class="cn">n=5</div></div><div class="crow">
-  <div class="cch b6">6 GHz &middot; ch 197</div>
-  <div class="cbar"><div class="ctrack"><div class="cfill neg" style="width:1.4%;right:50%"></div><div class="czero"></div></div></div>
-  <div class="cval neg">-0.2</div><div class="cn">n=3</div></div></div>
-    <p class="caption">The same two devices differ by several decibels in both directions depending
-    on where you look, which is why a single-channel test cannot settle this.</p>
   </section>
 
   <section>
