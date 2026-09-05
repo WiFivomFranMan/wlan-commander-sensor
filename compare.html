@@ -694,7 +694,11 @@ footer {
 .cval.pos{color:var(--ok)}.cval.neg{color:var(--accent)}
 .cn{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-3);text-align:right}
 .chartbox{background:var(--surface);border:1px solid var(--rule);border-radius:3px;padding:20px 18px;overflow-x:auto}
-.chartbox svg{display:block;min-width:760px;width:100%;height:auto}
+/* Direct child only. The legend lives inside .chartbox and its icons are SVGs too;
+   a descendant selector here blew them up to 760px wide. */
+.chartbox > svg{display:block;min-width:760px;width:100%;height:auto}
+.legend2 svg{flex:none;width:auto;height:auto;min-width:0}
+.devicon{width:20px;height:14px;flex:none}
 .gx{stroke:var(--rule);stroke-width:1}
 .ax{font-family:"JetBrains Mono",monospace;font-size:9.5px;fill:var(--ink-3)}
 .grp{font-family:Archivo,sans-serif;font-size:13px;font-weight:700;fill:var(--ink)}
@@ -718,7 +722,7 @@ td.strong{font-weight:700;color:var(--ink)}
 .dumb.win{stroke:var(--ok)}
 .dumb.lose{stroke:var(--accent)}
 .dumb.tieline{stroke:var(--rule-strong)}
-.devicon{display:inline-block;vertical-align:-3px;margin-right:6px}
+.devicon{display:inline-block;vertical-align:-3px;margin-right:6px;width:20px;height:14px;flex:none}
 .legend2 span{display:inline-flex;align-items:center}
 </style>
 
