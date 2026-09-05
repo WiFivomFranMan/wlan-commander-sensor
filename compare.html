@@ -677,7 +677,6 @@ footer {
 
 .bandgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
 .bandcard{background:var(--surface);border:1px solid var(--rule);border-top:3px solid var(--rule-strong);border-radius:3px;padding:18px 20px}
-.bandcard.b2_4{border-top-color:#E0872E}.bandcard.b5{border-top-color:#3B6FB0}.bandcard.b6{border-top-color:#8A62C8}
 .bc-band{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
 .bc-delta{font-family:Archivo,sans-serif;font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1.05;margin-top:4px}
 .bc-delta span{font-size:15px;font-weight:600;color:var(--ink-3);margin-left:5px}
@@ -686,8 +685,7 @@ footer {
 .bc-split .w{color:var(--ok)}.bc-split .l{color:var(--accent)}.bc-split .t{color:var(--ink-3)}
 .bc-n{margin-top:8px;font-size:12.5px;color:var(--ink-3)}
 .crow{display:grid;grid-template-columns:130px minmax(0,1fr) 54px 44px;gap:12px;align-items:center;padding:5px 0;border-top:1px solid var(--rule)}
-.cch{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-2)}
-.cch.b2_4{border-left:3px solid #E0872E;padding-left:8px}.cch.b5{border-left:3px solid #3B6FB0;padding-left:8px}.cch.b6{border-left:3px solid #8A62C8;padding-left:8px}
+.cch{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-2);border-left:3px solid var(--rule-strong);padding-left:8px}
 .ctrack{position:relative;height:14px;background:var(--surface-2);border-radius:2px}
 .cfill{position:absolute;top:0;bottom:0;border-radius:2px}
 .cfill.pos{background:var(--ok)}.cfill.neg{background:var(--accent)}
@@ -712,6 +710,16 @@ td.pos{color:var(--ok)}td.neg{color:var(--accent)}td.dim{color:var(--ink-3)}
 .twocol li{margin-bottom:5px}
 
 td.strong{font-weight:700;color:var(--ink)}
+
+/* Device identity is carried by SHAPE, so the only colours left are semantic:
+   green = NanoPi louder, orange = Go louder, grey = within a decibel. */
+.mgo{fill:none;stroke:var(--ink-2);stroke-width:1.8}
+.mna{fill:var(--ink);stroke:none}
+.dumb.win{stroke:var(--ok)}
+.dumb.lose{stroke:var(--accent)}
+.dumb.tieline{stroke:var(--rule-strong)}
+.devicon{display:inline-block;vertical-align:-3px;margin-right:6px}
+.legend2 span{display:inline-flex;align-items:center}
 </style>
 
 <nav class="wcnav" aria-label="Site"><div class="wcnav-in"><a class="wcnav-brand" href="./">WLAN Commander <span>sensor</span></a><div class="wcnav-links"><a href="compare.html" aria-current="page">Shootout</a><a href="./">Image</a><a href="build.html">Build</a><a href="antennas.html">Antennas</a></div></div></nav>
@@ -776,8 +784,8 @@ td.strong{font-weight:700;color:var(--ink)}
   </section>
 
   <section>
-    <div class="sec-head"><h2>Every access point, both held</h2><div class="eyebrow">grey = Go, coloured = NanoPi</div></div>
-    <div class="chartbox"><svg viewBox="0 0 812 1916" role="img" aria-label="Paired p95 RSSI with both devices hand-held.">
+    <div class="sec-head"><h2>Every access point, both held</h2><div class="eyebrow">hollow = Go &middot; filled = NanoPi</div></div>
+    <div class="chartbox"><svg viewBox="0 0 812 1916" role="img" aria-label="Paired p95 RSSI with both devices hand-held. Hollow ring is the WLANPi Go, filled dot is the NanoPi.">
 <line class="gx" x1="166.0" y1="24" x2="166.0" y2="1900"></line>
 <text class="ax" x="166.0" y="18" text-anchor="middle">-90</text>
 <line class="gx" x1="256.3" y1="24" x2="256.3" y2="1900"></line>
@@ -795,374 +803,374 @@ td.strong{font-weight:700;color:var(--ink)}
 <text class="ax" x="446" y="1914" text-anchor="middle">p95 RSSI (dBm) — right is stronger</text>
 <text class="grp" x="16" y="54">2.4 GHz</text>
 <text class="lbl" x="158" y="64" text-anchor="end">Network 10 · ch1</text>
-<line class="dumb" x1="391.8" y1="60" x2="418.9" y2="60" stroke="var(--good)"></line>
-<circle class="dgo" cx="391.8" cy="60" r="3.8"></circle>
-<circle cx="418.9" cy="60" r="3.8" fill="#E0872E"></circle>
+<line class="dumb win" x1="391.8" y1="60" x2="418.9" y2="60"></line>
+<circle class="mgo" cx="391.8" cy="60" r="4"></circle>
+<circle class="mna" cx="418.9" cy="60" r="3.6"></circle>
 <text class="dl" x="427.9" y="64">+3.0</text>
 <text class="lbl" x="158" y="88" text-anchor="end">Network 11 · ch1</text>
-<line class="dumb" x1="271.7" y1="84" x2="301.5" y2="84" stroke="var(--good)"></line>
-<circle class="dgo" cx="271.7" cy="84" r="3.8"></circle>
-<circle cx="301.5" cy="84" r="3.8" fill="#E0872E"></circle>
+<line class="dumb win" x1="271.7" y1="84" x2="301.5" y2="84"></line>
+<circle class="mgo" cx="271.7" cy="84" r="4"></circle>
+<circle class="mna" cx="301.5" cy="84" r="3.6"></circle>
 <text class="dl" x="310.5" y="88">+3.3</text>
 <text class="lbl" x="158" y="112" text-anchor="end">Network 15 · ch1</text>
-<line class="dumb" x1="391.8" y1="108" x2="426.1" y2="108" stroke="var(--good)"></line>
-<circle class="dgo" cx="391.8" cy="108" r="3.8"></circle>
-<circle cx="426.1" cy="108" r="3.8" fill="#E0872E"></circle>
+<line class="dumb win" x1="391.8" y1="108" x2="426.1" y2="108"></line>
+<circle class="mgo" cx="391.8" cy="108" r="4"></circle>
+<circle class="mna" cx="426.1" cy="108" r="3.6"></circle>
 <text class="dl" x="435.1" y="112">+3.8</text>
 <text class="lbl" x="158" y="136" text-anchor="end">Network 23 · ch1</text>
-<line class="dumb" x1="391.8" y1="132" x2="423.4" y2="132" stroke="var(--good)"></line>
-<circle class="dgo" cx="391.8" cy="132" r="3.8"></circle>
-<circle cx="423.4" cy="132" r="3.8" fill="#E0872E"></circle>
+<line class="dumb win" x1="391.8" y1="132" x2="423.4" y2="132"></line>
+<circle class="mgo" cx="391.8" cy="132" r="4"></circle>
+<circle class="mna" cx="423.4" cy="132" r="3.6"></circle>
 <text class="dl" x="432.4" y="136">+3.5</text>
 <text class="lbl" x="158" y="160" text-anchor="end">Network 12 · ch5</text>
-<line class="dumb" x1="231.0" y1="156" x2="274.4" y2="156" stroke="var(--good)"></line>
-<circle class="dgo" cx="231.0" cy="156" r="3.8"></circle>
-<circle cx="274.4" cy="156" r="3.8" fill="#E0872E"></circle>
+<line class="dumb win" x1="231.0" y1="156" x2="274.4" y2="156"></line>
+<circle class="mgo" cx="231.0" cy="156" r="4"></circle>
+<circle class="mna" cx="274.4" cy="156" r="3.6"></circle>
 <text class="dl" x="283.4" y="160">+4.8</text>
 <text class="lbl" x="158" y="184" text-anchor="end">Network 10 · ch6</text>
-<line class="dumb" x1="437.0" y1="180" x2="518.3" y2="180" stroke="var(--good)"></line>
-<circle class="dgo" cx="437.0" cy="180" r="3.8"></circle>
-<circle cx="518.3" cy="180" r="3.8" fill="#E0872E"></circle>
+<line class="dumb win" x1="437.0" y1="180" x2="518.3" y2="180"></line>
+<circle class="mgo" cx="437.0" cy="180" r="4"></circle>
+<circle class="mna" cx="518.3" cy="180" r="3.6"></circle>
 <text class="dl" x="527.3" y="184">+9.0</text>
 <text class="lbl" x="158" y="208" text-anchor="end">Network 15 · ch6</text>
-<line class="dumb" x1="437.0" y1="204" x2="518.3" y2="204" stroke="var(--good)"></line>
-<circle class="dgo" cx="437.0" cy="204" r="3.8"></circle>
-<circle cx="518.3" cy="204" r="3.8" fill="#E0872E"></circle>
+<line class="dumb win" x1="437.0" y1="204" x2="518.3" y2="204"></line>
+<circle class="mgo" cx="437.0" cy="204" r="4"></circle>
+<circle class="mna" cx="518.3" cy="204" r="3.6"></circle>
 <text class="dl" x="527.3" y="208">+9.0</text>
 <text class="lbl" x="158" y="232" text-anchor="end">Network 23 · ch6</text>
-<line class="dumb" x1="446.0" y1="228" x2="518.3" y2="228" stroke="var(--good)"></line>
-<circle class="dgo" cx="446.0" cy="228" r="3.8"></circle>
-<circle cx="518.3" cy="228" r="3.8" fill="#E0872E"></circle>
+<line class="dumb win" x1="446.0" y1="228" x2="518.3" y2="228"></line>
+<circle class="mgo" cx="446.0" cy="228" r="4"></circle>
+<circle class="mna" cx="518.3" cy="228" r="3.6"></circle>
 <text class="dl" x="527.3" y="232">+8.0</text>
 <text class="lbl" x="158" y="256" text-anchor="end">Network 25 · ch6</text>
-<line class="dumb" x1="446.0" y1="252" x2="478.5" y2="252" stroke="var(--good)"></line>
-<circle class="dgo" cx="446.0" cy="252" r="3.8"></circle>
-<circle cx="478.5" cy="252" r="3.8" fill="#E0872E"></circle>
+<line class="dumb win" x1="446.0" y1="252" x2="478.5" y2="252"></line>
+<circle class="mgo" cx="446.0" cy="252" r="4"></circle>
+<circle class="mna" cx="478.5" cy="252" r="3.6"></circle>
 <text class="dl" x="487.5" y="256">+3.6</text>
 <text class="lbl" x="158" y="280" text-anchor="end">Network 27 · ch6</text>
-<line class="dumb" x1="518.3" y1="276" x2="500.2" y2="276" stroke="var(--bad)"></line>
-<circle class="dgo" cx="518.3" cy="276" r="3.8"></circle>
-<circle cx="500.2" cy="276" r="3.8" fill="#E0872E"></circle>
+<line class="dumb lose" x1="518.3" y1="276" x2="500.2" y2="276"></line>
+<circle class="mgo" cx="518.3" cy="276" r="4"></circle>
+<circle class="mna" cx="500.2" cy="276" r="3.6"></circle>
 <text class="dl" x="527.3" y="280">-2.0</text>
 <text class="lbl" x="158" y="304" text-anchor="end">Network 27 · ch6</text>
-<line class="dumb" x1="382.8" y1="300" x2="437.0" y2="300" stroke="var(--good)"></line>
-<circle class="dgo" cx="382.8" cy="300" r="3.8"></circle>
-<circle cx="437.0" cy="300" r="3.8" fill="#E0872E"></circle>
+<line class="dumb win" x1="382.8" y1="300" x2="437.0" y2="300"></line>
+<circle class="mgo" cx="382.8" cy="300" r="4"></circle>
+<circle class="mna" cx="437.0" cy="300" r="3.6"></circle>
 <text class="dl" x="446.0" y="304">+6.0</text>
 <text class="lbl" x="158" y="328" text-anchor="end">Network 27 · ch6</text>
-<line class="dumb" x1="464.1" y1="324" x2="526.4" y2="324" stroke="var(--good)"></line>
-<circle class="dgo" cx="464.1" cy="324" r="3.8"></circle>
-<circle cx="526.4" cy="324" r="3.8" fill="#E0872E"></circle>
+<line class="dumb win" x1="464.1" y1="324" x2="526.4" y2="324"></line>
+<circle class="mgo" cx="464.1" cy="324" r="4"></circle>
+<circle class="mna" cx="526.4" cy="324" r="3.6"></circle>
 <text class="dl" x="535.4" y="328">+6.9</text>
 <text class="lbl" x="158" y="352" text-anchor="end">Network 28 · ch6</text>
-<line class="dumb" x1="461.4" y1="348" x2="473.1" y2="348" stroke="var(--good)"></line>
-<circle class="dgo" cx="461.4" cy="348" r="3.8"></circle>
-<circle cx="473.1" cy="348" r="3.8" fill="#E0872E"></circle>
+<line class="dumb win" x1="461.4" y1="348" x2="473.1" y2="348"></line>
+<circle class="mgo" cx="461.4" cy="348" r="4"></circle>
+<circle class="mna" cx="473.1" cy="348" r="3.6"></circle>
 <text class="dl" x="482.1" y="352">+1.3</text>
 <text class="lbl" x="158" y="376" text-anchor="end">Network 31 · ch6</text>
-<line class="dumb" x1="371.9" y1="372" x2="437.0" y2="372" stroke="var(--good)"></line>
-<circle class="dgo" cx="371.9" cy="372" r="3.8"></circle>
-<circle cx="437.0" cy="372" r="3.8" fill="#E0872E"></circle>
+<line class="dumb win" x1="371.9" y1="372" x2="437.0" y2="372"></line>
+<circle class="mgo" cx="371.9" cy="372" r="4"></circle>
+<circle class="mna" cx="437.0" cy="372" r="3.6"></circle>
 <text class="dl" x="446.0" y="376">+7.2</text>
 <text class="lbl" x="158" y="400" text-anchor="end">Network 34 · ch6</text>
-<line class="dumb" x1="342.1" y1="396" x2="406.3" y2="396" stroke="var(--good)"></line>
-<circle class="dgo" cx="342.1" cy="396" r="3.8"></circle>
-<circle cx="406.3" cy="396" r="3.8" fill="#E0872E"></circle>
+<line class="dumb win" x1="342.1" y1="396" x2="406.3" y2="396"></line>
+<circle class="mgo" cx="342.1" cy="396" r="4"></circle>
+<circle class="mna" cx="406.3" cy="396" r="3.6"></circle>
 <text class="dl" x="415.3" y="400">+7.1</text>
 <text class="lbl" x="158" y="424" text-anchor="end">Network 35 · ch6</text>
-<line class="dumb" x1="202.1" y1="420" x2="283.4" y2="420" stroke="var(--good)"></line>
-<circle class="dgo" cx="202.1" cy="420" r="3.8"></circle>
-<circle cx="283.4" cy="420" r="3.8" fill="#E0872E"></circle>
+<line class="dumb win" x1="202.1" y1="420" x2="283.4" y2="420"></line>
+<circle class="mgo" cx="202.1" cy="420" r="4"></circle>
+<circle class="mna" cx="283.4" cy="420" r="3.6"></circle>
 <text class="dl" x="292.4" y="424">+9.0</text>
 <text class="lbl" x="158" y="448" text-anchor="end">Network 33 · ch8</text>
-<line class="dumb" x1="274.4" y1="444" x2="364.7" y2="444" stroke="var(--good)"></line>
-<circle class="dgo" cx="274.4" cy="444" r="3.8"></circle>
-<circle cx="364.7" cy="444" r="3.8" fill="#E0872E"></circle>
+<line class="dumb win" x1="274.4" y1="444" x2="364.7" y2="444"></line>
+<circle class="mgo" cx="274.4" cy="444" r="4"></circle>
+<circle class="mna" cx="364.7" cy="444" r="3.6"></circle>
 <text class="dl" x="373.7" y="448">+10.0</text>
 <text class="lbl" x="158" y="472" text-anchor="end">Network 10 · ch11</text>
-<line class="dumb" x1="400.8" y1="468" x2="355.7" y2="468" stroke="var(--bad)"></line>
-<circle class="dgo" cx="400.8" cy="468" r="3.8"></circle>
-<circle cx="355.7" cy="468" r="3.8" fill="#E0872E"></circle>
+<line class="dumb lose" x1="400.8" y1="468" x2="355.7" y2="468"></line>
+<circle class="mgo" cx="400.8" cy="468" r="4"></circle>
+<circle class="mna" cx="355.7" cy="468" r="3.6"></circle>
 <text class="dl" x="409.8" y="472">-5.0</text>
 <text class="lbl" x="158" y="496" text-anchor="end">Network 10 · ch11</text>
-<line class="dumb" x1="626.6" y1="492" x2="653.7" y2="492" stroke="var(--good)"></line>
-<circle class="dgo" cx="626.6" cy="492" r="3.8"></circle>
-<circle cx="653.7" cy="492" r="3.8" fill="#E0872E"></circle>
+<line class="dumb win" x1="626.6" y1="492" x2="653.7" y2="492"></line>
+<circle class="mgo" cx="626.6" cy="492" r="4"></circle>
+<circle class="mna" cx="653.7" cy="492" r="3.6"></circle>
 <text class="dl" x="662.7" y="496">+3.0</text>
 <text class="lbl" x="158" y="520" text-anchor="end">Network 15 · ch11</text>
-<line class="dumb" x1="626.6" y1="516" x2="653.7" y2="516" stroke="var(--good)"></line>
-<circle class="dgo" cx="626.6" cy="516" r="3.8"></circle>
-<circle cx="653.7" cy="516" r="3.8" fill="#E0872E"></circle>
+<line class="dumb win" x1="626.6" y1="516" x2="653.7" y2="516"></line>
+<circle class="mgo" cx="626.6" cy="516" r="4"></circle>
+<circle class="mna" cx="653.7" cy="516" r="3.6"></circle>
 <text class="dl" x="662.7" y="520">+3.0</text>
 <text class="lbl" x="158" y="544" text-anchor="end">Network 15 · ch11</text>
-<line class="dumb" x1="400.8" y1="540" x2="355.7" y2="540" stroke="var(--bad)"></line>
-<circle class="dgo" cx="400.8" cy="540" r="3.8"></circle>
-<circle cx="355.7" cy="540" r="3.8" fill="#E0872E"></circle>
+<line class="dumb lose" x1="400.8" y1="540" x2="355.7" y2="540"></line>
+<circle class="mgo" cx="400.8" cy="540" r="4"></circle>
+<circle class="mna" cx="355.7" cy="540" r="3.6"></circle>
 <text class="dl" x="409.8" y="544">-5.0</text>
 <text class="lbl" x="158" y="568" text-anchor="end">Network 20 · ch11</text>
-<line class="dumb" x1="491.2" y1="564" x2="491.2" y2="564" stroke="var(--muted)"></line>
-<circle class="dgo" cx="491.2" cy="564" r="3.8"></circle>
-<circle cx="491.2" cy="564" r="3.8" fill="#E0872E"></circle>
+<line class="dumb tieline" x1="491.2" y1="564" x2="491.2" y2="564"></line>
+<circle class="mgo" cx="491.2" cy="564" r="4"></circle>
+<circle class="mna" cx="491.2" cy="564" r="3.6"></circle>
 <text class="dl" x="500.2" y="568">+0.0</text>
 <text class="lbl" x="158" y="592" text-anchor="end">Network 23 · ch11</text>
-<line class="dumb" x1="400.8" y1="588" x2="355.7" y2="588" stroke="var(--bad)"></line>
-<circle class="dgo" cx="400.8" cy="588" r="3.8"></circle>
-<circle cx="355.7" cy="588" r="3.8" fill="#E0872E"></circle>
+<line class="dumb lose" x1="400.8" y1="588" x2="355.7" y2="588"></line>
+<circle class="mgo" cx="400.8" cy="588" r="4"></circle>
+<circle class="mna" cx="355.7" cy="588" r="3.6"></circle>
 <text class="dl" x="409.8" y="592">-5.0</text>
 <text class="lbl" x="158" y="616" text-anchor="end">Network 23 · ch11</text>
-<line class="dumb" x1="626.6" y1="612" x2="653.7" y2="612" stroke="var(--good)"></line>
-<circle class="dgo" cx="626.6" cy="612" r="3.8"></circle>
-<circle cx="653.7" cy="612" r="3.8" fill="#E0872E"></circle>
+<line class="dumb win" x1="626.6" y1="612" x2="653.7" y2="612"></line>
+<circle class="mgo" cx="626.6" cy="612" r="4"></circle>
+<circle class="mna" cx="653.7" cy="612" r="3.6"></circle>
 <text class="dl" x="662.7" y="616">+3.0</text>
 <text class="lbl" x="158" y="640" text-anchor="end">Network 26 · ch11</text>
-<line class="dumb" x1="265.4" y1="636" x2="308.7" y2="636" stroke="var(--good)"></line>
-<circle class="dgo" cx="265.4" cy="636" r="3.8"></circle>
-<circle cx="308.7" cy="636" r="3.8" fill="#E0872E"></circle>
+<line class="dumb win" x1="265.4" y1="636" x2="308.7" y2="636"></line>
+<circle class="mgo" cx="265.4" cy="636" r="4"></circle>
+<circle class="mna" cx="308.7" cy="636" r="3.6"></circle>
 <text class="dl" x="317.7" y="640">+4.8</text>
 <text class="grp" x="16" y="680">5 GHz</text>
 <text class="lbl" x="158" y="690" text-anchor="end">Network 01 · ch36</text>
-<line class="dumb" x1="509.2" y1="686" x2="434.3" y2="686" stroke="var(--bad)"></line>
-<circle class="dgo" cx="509.2" cy="686" r="3.8"></circle>
-<circle cx="434.3" cy="686" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb lose" x1="509.2" y1="686" x2="434.3" y2="686"></line>
+<circle class="mgo" cx="509.2" cy="686" r="4"></circle>
+<circle class="mna" cx="434.3" cy="686" r="3.6"></circle>
 <text class="dl" x="518.2" y="690">-8.3</text>
 <text class="lbl" x="158" y="714" text-anchor="end">Network 01 · ch36</text>
-<line class="dumb" x1="373.7" y1="710" x2="346.6" y2="710" stroke="var(--bad)"></line>
-<circle class="dgo" cx="373.7" cy="710" r="3.8"></circle>
-<circle cx="346.6" cy="710" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb lose" x1="373.7" y1="710" x2="346.6" y2="710"></line>
+<circle class="mgo" cx="373.7" cy="710" r="4"></circle>
+<circle class="mna" cx="346.6" cy="710" r="3.6"></circle>
 <text class="dl" x="382.7" y="714">-3.0</text>
 <text class="lbl" x="158" y="738" text-anchor="end">Network 35 · ch36</text>
-<line class="dumb" x1="166.0" y1="734" x2="175.0" y2="734" stroke="var(--muted)"></line>
-<circle class="dgo" cx="166.0" cy="734" r="3.8"></circle>
-<circle cx="175.0" cy="734" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb tieline" x1="166.0" y1="734" x2="175.0" y2="734"></line>
+<circle class="mgo" cx="166.0" cy="734" r="4"></circle>
+<circle class="mna" cx="175.0" cy="734" r="3.6"></circle>
 <text class="dl" x="184.0" y="738">+1.0</text>
 <text class="lbl" x="158" y="762" text-anchor="end">Network 11 · ch44</text>
-<line class="dumb" x1="220.2" y1="758" x2="211.2" y2="758" stroke="var(--muted)"></line>
-<circle class="dgo" cx="220.2" cy="758" r="3.8"></circle>
-<circle cx="211.2" cy="758" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb tieline" x1="220.2" y1="758" x2="211.2" y2="758"></line>
+<circle class="mgo" cx="220.2" cy="758" r="4"></circle>
+<circle class="mna" cx="211.2" cy="758" r="3.6"></circle>
 <text class="dl" x="229.2" y="762">-1.0</text>
 <text class="lbl" x="158" y="786" text-anchor="end">Network 28 · ch44</text>
-<line class="dumb" x1="211.2" y1="782" x2="218.4" y2="782" stroke="var(--muted)"></line>
-<circle class="dgo" cx="211.2" cy="782" r="3.8"></circle>
-<circle cx="218.4" cy="782" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb tieline" x1="211.2" y1="782" x2="218.4" y2="782"></line>
+<circle class="mgo" cx="211.2" cy="782" r="4"></circle>
+<circle class="mna" cx="218.4" cy="782" r="3.6"></circle>
 <text class="dl" x="227.4" y="786">+0.8</text>
 <text class="lbl" x="158" y="810" text-anchor="end">Network 19 · ch48</text>
-<line class="dumb" x1="184.1" y1="806" x2="202.1" y2="806" stroke="var(--good)"></line>
-<circle class="dgo" cx="184.1" cy="806" r="3.8"></circle>
-<circle cx="202.1" cy="806" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb win" x1="184.1" y1="806" x2="202.1" y2="806"></line>
+<circle class="mgo" cx="184.1" cy="806" r="4"></circle>
+<circle class="mna" cx="202.1" cy="806" r="3.6"></circle>
 <text class="dl" x="211.1" y="810">+2.0</text>
 <text class="lbl" x="158" y="834" text-anchor="end">Network 09 · ch56</text>
-<line class="dumb" x1="464.1" y1="830" x2="444.2" y2="830" stroke="var(--bad)"></line>
-<circle class="dgo" cx="464.1" cy="830" r="3.8"></circle>
-<circle cx="444.2" cy="830" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb lose" x1="464.1" y1="830" x2="444.2" y2="830"></line>
+<circle class="mgo" cx="464.1" cy="830" r="4"></circle>
+<circle class="mna" cx="444.2" cy="830" r="3.6"></circle>
 <text class="dl" x="473.1" y="834">-2.2</text>
 <text class="lbl" x="158" y="858" text-anchor="end">Network 15 · ch56</text>
-<line class="dumb" x1="464.1" y1="854" x2="444.2" y2="854" stroke="var(--bad)"></line>
-<circle class="dgo" cx="464.1" cy="854" r="3.8"></circle>
-<circle cx="444.2" cy="854" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb lose" x1="464.1" y1="854" x2="444.2" y2="854"></line>
+<circle class="mgo" cx="464.1" cy="854" r="4"></circle>
+<circle class="mna" cx="444.2" cy="854" r="3.6"></circle>
 <text class="dl" x="473.1" y="858">-2.2</text>
 <text class="lbl" x="158" y="882" text-anchor="end">Network 16 · ch56</text>
-<line class="dumb" x1="464.1" y1="878" x2="444.2" y2="878" stroke="var(--bad)"></line>
-<circle class="dgo" cx="464.1" cy="878" r="3.8"></circle>
-<circle cx="444.2" cy="878" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb lose" x1="464.1" y1="878" x2="444.2" y2="878"></line>
+<circle class="mgo" cx="464.1" cy="878" r="4"></circle>
+<circle class="mna" cx="444.2" cy="878" r="3.6"></circle>
 <text class="dl" x="473.1" y="882">-2.2</text>
 <text class="lbl" x="158" y="906" text-anchor="end">Network 23 · ch56</text>
-<line class="dumb" x1="464.1" y1="902" x2="444.2" y2="902" stroke="var(--bad)"></line>
-<circle class="dgo" cx="464.1" cy="902" r="3.8"></circle>
-<circle cx="444.2" cy="902" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb lose" x1="464.1" y1="902" x2="444.2" y2="902"></line>
+<circle class="mgo" cx="464.1" cy="902" r="4"></circle>
+<circle class="mna" cx="444.2" cy="902" r="3.6"></circle>
 <text class="dl" x="473.1" y="906">-2.2</text>
 <text class="lbl" x="158" y="930" text-anchor="end">Network 36 · ch56</text>
-<line class="dumb" x1="464.1" y1="926" x2="444.2" y2="926" stroke="var(--bad)"></line>
-<circle class="dgo" cx="464.1" cy="926" r="3.8"></circle>
-<circle cx="444.2" cy="926" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb lose" x1="464.1" y1="926" x2="444.2" y2="926"></line>
+<circle class="mgo" cx="464.1" cy="926" r="4"></circle>
+<circle class="mna" cx="444.2" cy="926" r="3.6"></circle>
 <text class="dl" x="473.1" y="930">-2.2</text>
 <text class="lbl" x="158" y="954" text-anchor="end">Network 37 · ch56</text>
-<line class="dumb" x1="464.1" y1="950" x2="444.2" y2="950" stroke="var(--bad)"></line>
-<circle class="dgo" cx="464.1" cy="950" r="3.8"></circle>
-<circle cx="444.2" cy="950" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb lose" x1="464.1" y1="950" x2="444.2" y2="950"></line>
+<circle class="mgo" cx="464.1" cy="950" r="4"></circle>
+<circle class="mna" cx="444.2" cy="950" r="3.6"></circle>
 <text class="dl" x="473.1" y="954">-2.2</text>
 <text class="lbl" x="158" y="978" text-anchor="end">Network 09 · ch60</text>
-<line class="dumb" x1="500.2" y1="974" x2="500.2" y2="974" stroke="var(--muted)"></line>
-<circle class="dgo" cx="500.2" cy="974" r="3.8"></circle>
-<circle cx="500.2" cy="974" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb tieline" x1="500.2" y1="974" x2="500.2" y2="974"></line>
+<circle class="mgo" cx="500.2" cy="974" r="4"></circle>
+<circle class="mna" cx="500.2" cy="974" r="3.6"></circle>
 <text class="dl" x="509.2" y="978">+0.0</text>
 <text class="lbl" x="158" y="1002" text-anchor="end">Network 15 · ch60</text>
-<line class="dumb" x1="498.4" y1="998" x2="500.2" y2="998" stroke="var(--muted)"></line>
-<circle class="dgo" cx="498.4" cy="998" r="3.8"></circle>
-<circle cx="500.2" cy="998" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb tieline" x1="498.4" y1="998" x2="500.2" y2="998"></line>
+<circle class="mgo" cx="498.4" cy="998" r="4"></circle>
+<circle class="mna" cx="500.2" cy="998" r="3.6"></circle>
 <text class="dl" x="509.2" y="1002">+0.2</text>
 <text class="lbl" x="158" y="1026" text-anchor="end">Network 16 · ch60</text>
-<line class="dumb" x1="498.4" y1="1022" x2="498.4" y2="1022" stroke="var(--muted)"></line>
-<circle class="dgo" cx="498.4" cy="1022" r="3.8"></circle>
-<circle cx="498.4" cy="1022" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb tieline" x1="498.4" y1="1022" x2="498.4" y2="1022"></line>
+<circle class="mgo" cx="498.4" cy="1022" r="4"></circle>
+<circle class="mna" cx="498.4" cy="1022" r="3.6"></circle>
 <text class="dl" x="507.4" y="1026">+0.0</text>
 <text class="lbl" x="158" y="1050" text-anchor="end">Network 23 · ch60</text>
-<line class="dumb" x1="498.4" y1="1046" x2="498.4" y2="1046" stroke="var(--muted)"></line>
-<circle class="dgo" cx="498.4" cy="1046" r="3.8"></circle>
-<circle cx="498.4" cy="1046" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb tieline" x1="498.4" y1="1046" x2="498.4" y2="1046"></line>
+<circle class="mgo" cx="498.4" cy="1046" r="4"></circle>
+<circle class="mna" cx="498.4" cy="1046" r="3.6"></circle>
 <text class="dl" x="507.4" y="1050">+0.0</text>
 <text class="lbl" x="158" y="1074" text-anchor="end">Network 36 · ch60</text>
-<line class="dumb" x1="500.2" y1="1070" x2="500.2" y2="1070" stroke="var(--muted)"></line>
-<circle class="dgo" cx="500.2" cy="1070" r="3.8"></circle>
-<circle cx="500.2" cy="1070" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb tieline" x1="500.2" y1="1070" x2="500.2" y2="1070"></line>
+<circle class="mgo" cx="500.2" cy="1070" r="4"></circle>
+<circle class="mna" cx="500.2" cy="1070" r="3.6"></circle>
 <text class="dl" x="509.2" y="1074">+0.0</text>
 <text class="lbl" x="158" y="1098" text-anchor="end">Network 37 · ch60</text>
-<line class="dumb" x1="500.2" y1="1094" x2="500.2" y2="1094" stroke="var(--muted)"></line>
-<circle class="dgo" cx="500.2" cy="1094" r="3.8"></circle>
-<circle cx="500.2" cy="1094" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb tieline" x1="500.2" y1="1094" x2="500.2" y2="1094"></line>
+<circle class="mgo" cx="500.2" cy="1094" r="4"></circle>
+<circle class="mna" cx="500.2" cy="1094" r="3.6"></circle>
 <text class="dl" x="509.2" y="1098">+0.0</text>
 <text class="lbl" x="158" y="1122" text-anchor="end">Network 03 · ch116</text>
-<line class="dumb" x1="653.7" y1="1118" x2="726.0" y2="1118" stroke="var(--good)"></line>
-<circle class="dgo" cx="653.7" cy="1118" r="3.8"></circle>
-<circle cx="726.0" cy="1118" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb win" x1="653.7" y1="1118" x2="726.0" y2="1118"></line>
+<circle class="mgo" cx="653.7" cy="1118" r="4"></circle>
+<circle class="mna" cx="726.0" cy="1118" r="3.6"></circle>
 <text class="dl" x="735.0" y="1122">+8.0</text>
 <text class="lbl" x="158" y="1146" text-anchor="end">Network 09 · ch120</text>
-<line class="dumb" x1="632.1" y1="1142" x2="608.6" y2="1142" stroke="var(--bad)"></line>
-<circle class="dgo" cx="632.1" cy="1142" r="3.8"></circle>
-<circle cx="608.6" cy="1142" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb lose" x1="632.1" y1="1142" x2="608.6" y2="1142"></line>
+<circle class="mgo" cx="632.1" cy="1142" r="4"></circle>
+<circle class="mna" cx="608.6" cy="1142" r="3.6"></circle>
 <text class="dl" x="641.1" y="1146">-2.6</text>
 <text class="lbl" x="158" y="1170" text-anchor="end">Network 15 · ch120</text>
-<line class="dumb" x1="632.1" y1="1166" x2="608.6" y2="1166" stroke="var(--bad)"></line>
-<circle class="dgo" cx="632.1" cy="1166" r="3.8"></circle>
-<circle cx="608.6" cy="1166" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb lose" x1="632.1" y1="1166" x2="608.6" y2="1166"></line>
+<circle class="mgo" cx="632.1" cy="1166" r="4"></circle>
+<circle class="mna" cx="608.6" cy="1166" r="3.6"></circle>
 <text class="dl" x="641.1" y="1170">-2.6</text>
 <text class="lbl" x="158" y="1194" text-anchor="end">Network 16 · ch120</text>
-<line class="dumb" x1="632.1" y1="1190" x2="608.6" y2="1190" stroke="var(--bad)"></line>
-<circle class="dgo" cx="632.1" cy="1190" r="3.8"></circle>
-<circle cx="608.6" cy="1190" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb lose" x1="632.1" y1="1190" x2="608.6" y2="1190"></line>
+<circle class="mgo" cx="632.1" cy="1190" r="4"></circle>
+<circle class="mna" cx="608.6" cy="1190" r="3.6"></circle>
 <text class="dl" x="641.1" y="1194">-2.6</text>
 <text class="lbl" x="158" y="1218" text-anchor="end">Network 23 · ch120</text>
-<line class="dumb" x1="632.1" y1="1214" x2="608.6" y2="1214" stroke="var(--bad)"></line>
-<circle class="dgo" cx="632.1" cy="1214" r="3.8"></circle>
-<circle cx="608.6" cy="1214" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb lose" x1="632.1" y1="1214" x2="608.6" y2="1214"></line>
+<circle class="mgo" cx="632.1" cy="1214" r="4"></circle>
+<circle class="mna" cx="608.6" cy="1214" r="3.6"></circle>
 <text class="dl" x="641.1" y="1218">-2.6</text>
 <text class="lbl" x="158" y="1242" text-anchor="end">Network 36 · ch120</text>
-<line class="dumb" x1="635.7" y1="1238" x2="608.6" y2="1238" stroke="var(--bad)"></line>
-<circle class="dgo" cx="635.7" cy="1238" r="3.8"></circle>
-<circle cx="608.6" cy="1238" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb lose" x1="635.7" y1="1238" x2="608.6" y2="1238"></line>
+<circle class="mgo" cx="635.7" cy="1238" r="4"></circle>
+<circle class="mna" cx="608.6" cy="1238" r="3.6"></circle>
 <text class="dl" x="644.7" y="1242">-3.0</text>
 <text class="lbl" x="158" y="1266" text-anchor="end">Network 37 · ch120</text>
-<line class="dumb" x1="635.7" y1="1262" x2="608.6" y2="1262" stroke="var(--bad)"></line>
-<circle class="dgo" cx="635.7" cy="1262" r="3.8"></circle>
-<circle cx="608.6" cy="1262" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb lose" x1="635.7" y1="1262" x2="608.6" y2="1262"></line>
+<circle class="mgo" cx="635.7" cy="1262" r="4"></circle>
+<circle class="mna" cx="608.6" cy="1262" r="3.6"></circle>
 <text class="dl" x="644.7" y="1266">-3.0</text>
 <text class="lbl" x="158" y="1290" text-anchor="end">Network 03 · ch132</text>
-<line class="dumb" x1="418.9" y1="1286" x2="437.0" y2="1286" stroke="var(--good)"></line>
-<circle class="dgo" cx="418.9" cy="1286" r="3.8"></circle>
-<circle cx="437.0" cy="1286" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb win" x1="418.9" y1="1286" x2="437.0" y2="1286"></line>
+<circle class="mgo" cx="418.9" cy="1286" r="4"></circle>
+<circle class="mna" cx="437.0" cy="1286" r="3.6"></circle>
 <text class="dl" x="446.0" y="1290">+2.0</text>
 <text class="lbl" x="158" y="1314" text-anchor="end">Network 09 · ch140</text>
-<line class="dumb" x1="391.8" y1="1310" x2="409.9" y2="1310" stroke="var(--good)"></line>
-<circle class="dgo" cx="391.8" cy="1310" r="3.8"></circle>
-<circle cx="409.9" cy="1310" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb win" x1="391.8" y1="1310" x2="409.9" y2="1310"></line>
+<circle class="mgo" cx="391.8" cy="1310" r="4"></circle>
+<circle class="mna" cx="409.9" cy="1310" r="3.6"></circle>
 <text class="dl" x="418.9" y="1314">+2.0</text>
 <text class="lbl" x="158" y="1338" text-anchor="end">Network 15 · ch140</text>
-<line class="dumb" x1="391.8" y1="1334" x2="409.9" y2="1334" stroke="var(--good)"></line>
-<circle class="dgo" cx="391.8" cy="1334" r="3.8"></circle>
-<circle cx="409.9" cy="1334" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb win" x1="391.8" y1="1334" x2="409.9" y2="1334"></line>
+<circle class="mgo" cx="391.8" cy="1334" r="4"></circle>
+<circle class="mna" cx="409.9" cy="1334" r="3.6"></circle>
 <text class="dl" x="418.9" y="1338">+2.0</text>
 <text class="lbl" x="158" y="1362" text-anchor="end">Network 16 · ch140</text>
-<line class="dumb" x1="391.8" y1="1358" x2="409.9" y2="1358" stroke="var(--good)"></line>
-<circle class="dgo" cx="391.8" cy="1358" r="3.8"></circle>
-<circle cx="409.9" cy="1358" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb win" x1="391.8" y1="1358" x2="409.9" y2="1358"></line>
+<circle class="mgo" cx="391.8" cy="1358" r="4"></circle>
+<circle class="mna" cx="409.9" cy="1358" r="3.6"></circle>
 <text class="dl" x="418.9" y="1362">+2.0</text>
 <text class="lbl" x="158" y="1386" text-anchor="end">Network 23 · ch140</text>
-<line class="dumb" x1="391.8" y1="1382" x2="409.9" y2="1382" stroke="var(--good)"></line>
-<circle class="dgo" cx="391.8" cy="1382" r="3.8"></circle>
-<circle cx="409.9" cy="1382" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb win" x1="391.8" y1="1382" x2="409.9" y2="1382"></line>
+<circle class="mgo" cx="391.8" cy="1382" r="4"></circle>
+<circle class="mna" cx="409.9" cy="1382" r="3.6"></circle>
 <text class="dl" x="418.9" y="1386">+2.0</text>
 <text class="lbl" x="158" y="1410" text-anchor="end">Network 36 · ch140</text>
-<line class="dumb" x1="391.8" y1="1406" x2="409.9" y2="1406" stroke="var(--good)"></line>
-<circle class="dgo" cx="391.8" cy="1406" r="3.8"></circle>
-<circle cx="409.9" cy="1406" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb win" x1="391.8" y1="1406" x2="409.9" y2="1406"></line>
+<circle class="mgo" cx="391.8" cy="1406" r="4"></circle>
+<circle class="mna" cx="409.9" cy="1406" r="3.6"></circle>
 <text class="dl" x="418.9" y="1410">+2.0</text>
 <text class="lbl" x="158" y="1434" text-anchor="end">Network 37 · ch140</text>
-<line class="dumb" x1="391.8" y1="1430" x2="409.9" y2="1430" stroke="var(--good)"></line>
-<circle class="dgo" cx="391.8" cy="1430" r="3.8"></circle>
-<circle cx="409.9" cy="1430" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb win" x1="391.8" y1="1430" x2="409.9" y2="1430"></line>
+<circle class="mgo" cx="391.8" cy="1430" r="4"></circle>
+<circle class="mna" cx="409.9" cy="1430" r="3.6"></circle>
 <text class="dl" x="418.9" y="1434">+2.0</text>
 <text class="lbl" x="158" y="1458" text-anchor="end">Network 25 · ch149</text>
-<line class="dumb" x1="473.1" y1="1454" x2="473.1" y2="1454" stroke="var(--muted)"></line>
-<circle class="dgo" cx="473.1" cy="1454" r="3.8"></circle>
-<circle cx="473.1" cy="1454" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb tieline" x1="473.1" y1="1454" x2="473.1" y2="1454"></line>
+<circle class="mgo" cx="473.1" cy="1454" r="4"></circle>
+<circle class="mna" cx="473.1" cy="1454" r="3.6"></circle>
 <text class="dl" x="482.1" y="1458">+0.0</text>
 <text class="lbl" x="158" y="1482" text-anchor="end">Network 28 · ch149</text>
-<line class="dumb" x1="479.4" y1="1478" x2="473.1" y2="1478" stroke="var(--muted)"></line>
-<circle class="dgo" cx="479.4" cy="1478" r="3.8"></circle>
-<circle cx="473.1" cy="1478" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb tieline" x1="479.4" y1="1478" x2="473.1" y2="1478"></line>
+<circle class="mgo" cx="479.4" cy="1478" r="4"></circle>
+<circle class="mna" cx="473.1" cy="1478" r="3.6"></circle>
 <text class="dl" x="488.4" y="1482">-0.7</text>
 <text class="lbl" x="158" y="1506" text-anchor="end">Network 20 · ch157</text>
-<line class="dumb" x1="426.1" y1="1502" x2="473.1" y2="1502" stroke="var(--good)"></line>
-<circle class="dgo" cx="426.1" cy="1502" r="3.8"></circle>
-<circle cx="473.1" cy="1502" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb win" x1="426.1" y1="1502" x2="473.1" y2="1502"></line>
+<circle class="mgo" cx="426.1" cy="1502" r="4"></circle>
+<circle class="mna" cx="473.1" cy="1502" r="3.6"></circle>
 <text class="dl" x="482.1" y="1506">+5.2</text>
 <text class="lbl" x="158" y="1530" text-anchor="end">Network 21 · ch157</text>
-<line class="dumb" x1="426.1" y1="1526" x2="473.1" y2="1526" stroke="var(--good)"></line>
-<circle class="dgo" cx="426.1" cy="1526" r="3.8"></circle>
-<circle cx="473.1" cy="1526" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb win" x1="426.1" y1="1526" x2="473.1" y2="1526"></line>
+<circle class="mgo" cx="426.1" cy="1526" r="4"></circle>
+<circle class="mna" cx="473.1" cy="1526" r="3.6"></circle>
 <text class="dl" x="482.1" y="1530">+5.2</text>
 <text class="lbl" x="158" y="1554" text-anchor="end">Network 22 · ch157</text>
-<line class="dumb" x1="426.1" y1="1550" x2="473.1" y2="1550" stroke="var(--good)"></line>
-<circle class="dgo" cx="426.1" cy="1550" r="3.8"></circle>
-<circle cx="473.1" cy="1550" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb win" x1="426.1" y1="1550" x2="473.1" y2="1550"></line>
+<circle class="mgo" cx="426.1" cy="1550" r="4"></circle>
+<circle class="mna" cx="473.1" cy="1550" r="3.6"></circle>
 <text class="dl" x="482.1" y="1554">+5.2</text>
 <text class="lbl" x="158" y="1578" text-anchor="end">Network 28 · ch157</text>
-<line class="dumb" x1="343.9" y1="1574" x2="355.7" y2="1574" stroke="var(--good)"></line>
-<circle class="dgo" cx="343.9" cy="1574" r="3.8"></circle>
-<circle cx="355.7" cy="1574" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb win" x1="343.9" y1="1574" x2="355.7" y2="1574"></line>
+<circle class="mgo" cx="343.9" cy="1574" r="4"></circle>
+<circle class="mna" cx="355.7" cy="1574" r="3.6"></circle>
 <text class="dl" x="364.7" y="1578">+1.3</text>
 <text class="lbl" x="158" y="1602" text-anchor="end">Network 31 · ch157</text>
-<line class="dumb" x1="343.9" y1="1598" x2="355.7" y2="1598" stroke="var(--good)"></line>
-<circle class="dgo" cx="343.9" cy="1598" r="3.8"></circle>
-<circle cx="355.7" cy="1598" r="3.8" fill="#3B6FB0"></circle>
+<line class="dumb win" x1="343.9" y1="1598" x2="355.7" y2="1598"></line>
+<circle class="mgo" cx="343.9" cy="1598" r="4"></circle>
+<circle class="mna" cx="355.7" cy="1598" r="3.6"></circle>
 <text class="dl" x="364.7" y="1602">+1.3</text>
 <text class="grp" x="16" y="1642">6 GHz</text>
 <text class="lbl" x="158" y="1652" text-anchor="end">Network 02 · ch5</text>
-<line class="dumb" x1="491.2" y1="1648" x2="444.2" y2="1648" stroke="var(--bad)"></line>
-<circle class="dgo" cx="491.2" cy="1648" r="3.8"></circle>
-<circle cx="444.2" cy="1648" r="3.8" fill="#8A62C8"></circle>
+<line class="dumb lose" x1="491.2" y1="1648" x2="444.2" y2="1648"></line>
+<circle class="mgo" cx="491.2" cy="1648" r="4"></circle>
+<circle class="mna" cx="444.2" cy="1648" r="3.6"></circle>
 <text class="dl" x="500.2" y="1652">-5.2</text>
 <text class="lbl" x="158" y="1676" text-anchor="end">Network 31 · ch53</text>
-<line class="dumb" x1="211.2" y1="1672" x2="182.3" y2="1672" stroke="var(--bad)"></line>
-<circle class="dgo" cx="211.2" cy="1672" r="3.8"></circle>
-<circle cx="182.3" cy="1672" r="3.8" fill="#8A62C8"></circle>
+<line class="dumb lose" x1="211.2" y1="1672" x2="182.3" y2="1672"></line>
+<circle class="mgo" cx="211.2" cy="1672" r="4"></circle>
+<circle class="mna" cx="182.3" cy="1672" r="3.6"></circle>
 <text class="dl" x="220.2" y="1676">-3.2</text>
 <text class="lbl" x="158" y="1700" text-anchor="end">Network 24 · ch69</text>
-<line class="dumb" x1="545.4" y1="1696" x2="588.7" y2="1696" stroke="var(--good)"></line>
-<circle class="dgo" cx="545.4" cy="1696" r="3.8"></circle>
-<circle cx="588.7" cy="1696" r="3.8" fill="#8A62C8"></circle>
+<line class="dumb win" x1="545.4" y1="1696" x2="588.7" y2="1696"></line>
+<circle class="mgo" cx="545.4" cy="1696" r="4"></circle>
+<circle class="mna" cx="588.7" cy="1696" r="3.6"></circle>
 <text class="dl" x="597.7" y="1700">+4.8</text>
 <text class="lbl" x="158" y="1724" text-anchor="end">Network 24 · ch133</text>
-<line class="dumb" x1="355.7" y1="1720" x2="364.7" y2="1720" stroke="var(--muted)"></line>
-<circle class="dgo" cx="355.7" cy="1720" r="3.8"></circle>
-<circle cx="364.7" cy="1720" r="3.8" fill="#8A62C8"></circle>
+<line class="dumb tieline" x1="355.7" y1="1720" x2="364.7" y2="1720"></line>
+<circle class="mgo" cx="355.7" cy="1720" r="4"></circle>
+<circle class="mna" cx="364.7" cy="1720" r="3.6"></circle>
 <text class="dl" x="373.7" y="1724">+1.0</text>
 <text class="lbl" x="158" y="1748" text-anchor="end">Network 24 · ch165</text>
-<line class="dumb" x1="446.0" y1="1744" x2="473.1" y2="1744" stroke="var(--good)"></line>
-<circle class="dgo" cx="446.0" cy="1744" r="3.8"></circle>
-<circle cx="473.1" cy="1744" r="3.8" fill="#8A62C8"></circle>
+<line class="dumb win" x1="446.0" y1="1744" x2="473.1" y2="1744"></line>
+<circle class="mgo" cx="446.0" cy="1744" r="4"></circle>
+<circle class="mna" cx="473.1" cy="1744" r="3.6"></circle>
 <text class="dl" x="482.1" y="1748">+3.0</text>
 <text class="lbl" x="158" y="1772" text-anchor="end">Network 03 · ch197</text>
-<line class="dumb" x1="536.3" y1="1768" x2="534.5" y2="1768" stroke="var(--muted)"></line>
-<circle class="dgo" cx="536.3" cy="1768" r="3.8"></circle>
-<circle cx="534.5" cy="1768" r="3.8" fill="#8A62C8"></circle>
+<line class="dumb tieline" x1="536.3" y1="1768" x2="534.5" y2="1768"></line>
+<circle class="mgo" cx="536.3" cy="1768" r="4"></circle>
+<circle class="mna" cx="534.5" cy="1768" r="3.6"></circle>
 <text class="dl" x="545.3" y="1772">-0.2</text>
 <text class="lbl" x="158" y="1796" text-anchor="end">Network 04 · ch197</text>
-<line class="dumb" x1="536.3" y1="1792" x2="534.5" y2="1792" stroke="var(--muted)"></line>
-<circle class="dgo" cx="536.3" cy="1792" r="3.8"></circle>
-<circle cx="534.5" cy="1792" r="3.8" fill="#8A62C8"></circle>
+<line class="dumb tieline" x1="536.3" y1="1792" x2="534.5" y2="1792"></line>
+<circle class="mgo" cx="536.3" cy="1792" r="4"></circle>
+<circle class="mna" cx="534.5" cy="1792" r="3.6"></circle>
 <text class="dl" x="545.3" y="1796">-0.2</text>
 <text class="lbl" x="158" y="1820" text-anchor="end">Network 24 · ch197</text>
-<line class="dumb" x1="419.8" y1="1816" x2="418.9" y2="1816" stroke="var(--muted)"></line>
-<circle class="dgo" cx="419.8" cy="1816" r="3.8"></circle>
-<circle cx="418.9" cy="1816" r="3.8" fill="#8A62C8"></circle>
+<line class="dumb tieline" x1="419.8" y1="1816" x2="418.9" y2="1816"></line>
+<circle class="mgo" cx="419.8" cy="1816" r="4"></circle>
+<circle class="mna" cx="418.9" cy="1816" r="3.6"></circle>
 <text class="dl" x="428.8" y="1820">-0.1</text>
 </svg>
       <div class="legend2">
-        <span><i style="background:var(--ink-3)"></i>WLANPi Go</span>
-        <span><i style="background:#E0872E"></i>NanoPi 2.4 GHz</span>
-        <span><i style="background:#3B6FB0"></i>NanoPi 5 GHz</span>
-        <span><i style="background:#8A62C8"></i>NanoPi 6 GHz</span>
-        <span>green = NanoPi louder &middot; orange = Go louder</span>
+        <span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>&nbsp;<svg class="devicon" width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect x="1.5" y="3.5" width="17" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="6" cy="8" r="1.1" fill="currentColor"/></svg>WLANPi Go</span>
+        <span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="4" fill="currentColor"/></svg>&nbsp;<svg class="devicon" width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect x="3" y="5" width="14" height="8" rx="1.6" fill="currentColor"/><path d="M6 5V1.5M14 5V1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>NanoPi + Osprey</span>
+        <span style="color:var(--ok)">green line = NanoPi louder</span>
+        <span style="color:var(--accent)">orange = Go louder</span>
+        <span style="color:var(--ink-3)">grey = within 1 dB</span>
       </div>
     </div>
   </section>
@@ -1220,8 +1228,8 @@ td.strong{font-weight:700;color:var(--ink)}
       <table>
         <thead><tr><th>Device</th><th>2.4 GHz</th><th>5 GHz</th><th>6 GHz</th><th>Overall</th></tr></thead>
         <tbody>
-          <tr><td>WLANPi Go</td><td class="mono pos">+2.0</td><td class="mono pos">+1.3</td><td class="mono pos">+5.0</td><td class="mono strong">+2.1</td></tr>
-          <tr><td>NanoPi + Osprey</td><td class="mono pos">+1.5</td><td class="mono pos">+1.0</td><td class="mono pos">+1.4</td><td class="mono strong">+1.3</td></tr>
+          <tr><td><svg class="devicon" width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect x="1.5" y="3.5" width="17" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="6" cy="8" r="1.1" fill="currentColor"/></svg>WLANPi Go</td><td class="mono pos">+2.0</td><td class="mono pos">+1.3</td><td class="mono pos">+5.0</td><td class="mono strong">+2.1</td></tr>
+          <tr><td><svg class="devicon" width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect x="3" y="5" width="14" height="8" rx="1.6" fill="currentColor"/><path d="M6 5V1.5M14 5V1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>NanoPi + Osprey</td><td class="mono pos">+1.5</td><td class="mono pos">+1.0</td><td class="mono pos">+1.4</td><td class="mono strong">+1.3</td></tr>
         </tbody>
       </table>
     </div>
@@ -1258,7 +1266,7 @@ td.strong{font-weight:700;color:var(--ink)}
     <div class="sec-head"><h2>How many each one found</h2><div class="eyebrow">APs with 5+ beacons on their home channel</div></div>
     <div class="tablewrap">
       <table>
-        <thead><tr><th>Condition</th><th>WLANPi Go</th><th>NanoPi + Osprey</th></tr></thead>
+        <thead><tr><th>Condition</th><th><svg class="devicon" width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect x="1.5" y="3.5" width="17" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="6" cy="8" r="1.1" fill="currentColor"/></svg>WLANPi Go</th><th><svg class="devicon" width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect x="3" y="5" width="14" height="8" rx="1.6" fill="currentColor"/><path d="M6 5V1.5M14 5V1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>NanoPi + Osprey</th></tr></thead>
         <tbody>
           <tr><td><strong>Held</strong></td><td class="mono strong">82</td><td class="mono">77</td></tr>
           <tr><td>Free-standing</td><td class="mono strong">89</td><td class="mono">82</td></tr>
@@ -1274,7 +1282,7 @@ td.strong{font-weight:700;color:var(--ink)}
   <section>
     <div class="sec-head"><h2>The full table, both held</h2><div class="eyebrow">p95 dBm</div></div>
     <div class="tablewrap"><table>
-      <thead><tr><th>Network</th><th>Band</th><th>Ch</th><th>Go</th><th>NanoPi</th><th>&Delta;</th><th>beacons</th></tr></thead>
+      <thead><tr><th>Network</th><th>Band</th><th>Ch</th><th><svg class="devicon" width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect x="1.5" y="3.5" width="17" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="6" cy="8" r="1.1" fill="currentColor"/></svg>Go</th><th><svg class="devicon" width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect x="3" y="5" width="14" height="8" rx="1.6" fill="currentColor"/><path d="M6 5V1.5M14 5V1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>NanoPi</th><th>&Delta;</th><th>beacons</th></tr></thead>
       <tbody><tr><td>Network 10</td><td class='mono'>2.4</td><td class='mono'>1</td><td class='mono'>-65.0</td><td class='mono'>-62.0</td><td class='mono pos'>+3.0</td><td class='mono dim'>26/26</td></tr><tr><td>Network 11</td><td class='mono'>2.4</td><td class='mono'>1</td><td class='mono'>-78.3</td><td class='mono'>-75.0</td><td class='mono pos'>+3.3</td><td class='mono dim'>27/19</td></tr><tr><td>Network 15</td><td class='mono'>2.4</td><td class='mono'>1</td><td class='mono'>-65.0</td><td class='mono'>-61.2</td><td class='mono pos'>+3.8</td><td class='mono dim'>25/26</td></tr><tr><td>Network 23</td><td class='mono'>2.4</td><td class='mono'>1</td><td class='mono'>-65.0</td><td class='mono'>-61.5</td><td class='mono pos'>+3.5</td><td class='mono dim'>25/31</td></tr><tr><td>Network 12</td><td class='mono'>2.4</td><td class='mono'>5</td><td class='mono'>-82.8</td><td class='mono'>-78.0</td><td class='mono pos'>+4.8</td><td class='mono dim'>19/21</td></tr><tr><td>Network 10</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-60.0</td><td class='mono'>-51.0</td><td class='mono pos'>+9.0</td><td class='mono dim'>28/25</td></tr><tr><td>Network 15</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-60.0</td><td class='mono'>-51.0</td><td class='mono pos'>+9.0</td><td class='mono dim'>22/29</td></tr><tr><td>Network 23</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-59.0</td><td class='mono'>-51.0</td><td class='mono pos'>+8.0</td><td class='mono dim'>29/28</td></tr><tr><td>Network 25</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-59.0</td><td class='mono'>-55.4</td><td class='mono pos'>+3.6</td><td class='mono dim'>27/28</td></tr><tr><td>Network 27</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-51.0</td><td class='mono'>-53.0</td><td class='mono neg'>-2.0</td><td class='mono dim'>30/24</td></tr><tr><td>Network 27</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-66.0</td><td class='mono'>-60.0</td><td class='mono pos'>+6.0</td><td class='mono dim'>27/13</td></tr><tr><td>Network 27</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-57.0</td><td class='mono'>-50.1</td><td class='mono pos'>+6.9</td><td class='mono dim'>29/23</td></tr><tr><td>Network 28</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-57.3</td><td class='mono'>-56.0</td><td class='mono pos'>+1.3</td><td class='mono dim'>27/28</td></tr><tr><td>Network 31</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-67.2</td><td class='mono'>-60.0</td><td class='mono pos'>+7.2</td><td class='mono dim'>24/25</td></tr><tr><td>Network 34</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-70.5</td><td class='mono'>-63.4</td><td class='mono pos'>+7.1</td><td class='mono dim'>26/28</td></tr><tr><td>Network 35</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-86.0</td><td class='mono'>-77.0</td><td class='mono pos'>+9.0</td><td class='mono dim'>24/19</td></tr><tr><td>Network 33</td><td class='mono'>2.4</td><td class='mono'>8</td><td class='mono'>-78.0</td><td class='mono'>-68.0</td><td class='mono pos'>+10.0</td><td class='mono dim'>18/17</td></tr><tr><td>Network 10</td><td class='mono'>2.4</td><td class='mono'>11</td><td class='mono'>-64.0</td><td class='mono'>-69.0</td><td class='mono neg'>-5.0</td><td class='mono dim'>22/22</td></tr><tr><td>Network 10</td><td class='mono'>2.4</td><td class='mono'>11</td><td class='mono'>-39.0</td><td class='mono'>-36.0</td><td class='mono pos'>+3.0</td><td class='mono dim'>29/26</td></tr><tr><td>Network 15</td><td class='mono'>2.4</td><td class='mono'>11</td><td class='mono'>-39.0</td><td class='mono'>-36.0</td><td class='mono pos'>+3.0</td><td class='mono dim'>29/25</td></tr><tr><td>Network 15</td><td class='mono'>2.4</td><td class='mono'>11</td><td class='mono'>-64.0</td><td class='mono'>-69.0</td><td class='mono neg'>-5.0</td><td class='mono dim'>22/25</td></tr><tr><td>Network 20</td><td class='mono'>2.4</td><td class='mono'>11</td><td class='mono'>-54.0</td><td class='mono'>-54.0</td><td class='mono '>+0.0</td><td class='mono dim'>23/29</td></tr><tr><td>Network 23</td><td class='mono'>2.4</td><td class='mono'>11</td><td class='mono'>-64.0</td><td class='mono'>-69.0</td><td class='mono neg'>-5.0</td><td class='mono dim'>22/27</td></tr><tr><td>Network 23</td><td class='mono'>2.4</td><td class='mono'>11</td><td class='mono'>-39.0</td><td class='mono'>-36.0</td><td class='mono pos'>+3.0</td><td class='mono dim'>27/27</td></tr><tr><td>Network 26</td><td class='mono'>2.4</td><td class='mono'>11</td><td class='mono'>-79.0</td><td class='mono'>-74.2</td><td class='mono pos'>+4.8</td><td class='mono dim'>21/26</td></tr><tr><td>Network 01</td><td class='mono'>5</td><td class='mono'>36</td><td class='mono'>-52.0</td><td class='mono'>-60.3</td><td class='mono neg'>-8.3</td><td class='mono dim'>25/27</td></tr><tr><td>Network 01</td><td class='mono'>5</td><td class='mono'>36</td><td class='mono'>-67.0</td><td class='mono'>-70.0</td><td class='mono neg'>-3.0</td><td class='mono dim'>26/28</td></tr><tr><td>Network 35</td><td class='mono'>5</td><td class='mono'>36</td><td class='mono'>-90.0</td><td class='mono'>-89.0</td><td class='mono '>+1.0</td><td class='mono dim'>23/32</td></tr><tr><td>Network 11</td><td class='mono'>5</td><td class='mono'>44</td><td class='mono'>-84.0</td><td class='mono'>-85.0</td><td class='mono '>-1.0</td><td class='mono dim'>26/26</td></tr><tr><td>Network 28</td><td class='mono'>5</td><td class='mono'>44</td><td class='mono'>-85.0</td><td class='mono'>-84.2</td><td class='mono '>+0.8</td><td class='mono dim'>26/26</td></tr><tr><td>Network 19</td><td class='mono'>5</td><td class='mono'>48</td><td class='mono'>-88.0</td><td class='mono'>-86.0</td><td class='mono pos'>+2.0</td><td class='mono dim'>28/24</td></tr><tr><td>Network 09</td><td class='mono'>5</td><td class='mono'>56</td><td class='mono'>-57.0</td><td class='mono'>-59.2</td><td class='mono neg'>-2.2</td><td class='mono dim'>26/25</td></tr><tr><td>Network 15</td><td class='mono'>5</td><td class='mono'>56</td><td class='mono'>-57.0</td><td class='mono'>-59.2</td><td class='mono neg'>-2.2</td><td class='mono dim'>26/25</td></tr><tr><td>Network 16</td><td class='mono'>5</td><td class='mono'>56</td><td class='mono'>-57.0</td><td class='mono'>-59.2</td><td class='mono neg'>-2.2</td><td class='mono dim'>26/25</td></tr><tr><td>Network 23</td><td class='mono'>5</td><td class='mono'>56</td><td class='mono'>-57.0</td><td class='mono'>-59.2</td><td class='mono neg'>-2.2</td><td class='mono dim'>27/25</td></tr><tr><td>Network 36</td><td class='mono'>5</td><td class='mono'>56</td><td class='mono'>-57.0</td><td class='mono'>-59.2</td><td class='mono neg'>-2.2</td><td class='mono dim'>26/25</td></tr><tr><td>Network 37</td><td class='mono'>5</td><td class='mono'>56</td><td class='mono'>-57.0</td><td class='mono'>-59.2</td><td class='mono neg'>-2.2</td><td class='mono dim'>27/25</td></tr><tr><td>Network 09</td><td class='mono'>5</td><td class='mono'>60</td><td class='mono'>-53.0</td><td class='mono'>-53.0</td><td class='mono '>+0.0</td><td class='mono dim'>26/24</td></tr><tr><td>Network 15</td><td class='mono'>5</td><td class='mono'>60</td><td class='mono'>-53.2</td><td class='mono'>-53.0</td><td class='mono '>+0.2</td><td class='mono dim'>26/25</td></tr><tr><td>Network 16</td><td class='mono'>5</td><td class='mono'>60</td><td class='mono'>-53.2</td><td class='mono'>-53.2</td><td class='mono '>+0.0</td><td class='mono dim'>26/25</td></tr><tr><td>Network 23</td><td class='mono'>5</td><td class='mono'>60</td><td class='mono'>-53.2</td><td class='mono'>-53.2</td><td class='mono '>+0.0</td><td class='mono dim'>26/25</td></tr><tr><td>Network 36</td><td class='mono'>5</td><td class='mono'>60</td><td class='mono'>-53.0</td><td class='mono'>-53.0</td><td class='mono '>+0.0</td><td class='mono dim'>26/25</td></tr><tr><td>Network 37</td><td class='mono'>5</td><td class='mono'>60</td><td class='mono'>-53.0</td><td class='mono'>-53.0</td><td class='mono '>+0.0</td><td class='mono dim'>26/24</td></tr><tr><td>Network 03</td><td class='mono'>5</td><td class='mono'>116</td><td class='mono'>-36.0</td><td class='mono'>-28.0</td><td class='mono pos'>+8.0</td><td class='mono dim'>24/25</td></tr><tr><td>Network 09</td><td class='mono'>5</td><td class='mono'>120</td><td class='mono'>-38.4</td><td class='mono'>-41.0</td><td class='mono neg'>-2.6</td><td class='mono dim'>29/24</td></tr><tr><td>Network 15</td><td class='mono'>5</td><td class='mono'>120</td><td class='mono'>-38.4</td><td class='mono'>-41.0</td><td class='mono neg'>-2.6</td><td class='mono dim'>29/25</td></tr><tr><td>Network 16</td><td class='mono'>5</td><td class='mono'>120</td><td class='mono'>-38.4</td><td class='mono'>-41.0</td><td class='mono neg'>-2.6</td><td class='mono dim'>29/25</td></tr><tr><td>Network 23</td><td class='mono'>5</td><td class='mono'>120</td><td class='mono'>-38.4</td><td class='mono'>-41.0</td><td class='mono neg'>-2.6</td><td class='mono dim'>29/25</td></tr><tr><td>Network 36</td><td class='mono'>5</td><td class='mono'>120</td><td class='mono'>-38.0</td><td class='mono'>-41.0</td><td class='mono neg'>-3.0</td><td class='mono dim'>29/25</td></tr><tr><td>Network 37</td><td class='mono'>5</td><td class='mono'>120</td><td class='mono'>-38.0</td><td class='mono'>-41.0</td><td class='mono neg'>-3.0</td><td class='mono dim'>29/23</td></tr><tr><td>Network 03</td><td class='mono'>5</td><td class='mono'>132</td><td class='mono'>-62.0</td><td class='mono'>-60.0</td><td class='mono pos'>+2.0</td><td class='mono dim'>24/25</td></tr><tr><td>Network 09</td><td class='mono'>5</td><td class='mono'>140</td><td class='mono'>-65.0</td><td class='mono'>-63.0</td><td class='mono pos'>+2.0</td><td class='mono dim'>28/25</td></tr><tr><td>Network 15</td><td class='mono'>5</td><td class='mono'>140</td><td class='mono'>-65.0</td><td class='mono'>-63.0</td><td class='mono pos'>+2.0</td><td class='mono dim'>28/25</td></tr><tr><td>Network 16</td><td class='mono'>5</td><td class='mono'>140</td><td class='mono'>-65.0</td><td class='mono'>-63.0</td><td class='mono pos'>+2.0</td><td class='mono dim'>28/24</td></tr><tr><td>Network 23</td><td class='mono'>5</td><td class='mono'>140</td><td class='mono'>-65.0</td><td class='mono'>-63.0</td><td class='mono pos'>+2.0</td><td class='mono dim'>28/25</td></tr><tr><td>Network 36</td><td class='mono'>5</td><td class='mono'>140</td><td class='mono'>-65.0</td><td class='mono'>-63.0</td><td class='mono pos'>+2.0</td><td class='mono dim'>25/25</td></tr><tr><td>Network 37</td><td class='mono'>5</td><td class='mono'>140</td><td class='mono'>-65.0</td><td class='mono'>-63.0</td><td class='mono pos'>+2.0</td><td class='mono dim'>28/25</td></tr><tr><td>Network 25</td><td class='mono'>5</td><td class='mono'>149</td><td class='mono'>-56.0</td><td class='mono'>-56.0</td><td class='mono '>+0.0</td><td class='mono dim'>27/27</td></tr><tr><td>Network 28</td><td class='mono'>5</td><td class='mono'>149</td><td class='mono'>-55.3</td><td class='mono'>-56.0</td><td class='mono '>-0.7</td><td class='mono dim'>27/27</td></tr><tr><td>Network 20</td><td class='mono'>5</td><td class='mono'>157</td><td class='mono'>-61.2</td><td class='mono'>-56.0</td><td class='mono pos'>+5.2</td><td class='mono dim'>26/27</td></tr><tr><td>Network 21</td><td class='mono'>5</td><td class='mono'>157</td><td class='mono'>-61.2</td><td class='mono'>-56.0</td><td class='mono pos'>+5.2</td><td class='mono dim'>26/27</td></tr><tr><td>Network 22</td><td class='mono'>5</td><td class='mono'>157</td><td class='mono'>-61.2</td><td class='mono'>-56.0</td><td class='mono pos'>+5.2</td><td class='mono dim'>26/27</td></tr><tr><td>Network 28</td><td class='mono'>5</td><td class='mono'>157</td><td class='mono'>-70.3</td><td class='mono'>-69.0</td><td class='mono pos'>+1.3</td><td class='mono dim'>28/28</td></tr><tr><td>Network 31</td><td class='mono'>5</td><td class='mono'>157</td><td class='mono'>-70.3</td><td class='mono'>-69.0</td><td class='mono pos'>+1.3</td><td class='mono dim'>28/28</td></tr><tr><td>Network 02</td><td class='mono'>6</td><td class='mono'>5</td><td class='mono'>-54.0</td><td class='mono'>-59.2</td><td class='mono neg'>-5.2</td><td class='mono dim'>20/25</td></tr><tr><td>Network 31</td><td class='mono'>6</td><td class='mono'>53</td><td class='mono'>-85.0</td><td class='mono'>-88.2</td><td class='mono neg'>-3.2</td><td class='mono dim'>21/25</td></tr><tr><td>Network 24</td><td class='mono'>6</td><td class='mono'>69</td><td class='mono'>-48.0</td><td class='mono'>-43.2</td><td class='mono pos'>+4.8</td><td class='mono dim'>21/26</td></tr><tr><td>Network 24</td><td class='mono'>6</td><td class='mono'>133</td><td class='mono'>-69.0</td><td class='mono'>-68.0</td><td class='mono '>+1.0</td><td class='mono dim'>27/26</td></tr><tr><td>Network 24</td><td class='mono'>6</td><td class='mono'>165</td><td class='mono'>-59.0</td><td class='mono'>-56.0</td><td class='mono pos'>+3.0</td><td class='mono dim'>20/26</td></tr><tr><td>Network 03</td><td class='mono'>6</td><td class='mono'>197</td><td class='mono'>-49.0</td><td class='mono'>-49.2</td><td class='mono '>-0.2</td><td class='mono dim'>25/26</td></tr><tr><td>Network 04</td><td class='mono'>6</td><td class='mono'>197</td><td class='mono'>-49.0</td><td class='mono'>-49.2</td><td class='mono '>-0.2</td><td class='mono dim'>25/26</td></tr><tr><td>Network 24</td><td class='mono'>6</td><td class='mono'>197</td><td class='mono'>-61.9</td><td class='mono'>-62.0</td><td class='mono '>-0.1</td><td class='mono dim'>20/25</td></tr></tbody>
     </table></div>
   </section>
