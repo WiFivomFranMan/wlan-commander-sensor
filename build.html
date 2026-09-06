@@ -554,7 +554,10 @@ footer {
   padding: 4px 4px 26px 4px;
   align-items: start;
 }
-.part-detail:only-child, .part-detail > .part-body:only-child { grid-template-columns: minmax(0, 1fr); }
+/* A row with no photo spans the full width. The obvious selector puts the property on
+   .part-body, which is not a grid container, so it silently did nothing -- the photo-less
+   rows sat in the 240px column. :has() moves it onto the grid itself. */
+.part-detail:has(> .part-body:only-child) { grid-template-columns: minmax(0, 1fr); }
 .part-photo {
   background: var(--photo-bg);
   border: 1px solid var(--rule);
@@ -908,6 +911,34 @@ footer {
             <p class="part-note">For sticking the finished sensor to something steel, or to a 3D-printed mount. Sold for DIY and print-in projects rather than as a phone accessory.</p>
             <dl class="spec"><div><dt>Type</dt><dd>Magnet ring, MagSafe-compatible</dd></div><div><dt>Outer &oslash;</dt><dd>53.9 mm / 2.12 in</dd></div><div><dt>Inner &oslash;</dt><dd>45.8 mm / 1.80 in</dd></div><div><dt>Thickness</dt><dd>2.6 mm / 0.10 in</dd></div><div><dt>Price</dt><dd>$7.99</dd></div><div><dt>Intended use</dt><dd>DIY and 3D printing, accessory side</dd></div><div><dt>Source</dt><dd>Amazon <a class="mono" href="https://www.amazon.com/dp/B0GGNLD59P" target="_blank" rel="noopener noreferrer">B0GGNLD59P</a></dd></div></dl>
             <p class="part-links"><a href="https://www.amazon.com/dp/B0GGNLD59P" target="_blank" rel="noopener noreferrer">Amazon</a></p>
+          </div>
+        </div>
+      </details>
+      <details class="part">
+        <summary>
+          <span class="part-thumb part-thumb-none" aria-hidden="true">STL</span>
+          <span class="sum-text">
+            <span class="sum-title">3D-printed MagSafe case</span>
+            <span class="sum-line">Free community design &middot; MakerWorld</span>
+          </span>
+          <span class="chip chip-untested">Optional</span>
+          <span class="sum-chev" aria-hidden="true">+</span>
+        </summary>
+        <div class="part-detail">
+          <div class="part-body">
+            <p class="part-note">An alternative to the case bundled with the board: a
+            community-published MagSafe case for the NanoPi Zero 2 that you print yourself. This is
+            the route to a sensor that sticks to a steel ceiling grid, a rack door or a tripod
+            plate. If you go this way, buy the board on its own rather than the
+            <strong>with case</strong> option, and pair it with the magnet ring above.</p>
+            <p class="part-note"><strong>Neither printed nor measured here.</strong> Read the model
+            page for the magnet size, screws and print settings it expects &mdash; we have not
+            checked that the ring listed above is the one this design is built around, and a
+            MagSafe case is only as good as its magnet fit. The stock case also carries the thermal
+            pad that the BE200 needs to dump heat into; a printed one in PLA does not, so plan
+            where that heat goes before you rely on it.</p>
+            <dl class="spec"><div><dt>Type</dt><dd>Printable case, MagSafe</dd></div><div><dt>Fits</dt><dd>NanoPi Zero 2</dd></div><div><dt>Price</dt><dd>Free &mdash; you supply the filament</dd></div><div><dt>Source</dt><dd>MakerWorld <a class="mono" href="https://makerworld.com/en/models/3266641-nanopi-zero-2-case-magsafe" target="_blank" rel="noopener noreferrer">model 3266641</a></dd></div></dl>
+            <p class="part-links"><a href="https://makerworld.com/en/models/3266641-nanopi-zero-2-case-magsafe" target="_blank" rel="noopener noreferrer">MakerWorld</a></p>
           </div>
         </div>
       </details>
