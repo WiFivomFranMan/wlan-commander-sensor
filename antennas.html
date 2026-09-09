@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <title>Antenna Shootout</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -172,6 +173,59 @@ footer{padding:36px 0 60px;color:var(--muted);font-size:12.5px}
    this page was drawn with, so the tracking is pulled in to keep headlines on one line. */
 h1{letter-spacing:-0.033em}
 h2{letter-spacing:-0.018em}
+
+/* ---------- collapsible sections ---------- */
+section { padding: 0; border-bottom: 0; }
+.sec { border-top: 1px solid var(--rule-strong, var(--line-2, #B4BCC6)); }
+main > .sec:first-child, main .shell > section:first-child .sec { border-top: 0; }
+.sec > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 22px 0;
+  margin: 0;
+  border: 0;
+  cursor: pointer;
+  list-style: none;
+}
+.sec > summary::-webkit-details-marker { display: none; }
+.sec > summary h2 { margin: 0; }
+.sec > summary > .eyebrow { margin-left: auto; text-align: right; }
+.sec > summary:hover h2 { color: var(--accent, var(--gold, #B85A18)); }
+.sec > summary:focus-visible { outline: 2px solid var(--accent, var(--gold, #B85A18)); outline-offset: -2px; border-radius: 2px; }
+.sec-chev {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 17px; line-height: 1; flex: none;
+  width: 14px; text-align: center;
+  color: var(--ink-3, var(--muted, #78828E));
+  transition: transform .15s ease;
+}
+.sec[open] > summary .sec-chev { transform: rotate(45deg); }
+.sec-body { padding: 4px 0 56px; }
+.sec-lede { margin: 0 0 24px; color: var(--ink-2); max-width: var(--measure, 72ch); }
+
+.secbar {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 0 2px;
+  font-size: 13px;
+  color: var(--ink-3, var(--muted, #78828E));
+}
+.secbar-btn {
+  margin-left: auto;
+  font: inherit;
+  font-weight: 600;
+  color: var(--accent, var(--gold, #B85A18));
+  background: none;
+  border: 1px solid var(--rule-strong, var(--line-2, #B4BCC6));
+  border-radius: 3px;
+  padding: 5px 12px;
+  cursor: pointer;
+}
+.secbar-btn:hover { border-color: var(--accent, var(--gold, #B85A18)); }
+@media (max-width: 720px) {
+  .sec > summary { flex-wrap: wrap; gap: 6px 12px; }
+  .sec > summary > .eyebrow { margin-left: 0; text-align: left; width: 100%; order: 3; }
+}
 </style>
 
 <nav class="wcnav" aria-label="Site"><div class="wcnav-in"><a class="wcnav-brand" href="./">WLAN Commander <span>sensor</span></a><div class="wcnav-links"><a href="compare.html">Shootout</a><a href="./">Image</a><a href="build.html">Build</a><a href="antennas.html" aria-current="page">Antennas</a></div></div></nav>
@@ -193,31 +247,52 @@ h2{letter-spacing:-0.018em}
 </div></header>
 
 <main class="wrap">
+<div class="secbar"><span>7 sections &mdash; tap a heading to open it</span><button type="button" class="secbar-btn" data-expand-all>Expand all</button></div>
+
 
 <section id="answer">
-  <div class="sec-head"><div class="eyebrow">The answer</div>
-    <h2>It depends where the scanner lives</h2>
-    <p>Raw power favours the big whips — but they only matter on a desk. For a <b>pocket scanner</b> the question is the best <em>small</em> antenna, and there the compact circular-pol Osprey trades blows with the bigger Dixingtek. Two picks, then the raw per-band winners.</p>
-  </div>
+    <details class="sec" open>
+      <summary class="sec-head">
+        <h2>It depends where the scanner lives</h2>
+        <span class="eyebrow">The answer</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+        <div class="sec-lede"><p>Raw power favours the big whips — but they only matter on a desk. For a <b>pocket scanner</b> the question is the best <em>small</em> antenna, and there the compact circular-pol Osprey trades blows with the bigger Dixingtek. Two picks, then the raw per-band winners.</p></div>
+  
   <div class="usecase" id="usecase"></div>
   <div class="verdict" id="verdict"></div>
-</section>
+      </div>
+    </details>
+  </section>
 
 <section id="leaderboard">
-  <div class="sec-head"><div class="eyebrow">Controlled RSSI · band average</div>
-    <h2>Per-band leaderboard</h2>
-    <p>Mean p95 of the R670's beacons at the NanoPi across the three swept channels per band (2.4: 1/6/11 · 5: 36/149/157 · 6: 37/101/165). The air was clean (0 tx-retries), so received power is the honest antenna metric.</p>
-  </div>
+    <details class="sec">
+      <summary class="sec-head">
+        <h2>Per-band leaderboard</h2>
+        <span class="eyebrow">Controlled RSSI · band average</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+        <div class="sec-lede"><p>Mean p95 of the R670's beacons at the NanoPi across the three swept channels per band (2.4: 1/6/11 · 5: 36/149/157 · 6: 37/101/165). The air was clean (0 tx-retries), so received power is the honest antenna metric.</p></div>
+  
   <div class="bands3" id="bands3"></div>
-</section>
+      </div>
+    </details>
+  </section>
 
 <section id="freq">
-  <div class="sec-head"><div class="eyebrow">The channel sweep · compare across the band</div>
-    <h2>What sampling one channel per band hid</h2>
-    <p>Signal and throughput at every swept channel, 2.4→6&nbsp;GHz. This is the whole point of sweeping the certified AP
+    <details class="sec">
+      <summary class="sec-head">
+        <h2>What sampling one channel per band hid</h2>
+        <span class="eyebrow">The channel sweep · compare across the band</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+        <div class="sec-lede"><p>Signal and throughput at every swept channel, 2.4→6&nbsp;GHz. This is the whole point of sweeping the certified AP
     rather than sampling it once: the shape — and the shared dip at 6&nbsp;GHz ch101 — only appears when you walk the band.
-    <b>Tap any set of antennas</b> to compare them head-to-head on both charts.</p>
-  </div>
+    <b>Tap any set of antennas</b> to compare them head-to-head on both charts.</p></div>
+  
   <div class="fr-wrap">
     <div class="fr-legend" id="frlegend"></div>
     <div class="chart-block">
@@ -234,10 +309,19 @@ h2{letter-spacing:-0.018em}
       <b>6455&nbsp;MHz</b> is mostly the AP itself running 3&nbsp;dB lower there (see below) — flip to <b>Source-normalized</b> to remove it.
       With nothing selected, all eight show faintly.</span></div>
   </div>
-</section>
+      </div>
+    </details>
+  </section>
 
 <section id="null">
-  <div class="sec-head"><div class="eyebrow">What the sweep caught</div><h2>The 6455 dip is mostly the AP, not the antenna</h2></div>
+    <details class="sec">
+      <summary class="sec-head">
+        <h2>The 6455 dip is mostly the AP, not the antenna</h2>
+        <span class="eyebrow">What the sweep caught</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+  
   <div class="callout"><b>Every one of the eight antennas dips at 6&nbsp;GHz channel&nbsp;101 (6455&nbsp;MHz)</b> — none peaks there.
   That's the fingerprint of a source effect, and the beacons prove it: the R670's own TPC-report power reads <b>19&nbsp;dBm at 6455
   versus 22&nbsp;dBm at 6135 and 6775</b> (identical on every capture). So <b>3&nbsp;dB of the dip is the AP running lower there</b> —
@@ -245,33 +329,56 @@ h2{letter-spacing:-0.018em}
   are fully explained by it; the ones that dip more (Oscium, Osprey, MSI) carry an extra path/pattern null on top. Either way it is
   <b>not antenna quality</b> — and the old single-6&nbsp;GHz-point method, sampling 6135 only, would never have seen it. The same
   beacons show 6&nbsp;GHz sourced 2&nbsp;dB hotter than 2.4/5&nbsp;GHz overall, which the normalized view also corrects for.</div>
-</section>
+      </div>
+    </details>
+  </section>
 
 <section id="throughput">
-  <div class="sec-head"><div class="eyebrow">Controlled throughput · band average</div>
-    <h2>iperf3 to the wired NUC</h2>
-    <p>NanoPi associated to the R670 on each swept channel, 80&nbsp;MHz EHT, 15&nbsp;s each way; values are the per-band mean of ↓ / ↑ in Mbit/s.</p>
-  </div>
+    <details class="sec">
+      <summary class="sec-head">
+        <h2>iperf3 to the wired NUC</h2>
+        <span class="eyebrow">Controlled throughput · band average</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+        <div class="sec-lede"><p>NanoPi associated to the R670 on each swept channel, 80&nbsp;MHz EHT, 15&nbsp;s each way; values are the per-band mean of ↓ / ↑ in Mbit/s.</p></div>
+  
   <div class="tbl-scroll"><table class="thr" id="thrtbl">
     <thead><tr><th>Antenna</th><th>2.4 ↓</th><th>2.4 ↑</th><th>5 ↓</th><th>5 ↑</th><th>6 ↓</th><th>6 ↑</th></tr></thead>
     <tbody></tbody>
   </table></div>
-</section>
+      </div>
+    </details>
+  </section>
 
 <section id="contenders">
-  <div class="sec-head"><div class="eyebrow">The contenders</div>
-    <h2>The eight, by form factor</h2>
-    <p>Grouped pocket → desk, with polarization tagged. Photos and buy links where the antenna came from a listing —
-    the three bare whips (Oscium, Ducky, MSI) shipped without one; MSI came bundled with a Wi-Fi card.</p>
-  </div>
+    <details class="sec">
+      <summary class="sec-head">
+        <h2>The eight, by form factor</h2>
+        <span class="eyebrow">The contenders</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+        <div class="sec-lede"><p>Grouped pocket → desk, with polarization tagged. Photos and buy links where the antenna came from a listing —
+    the three bare whips (Oscium, Ducky, MSI) shipped without one; MSI came bundled with a Wi-Fi card.</p></div>
+  
   <div class="gallery" id="gallery"></div>
   <div class="callout" style="border-left-color:var(--good)"><b>Polarization is a non-event for throughput.</b> RHCP, LHCP and
   linear all land within ~10% on 5 and 6&nbsp;GHz — Osprey (LHCP) even tops the linear Dixingtek on 5&nbsp;GHz. The circular-pol
   antennas' only deficit is 2.4&nbsp;GHz, and that's because they're 5.8&nbsp;GHz-tuned FPV parts, not a handedness penalty.</div>
-</section>
+      </div>
+    </details>
+  </section>
 
 <section id="method">
-  <div class="sec-head"><div class="eyebrow">Method &amp; provenance</div><h2>How every number was made</h2></div>
+    <details class="sec">
+      <summary class="sec-head">
+        <h2>How every number was made</h2>
+        <span class="eyebrow">Method &amp; provenance</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+  
   <div class="method">
     <div class="mcard"><h3>The rig</h3><ul>
       <li><b>UNIT</b><span>NanoPi + Intel BE200 (<span class="mono">wlp1s0f0</span>); only this antenna changed between sets.</span></li>
@@ -286,7 +393,9 @@ h2{letter-spacing:-0.018em}
       <li><b>FRESH</b><span>Built only from this 09-03→09-04 sweep campaign. No data from the earlier single-point run is carried over.</span></li>
     </ul></div>
   </div>
-</section>
+      </div>
+    </details>
+  </section>
 
 <footer class="wrap">Antenna Shootout · WLAN lab · all RSSI figures p95 · R670 swept MANUAL with venue ChannelFly disabled · rebuilt from the corrected campaign only.</footer>
 </main>
@@ -429,5 +538,57 @@ const bandThr=(k,b,f)=>avg(RAW[k][b].map(x=>x[f]).filter(v=>v!=null));
   ntog.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
     rssiMode=b.dataset.n;ntog.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));rssiC.render();}));
   refresh();
+})();
+</script>
+<script>
+/* Collapsible sections: keep in-page anchors working, and offer one control to open everything. */
+(function () {
+  function openAncestors(el) {
+    /* Anchor ids sit on the <section>; the <details> is inside it, not above it.
+       So open both directions: every DETAILS above, and the section's own one below. */
+    for (var n = el; n && n !== document.body; n = n.parentElement) {
+      if (n.tagName === 'DETAILS' && !n.open) n.open = true;
+    }
+    if (el.tagName === 'SECTION') {
+      var own = el.querySelector('details.sec');
+      if (own && !own.open) own.open = true;
+    }
+  }
+  function target() {
+    if (!location.hash) return null;
+    try { return document.getElementById(decodeURIComponent(location.hash.slice(1))); }
+    catch (e) { return null; }
+  }
+  function reveal() {
+    var t = target();
+    if (!t) return;
+    openAncestors(t);
+    requestAnimationFrame(function () { t.scrollIntoView({ block: 'start' }); });
+  }
+  window.addEventListener('hashchange', reveal);
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!a) return;
+    var id = a.getAttribute('href').slice(1);
+    if (!id) return;
+    var t = document.getElementById(decodeURIComponent(id));
+    if (t) openAncestors(t);
+  });
+  var btn = document.querySelector('[data-expand-all]');
+  if (btn) {
+    var secs = document.querySelectorAll('details.sec');
+    var sync = function () {
+      var closed = Array.prototype.some.call(secs, function (d) { return !d.open; });
+      btn.textContent = closed ? 'Expand all' : 'Collapse all';
+    };
+    btn.addEventListener('click', function () {
+      var want = Array.prototype.some.call(secs, function (d) { return !d.open; });
+      Array.prototype.forEach.call(secs, function (d) { d.open = want; });
+      sync();
+    });
+    Array.prototype.forEach.call(secs, function (d) { d.addEventListener('toggle', sync); });
+    sync();
+  }
+  reveal();
 })();
 </script>

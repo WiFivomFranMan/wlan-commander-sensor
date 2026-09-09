@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <title>NanoPi Zero2 Sensor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -524,6 +525,59 @@ footer {
   .wcnav-brand { font-size: 12px; }
   .wcnav-links a { padding: 12px 7px 10px; font-size: 12px; }
 }
+
+/* ---------- collapsible sections ---------- */
+section { padding: 0; border-bottom: 0; }
+.sec { border-top: 1px solid var(--rule-strong, var(--line-2, #B4BCC6)); }
+main > .sec:first-child, main .shell > section:first-child .sec { border-top: 0; }
+.sec > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 22px 0;
+  margin: 0;
+  border: 0;
+  cursor: pointer;
+  list-style: none;
+}
+.sec > summary::-webkit-details-marker { display: none; }
+.sec > summary h2 { margin: 0; }
+.sec > summary > .eyebrow { margin-left: auto; text-align: right; }
+.sec > summary:hover h2 { color: var(--accent, var(--gold, #B85A18)); }
+.sec > summary:focus-visible { outline: 2px solid var(--accent, var(--gold, #B85A18)); outline-offset: -2px; border-radius: 2px; }
+.sec-chev {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 17px; line-height: 1; flex: none;
+  width: 14px; text-align: center;
+  color: var(--ink-3, var(--muted, #78828E));
+  transition: transform .15s ease;
+}
+.sec[open] > summary .sec-chev { transform: rotate(45deg); }
+.sec-body { padding: 4px 0 56px; }
+.sec-lede { margin: 0 0 24px; color: var(--ink-2); max-width: var(--measure, 72ch); }
+
+.secbar {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 0 2px;
+  font-size: 13px;
+  color: var(--ink-3, var(--muted, #78828E));
+}
+.secbar-btn {
+  margin-left: auto;
+  font: inherit;
+  font-weight: 600;
+  color: var(--accent, var(--gold, #B85A18));
+  background: none;
+  border: 1px solid var(--rule-strong, var(--line-2, #B4BCC6));
+  border-radius: 3px;
+  padding: 5px 12px;
+  cursor: pointer;
+}
+.secbar-btn:hover { border-color: var(--accent, var(--gold, #B85A18)); }
+@media (max-width: 720px) {
+  .sec > summary { flex-wrap: wrap; gap: 6px 12px; }
+  .sec > summary > .eyebrow { margin-left: 0; text-align: left; width: 100%; order: 3; }
+}
 </style>
 
 <nav class="wcnav" aria-label="Site"><div class="wcnav-in"><a class="wcnav-brand" href="./">WLAN Commander <span>sensor</span></a><div class="wcnav-links"><a href="compare.html">Shootout</a><a href="./" aria-current="page">Image</a><a href="build.html">Build</a><a href="antennas.html">Antennas</a></div></div></nav>
@@ -567,13 +621,19 @@ footer {
 </header>
 
 <main class="shell">
+  <div class="secbar"><span>8 sections &mdash; tap a heading to open it</span><button type="button" class="secbar-btn" data-expand-all>Expand all</button></div>
+
 
   <!-- ============ BAND COVERAGE ============ -->
   <section>
-    <div class="sec-head">
-      <h2>Band coverage by card</h2>
-      <div class="eyebrow">US domain &middot; 2400&ndash;7125 MHz</div>
-    </div>
+    <details class="sec" open>
+      <summary class="sec-head">
+        <h2>Band coverage by card</h2>
+        <span class="eyebrow">US domain &middot; 2400&ndash;7125 MHz</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+    
 
     <div class="chart-wrap">
       <svg viewBox="0 0 1000 356" role="img" aria-label="Frequency coverage and maximum channel width for each supported card across the 2.4, 5 and 6 GHz bands.">
@@ -708,14 +768,20 @@ footer {
       only 83.5 MHz wide at this scale, so it carries no label. No USB card here reaches
       320 MHz; on this image that width exists only on the PCIe Qualcomm part.
     </p>
+      </div>
+    </details>
   </section>
 
   <!-- ============ CHANGED ============ -->
   <section>
-    <div class="sec-head">
-      <h2>What changed since v1.0.1</h2>
-      <div class="eyebrow">Six versions, one download</div>
-    </div>
+    <details class="sec">
+      <summary class="sec-head">
+        <h2>What changed since v1.0.1</h2>
+        <span class="eyebrow">Six versions, one download</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+    
 
     <div class="prose" style="margin-bottom: 24px;">
       <p>
@@ -775,14 +841,20 @@ footer {
         by an observed failure.</p>
       </div>
     </div>
+      </div>
+    </details>
   </section>
 
   <!-- ============ VERIFIED ============ -->
   <section>
-    <div class="sec-head">
-      <h2>What was measured on hardware</h2>
-      <div class="eyebrow">3 September 2026</div>
-    </div>
+    <details class="sec">
+      <summary class="sec-head">
+        <h2>What was measured on hardware</h2>
+        <span class="eyebrow">3 September 2026</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+    
 
     <div class="tablewrap">
       <table>
@@ -846,14 +918,20 @@ footer {
         </tbody>
       </table>
     </div>
+      </div>
+    </details>
   </section>
 
   <!-- ============ REGDOM ============ -->
   <section>
-    <div class="sec-head">
-      <h2>Set the country, or lose 6 GHz</h2>
-      <div class="eyebrow">/etc/modprobe.d/cfg80211-regdom.conf</div>
-    </div>
+    <details class="sec">
+      <summary class="sec-head">
+        <h2>Set the country, or lose 6 GHz</h2>
+        <span class="eyebrow">/etc/modprobe.d/cfg80211-regdom.conf</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+    
 
     <div class="prose">
       <p>
@@ -871,14 +949,20 @@ footer {
         so change it to match where the sensor physically is.
       </p>
     </div>
+      </div>
+    </details>
   </section>
 
   <!-- ============ IN THE IMAGE ============ -->
   <section>
-    <div class="sec-head">
-      <h2>What is in the image</h2>
-      <div class="eyebrow">Debian trixie &middot; minimal</div>
-    </div>
+    <details class="sec">
+      <summary class="sec-head">
+        <h2>What is in the image</h2>
+        <span class="eyebrow">Debian trixie &middot; minimal</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+    
 
     <div class="features">
       <div class="feat">
@@ -915,14 +999,20 @@ footer {
         commit, the kernel branch and whether the tree was clean.</p>
       </div>
     </div>
+      </div>
+    </details>
   </section>
 
   <!-- ============ FLASH ============ -->
   <section>
-    <div class="sec-head">
-      <h2>Flash it and boot it</h2>
-      <div class="eyebrow">microSD &middot; 8 GB or larger</div>
-    </div>
+    <details class="sec">
+      <summary class="sec-head">
+        <h2>Flash it and boot it</h2>
+        <span class="eyebrow">microSD &middot; 8 GB or larger</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+    
 
     <div class="steps">
       <div class="step">
@@ -969,14 +1059,20 @@ xz -dc wlan-commander-nanopi-zero2-v1.0.7-bleedingedge.img.xz \
         </div>
       </div>
     </div>
+      </div>
+    </details>
   </section>
 
   <!-- ============ WHY HARD ============ -->
   <section>
-    <div class="sec-head">
-      <h2>Why the move off 6.1 was hard</h2>
-      <div class="eyebrow">Six builds to a working image</div>
-    </div>
+    <details class="sec">
+      <summary class="sec-head">
+        <h2>Why the move off 6.1 was hard</h2>
+        <span class="eyebrow">Six builds to a working image</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+    
 
     <div class="prose" style="margin-bottom: 24px;">
       <p>
@@ -1023,14 +1119,20 @@ xz -dc wlan-commander-nanopi-zero2-v1.0.7-bleedingedge.img.xz \
         temperature under sustained capture is measured by hand.</p>
       </div>
     </div>
+      </div>
+    </details>
   </section>
 
   <!-- ============ BUILD ============ -->
   <section>
-    <div class="sec-head">
-      <h2>Build it yourself</h2>
-      <div class="eyebrow">Ubuntu or Debian host</div>
-    </div>
+    <details class="sec">
+      <summary class="sec-head">
+        <h2>Build it yourself</h2>
+        <span class="eyebrow">Ubuntu or Debian host</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+    
 
     <div class="prose" style="margin-bottom: 20px;">
       <p>
@@ -1044,6 +1146,8 @@ xz -dc wlan-commander-nanopi-zero2-v1.0.7-bleedingedge.img.xz \
 WC_BRANCH=edge ./build.sh     <span class="cm"># mainline 7.2.y, the stable branch</span>
 WC_BRANCH=vendor ./build.sh   <span class="cm"># Rockchip 6.1, rollback only</span>
 WC_ORB=no ./build.sh          <span class="cm"># leave Orb Sensor out</span></pre>
+      </div>
+    </details>
   </section>
 
 </main>
@@ -1078,3 +1182,56 @@ WC_ORB=no ./build.sh          <span class="cm"># leave Orb Sensor out</span></pr
     </div>
   </div>
 </footer>
+
+<script>
+/* Collapsible sections: keep in-page anchors working, and offer one control to open everything. */
+(function () {
+  function openAncestors(el) {
+    /* Anchor ids sit on the <section>; the <details> is inside it, not above it.
+       So open both directions: every DETAILS above, and the section's own one below. */
+    for (var n = el; n && n !== document.body; n = n.parentElement) {
+      if (n.tagName === 'DETAILS' && !n.open) n.open = true;
+    }
+    if (el.tagName === 'SECTION') {
+      var own = el.querySelector('details.sec');
+      if (own && !own.open) own.open = true;
+    }
+  }
+  function target() {
+    if (!location.hash) return null;
+    try { return document.getElementById(decodeURIComponent(location.hash.slice(1))); }
+    catch (e) { return null; }
+  }
+  function reveal() {
+    var t = target();
+    if (!t) return;
+    openAncestors(t);
+    requestAnimationFrame(function () { t.scrollIntoView({ block: 'start' }); });
+  }
+  window.addEventListener('hashchange', reveal);
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!a) return;
+    var id = a.getAttribute('href').slice(1);
+    if (!id) return;
+    var t = document.getElementById(decodeURIComponent(id));
+    if (t) openAncestors(t);
+  });
+  var btn = document.querySelector('[data-expand-all]');
+  if (btn) {
+    var secs = document.querySelectorAll('details.sec');
+    var sync = function () {
+      var closed = Array.prototype.some.call(secs, function (d) { return !d.open; });
+      btn.textContent = closed ? 'Expand all' : 'Collapse all';
+    };
+    btn.addEventListener('click', function () {
+      var want = Array.prototype.some.call(secs, function (d) { return !d.open; });
+      Array.prototype.forEach.call(secs, function (d) { d.open = want; });
+      sync();
+    });
+    Array.prototype.forEach.call(secs, function (d) { d.addEventListener('toggle', sync); });
+    sync();
+  }
+  reveal();
+})();
+</script>

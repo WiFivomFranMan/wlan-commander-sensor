@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <title>Sniffer Shootout</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -742,6 +743,59 @@ td.strong{font-weight:700;color:var(--ink)}
 .teardown figcaption{margin-top:14px;font-size:15px;color:var(--ink-2);max-width:var(--measure);line-height:1.55}
 .teardown figcaption strong{color:var(--ink)}
 .fignote{display:block;margin-top:9px;font-size:13.5px;color:var(--ink-3)}
+
+/* ---------- collapsible sections ---------- */
+section { padding: 0; border-bottom: 0; }
+.sec { border-top: 1px solid var(--rule-strong, var(--line-2, #B4BCC6)); }
+main > .sec:first-child, main .shell > section:first-child .sec { border-top: 0; }
+.sec > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 22px 0;
+  margin: 0;
+  border: 0;
+  cursor: pointer;
+  list-style: none;
+}
+.sec > summary::-webkit-details-marker { display: none; }
+.sec > summary h2 { margin: 0; }
+.sec > summary > .eyebrow { margin-left: auto; text-align: right; }
+.sec > summary:hover h2 { color: var(--accent, var(--gold, #B85A18)); }
+.sec > summary:focus-visible { outline: 2px solid var(--accent, var(--gold, #B85A18)); outline-offset: -2px; border-radius: 2px; }
+.sec-chev {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 17px; line-height: 1; flex: none;
+  width: 14px; text-align: center;
+  color: var(--ink-3, var(--muted, #78828E));
+  transition: transform .15s ease;
+}
+.sec[open] > summary .sec-chev { transform: rotate(45deg); }
+.sec-body { padding: 4px 0 56px; }
+.sec-lede { margin: 0 0 24px; color: var(--ink-2); max-width: var(--measure, 72ch); }
+
+.secbar {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 0 2px;
+  font-size: 13px;
+  color: var(--ink-3, var(--muted, #78828E));
+}
+.secbar-btn {
+  margin-left: auto;
+  font: inherit;
+  font-weight: 600;
+  color: var(--accent, var(--gold, #B85A18));
+  background: none;
+  border: 1px solid var(--rule-strong, var(--line-2, #B4BCC6));
+  border-radius: 3px;
+  padding: 5px 12px;
+  cursor: pointer;
+}
+.secbar-btn:hover { border-color: var(--accent, var(--gold, #B85A18)); }
+@media (max-width: 720px) {
+  .sec > summary { flex-wrap: wrap; gap: 6px 12px; }
+  .sec > summary > .eyebrow { margin-left: 0; text-align: left; width: 100%; order: 3; }
+}
 </style>
 
 <nav class="wcnav" aria-label="Site"><div class="wcnav-in"><a class="wcnav-brand" href="./">WLAN Commander <span>sensor</span></a><div class="wcnav-links"><a href="compare.html" aria-current="page">Shootout</a><a href="./">Image</a><a href="build.html">Build</a><a href="antennas.html">Antennas</a></div></div></nav>
@@ -778,9 +832,18 @@ td.strong{font-weight:700;color:var(--ink)}
 </header>
 
 <main class="shell">
+  <div class="secbar"><span>8 sections &mdash; tap a heading to open it</span><button type="button" class="secbar-btn" data-expand-all>Expand all</button></div>
+
 
   <section>
-    <div class="sec-head"><h2>Held against held</h2><div class="eyebrow">the comparison that matters</div></div>
+    <details class="sec" open>
+      <summary class="sec-head">
+        <h2>Held against held</h2>
+        <span class="eyebrow">the comparison that matters</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+    
     <div class="prose"><p>
       As actually used &mdash; in a hand, phone attached &mdash; the NanoPi with Osprey antennas is
       <strong>+3.6 dB on 2.4 GHz</strong> and level on 5 and 6. Overall median across
@@ -803,10 +866,19 @@ td.strong{font-weight:700;color:var(--ink)}
     25 access points louder on the NanoPi, only 4 on the Go.
     On 5 GHz the two are genuinely interchangeable &mdash; 14 to
     14 with 11 ties.</p>
+      </div>
+    </details>
   </section>
 
   <section>
-    <div class="sec-head"><h2>Across the spectrum</h2><div class="eyebrow">median p95 per frequency, both held</div></div>
+    <details class="sec">
+      <summary class="sec-head">
+        <h2>Across the spectrum</h2>
+        <span class="eyebrow">median p95 per frequency, both held</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+    
     <div class="chartbox">
       <svg viewBox="0 0 1000 430" role="img" aria-label="Median p95 RSSI per frequency for both devices, hand-held.">
 <rect class="bandzone" x="52.0" y="22" width="211.8" height="346"></rect>
@@ -925,10 +997,19 @@ td.strong{font-weight:700;color:var(--ink)}
     access points live on different channels &mdash; so read the <em>gap</em> between the lines
     rather than the height of either. The smallest markers rest on a single access point and should
     not be read as a trend.</p>
+      </div>
+    </details>
   </section>
 
   <section>
-    <div class="sec-head"><h2>Every access point, both held</h2><div class="eyebrow">hollow = Go &middot; filled = NanoPi</div></div>
+    <details class="sec">
+      <summary class="sec-head">
+        <h2>Every access point, both held</h2>
+        <span class="eyebrow">hollow = Go &middot; filled = NanoPi</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+    
     <div class="chartbox"><svg viewBox="0 0 812 1916" role="img" aria-label="Paired p95 RSSI with both devices hand-held. Hollow ring is the WLANPi Go, filled dot is the NanoPi.">
 <line class="gx" x1="166.0" y1="24" x2="166.0" y2="1900"></line>
 <text class="ax" x="166.0" y="18" text-anchor="middle">-90</text>
@@ -1317,10 +1398,19 @@ td.strong{font-weight:700;color:var(--ink)}
         <span style="color:var(--ink-3)">grey = within 1 dB</span>
       </div>
     </div>
+      </div>
+    </details>
   </section>
 
   <section>
-    <div class="sec-head"><h2>What the hand costs each device</h2><div class="eyebrow">same device, free-standing minus held</div></div>
+    <details class="sec">
+      <summary class="sec-head">
+        <h2>What the hand costs each device</h2>
+        <span class="eyebrow">same device, free-standing minus held</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+    
     <div class="prose"><p>
       The free-standing sweeps exist to answer this: how much does each device lose when you pick it
       up? Comparing a device only against itself removes every other variable.
@@ -1359,10 +1449,19 @@ td.strong{font-weight:700;color:var(--ink)}
         the labels are ours, nothing else is retouched.</span>
       </figcaption>
     </figure>
+      </div>
+    </details>
   </section>
 
   <section>
-    <div class="sec-head"><h2>Free-standing, for reference</h2><div class="eyebrow">supporting data</div></div>
+    <details class="sec">
+      <summary class="sec-head">
+        <h2>Free-standing, for reference</h2>
+        <span class="eyebrow">supporting data</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+    
     <div class="prose"><p>
       With both devices set down and untouched the gap narrows, exactly as the hand-cost table
       predicts: 2.4 GHz +2.1 &middot; 5 GHz +0.6 &middot; 6 GHz +0.5, overall +1.0 dB across 81 paired access points. The
@@ -1378,10 +1477,19 @@ td.strong{font-weight:700;color:var(--ink)}
         </tbody>
       </table>
     </div>
+      </div>
+    </details>
   </section>
 
   <section>
-    <div class="sec-head"><h2>How many each one found</h2><div class="eyebrow">APs with 5+ beacons on their home channel</div></div>
+    <details class="sec">
+      <summary class="sec-head">
+        <h2>How many each one found</h2>
+        <span class="eyebrow">APs with 5+ beacons on their home channel</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+    
     <div class="tablewrap">
       <table>
         <thead><tr><th>Condition</th><th><svg class="devicon" width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect x="1.5" y="3.5" width="17" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="6" cy="8" r="1.1" fill="currentColor"/></svg>WLANPi Go</th><th><svg class="devicon" width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect x="3" y="5" width="14" height="8" rx="1.6" fill="currentColor"/><path d="M6 5V1.5M14 5V1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>NanoPi + Osprey</th></tr></thead>
@@ -1395,18 +1503,36 @@ td.strong{font-weight:700;color:var(--ink)}
     more access points in both conditions even while reading slightly quieter on the ones both hear.
     Signal strength and how many APs clear the detection threshold are different measurements, and
     this run does not disentangle them.</p>
+      </div>
+    </details>
   </section>
 
   <section>
-    <div class="sec-head"><h2>The full table, both held</h2><div class="eyebrow">p95 dBm</div></div>
+    <details class="sec">
+      <summary class="sec-head">
+        <h2>The full table, both held</h2>
+        <span class="eyebrow">p95 dBm</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+    
     <div class="tablewrap"><table>
       <thead><tr><th>Network</th><th>Band</th><th>Ch</th><th><svg class="devicon" width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect x="1.5" y="3.5" width="17" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="6" cy="8" r="1.1" fill="currentColor"/></svg>Go</th><th><svg class="devicon" width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect x="3" y="5" width="14" height="8" rx="1.6" fill="currentColor"/><path d="M6 5V1.5M14 5V1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>NanoPi</th><th>&Delta;</th><th>beacons</th></tr></thead>
       <tbody><tr><td>Network 10</td><td class='mono'>2.4</td><td class='mono'>1</td><td class='mono'>-65.0</td><td class='mono'>-62.0</td><td class='mono pos'>+3.0</td><td class='mono dim'>26/26</td></tr><tr><td>Network 11</td><td class='mono'>2.4</td><td class='mono'>1</td><td class='mono'>-78.3</td><td class='mono'>-75.0</td><td class='mono pos'>+3.3</td><td class='mono dim'>27/19</td></tr><tr><td>Network 15</td><td class='mono'>2.4</td><td class='mono'>1</td><td class='mono'>-65.0</td><td class='mono'>-61.2</td><td class='mono pos'>+3.8</td><td class='mono dim'>25/26</td></tr><tr><td>Network 23</td><td class='mono'>2.4</td><td class='mono'>1</td><td class='mono'>-65.0</td><td class='mono'>-61.5</td><td class='mono pos'>+3.5</td><td class='mono dim'>25/31</td></tr><tr><td>Network 12</td><td class='mono'>2.4</td><td class='mono'>5</td><td class='mono'>-82.8</td><td class='mono'>-78.0</td><td class='mono pos'>+4.8</td><td class='mono dim'>19/21</td></tr><tr><td>Network 10</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-60.0</td><td class='mono'>-51.0</td><td class='mono pos'>+9.0</td><td class='mono dim'>28/25</td></tr><tr><td>Network 15</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-60.0</td><td class='mono'>-51.0</td><td class='mono pos'>+9.0</td><td class='mono dim'>22/29</td></tr><tr><td>Network 23</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-59.0</td><td class='mono'>-51.0</td><td class='mono pos'>+8.0</td><td class='mono dim'>29/28</td></tr><tr><td>Network 25</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-59.0</td><td class='mono'>-55.4</td><td class='mono pos'>+3.6</td><td class='mono dim'>27/28</td></tr><tr><td>Network 27</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-51.0</td><td class='mono'>-53.0</td><td class='mono neg'>-2.0</td><td class='mono dim'>30/24</td></tr><tr><td>Network 27</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-66.0</td><td class='mono'>-60.0</td><td class='mono pos'>+6.0</td><td class='mono dim'>27/13</td></tr><tr><td>Network 27</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-57.0</td><td class='mono'>-50.1</td><td class='mono pos'>+6.9</td><td class='mono dim'>29/23</td></tr><tr><td>Network 28</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-57.3</td><td class='mono'>-56.0</td><td class='mono pos'>+1.3</td><td class='mono dim'>27/28</td></tr><tr><td>Network 31</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-67.2</td><td class='mono'>-60.0</td><td class='mono pos'>+7.2</td><td class='mono dim'>24/25</td></tr><tr><td>Network 34</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-70.5</td><td class='mono'>-63.4</td><td class='mono pos'>+7.1</td><td class='mono dim'>26/28</td></tr><tr><td>Network 35</td><td class='mono'>2.4</td><td class='mono'>6</td><td class='mono'>-86.0</td><td class='mono'>-77.0</td><td class='mono pos'>+9.0</td><td class='mono dim'>24/19</td></tr><tr><td>Network 33</td><td class='mono'>2.4</td><td class='mono'>8</td><td class='mono'>-78.0</td><td class='mono'>-68.0</td><td class='mono pos'>+10.0</td><td class='mono dim'>18/17</td></tr><tr><td>Network 10</td><td class='mono'>2.4</td><td class='mono'>11</td><td class='mono'>-64.0</td><td class='mono'>-69.0</td><td class='mono neg'>-5.0</td><td class='mono dim'>22/22</td></tr><tr><td>Network 10</td><td class='mono'>2.4</td><td class='mono'>11</td><td class='mono'>-39.0</td><td class='mono'>-36.0</td><td class='mono pos'>+3.0</td><td class='mono dim'>29/26</td></tr><tr><td>Network 15</td><td class='mono'>2.4</td><td class='mono'>11</td><td class='mono'>-39.0</td><td class='mono'>-36.0</td><td class='mono pos'>+3.0</td><td class='mono dim'>29/25</td></tr><tr><td>Network 15</td><td class='mono'>2.4</td><td class='mono'>11</td><td class='mono'>-64.0</td><td class='mono'>-69.0</td><td class='mono neg'>-5.0</td><td class='mono dim'>22/25</td></tr><tr><td>Network 20</td><td class='mono'>2.4</td><td class='mono'>11</td><td class='mono'>-54.0</td><td class='mono'>-54.0</td><td class='mono '>+0.0</td><td class='mono dim'>23/29</td></tr><tr><td>Network 23</td><td class='mono'>2.4</td><td class='mono'>11</td><td class='mono'>-64.0</td><td class='mono'>-69.0</td><td class='mono neg'>-5.0</td><td class='mono dim'>22/27</td></tr><tr><td>Network 23</td><td class='mono'>2.4</td><td class='mono'>11</td><td class='mono'>-39.0</td><td class='mono'>-36.0</td><td class='mono pos'>+3.0</td><td class='mono dim'>27/27</td></tr><tr><td>Network 26</td><td class='mono'>2.4</td><td class='mono'>11</td><td class='mono'>-79.0</td><td class='mono'>-74.2</td><td class='mono pos'>+4.8</td><td class='mono dim'>21/26</td></tr><tr><td>Network 01</td><td class='mono'>5</td><td class='mono'>36</td><td class='mono'>-52.0</td><td class='mono'>-60.3</td><td class='mono neg'>-8.3</td><td class='mono dim'>25/27</td></tr><tr><td>Network 01</td><td class='mono'>5</td><td class='mono'>36</td><td class='mono'>-67.0</td><td class='mono'>-70.0</td><td class='mono neg'>-3.0</td><td class='mono dim'>26/28</td></tr><tr><td>Network 35</td><td class='mono'>5</td><td class='mono'>36</td><td class='mono'>-90.0</td><td class='mono'>-89.0</td><td class='mono '>+1.0</td><td class='mono dim'>23/32</td></tr><tr><td>Network 11</td><td class='mono'>5</td><td class='mono'>44</td><td class='mono'>-84.0</td><td class='mono'>-85.0</td><td class='mono '>-1.0</td><td class='mono dim'>26/26</td></tr><tr><td>Network 28</td><td class='mono'>5</td><td class='mono'>44</td><td class='mono'>-85.0</td><td class='mono'>-84.2</td><td class='mono '>+0.8</td><td class='mono dim'>26/26</td></tr><tr><td>Network 19</td><td class='mono'>5</td><td class='mono'>48</td><td class='mono'>-88.0</td><td class='mono'>-86.0</td><td class='mono pos'>+2.0</td><td class='mono dim'>28/24</td></tr><tr><td>Network 09</td><td class='mono'>5</td><td class='mono'>56</td><td class='mono'>-57.0</td><td class='mono'>-59.2</td><td class='mono neg'>-2.2</td><td class='mono dim'>26/25</td></tr><tr><td>Network 15</td><td class='mono'>5</td><td class='mono'>56</td><td class='mono'>-57.0</td><td class='mono'>-59.2</td><td class='mono neg'>-2.2</td><td class='mono dim'>26/25</td></tr><tr><td>Network 16</td><td class='mono'>5</td><td class='mono'>56</td><td class='mono'>-57.0</td><td class='mono'>-59.2</td><td class='mono neg'>-2.2</td><td class='mono dim'>26/25</td></tr><tr><td>Network 23</td><td class='mono'>5</td><td class='mono'>56</td><td class='mono'>-57.0</td><td class='mono'>-59.2</td><td class='mono neg'>-2.2</td><td class='mono dim'>27/25</td></tr><tr><td>Network 36</td><td class='mono'>5</td><td class='mono'>56</td><td class='mono'>-57.0</td><td class='mono'>-59.2</td><td class='mono neg'>-2.2</td><td class='mono dim'>26/25</td></tr><tr><td>Network 37</td><td class='mono'>5</td><td class='mono'>56</td><td class='mono'>-57.0</td><td class='mono'>-59.2</td><td class='mono neg'>-2.2</td><td class='mono dim'>27/25</td></tr><tr><td>Network 09</td><td class='mono'>5</td><td class='mono'>60</td><td class='mono'>-53.0</td><td class='mono'>-53.0</td><td class='mono '>+0.0</td><td class='mono dim'>26/24</td></tr><tr><td>Network 15</td><td class='mono'>5</td><td class='mono'>60</td><td class='mono'>-53.2</td><td class='mono'>-53.0</td><td class='mono '>+0.2</td><td class='mono dim'>26/25</td></tr><tr><td>Network 16</td><td class='mono'>5</td><td class='mono'>60</td><td class='mono'>-53.2</td><td class='mono'>-53.2</td><td class='mono '>+0.0</td><td class='mono dim'>26/25</td></tr><tr><td>Network 23</td><td class='mono'>5</td><td class='mono'>60</td><td class='mono'>-53.2</td><td class='mono'>-53.2</td><td class='mono '>+0.0</td><td class='mono dim'>26/25</td></tr><tr><td>Network 36</td><td class='mono'>5</td><td class='mono'>60</td><td class='mono'>-53.0</td><td class='mono'>-53.0</td><td class='mono '>+0.0</td><td class='mono dim'>26/25</td></tr><tr><td>Network 37</td><td class='mono'>5</td><td class='mono'>60</td><td class='mono'>-53.0</td><td class='mono'>-53.0</td><td class='mono '>+0.0</td><td class='mono dim'>26/24</td></tr><tr><td>Network 03</td><td class='mono'>5</td><td class='mono'>116</td><td class='mono'>-36.0</td><td class='mono'>-28.0</td><td class='mono pos'>+8.0</td><td class='mono dim'>24/25</td></tr><tr><td>Network 09</td><td class='mono'>5</td><td class='mono'>120</td><td class='mono'>-38.4</td><td class='mono'>-41.0</td><td class='mono neg'>-2.6</td><td class='mono dim'>29/24</td></tr><tr><td>Network 15</td><td class='mono'>5</td><td class='mono'>120</td><td class='mono'>-38.4</td><td class='mono'>-41.0</td><td class='mono neg'>-2.6</td><td class='mono dim'>29/25</td></tr><tr><td>Network 16</td><td class='mono'>5</td><td class='mono'>120</td><td class='mono'>-38.4</td><td class='mono'>-41.0</td><td class='mono neg'>-2.6</td><td class='mono dim'>29/25</td></tr><tr><td>Network 23</td><td class='mono'>5</td><td class='mono'>120</td><td class='mono'>-38.4</td><td class='mono'>-41.0</td><td class='mono neg'>-2.6</td><td class='mono dim'>29/25</td></tr><tr><td>Network 36</td><td class='mono'>5</td><td class='mono'>120</td><td class='mono'>-38.0</td><td class='mono'>-41.0</td><td class='mono neg'>-3.0</td><td class='mono dim'>29/25</td></tr><tr><td>Network 37</td><td class='mono'>5</td><td class='mono'>120</td><td class='mono'>-38.0</td><td class='mono'>-41.0</td><td class='mono neg'>-3.0</td><td class='mono dim'>29/23</td></tr><tr><td>Network 03</td><td class='mono'>5</td><td class='mono'>132</td><td class='mono'>-62.0</td><td class='mono'>-60.0</td><td class='mono pos'>+2.0</td><td class='mono dim'>24/25</td></tr><tr><td>Network 09</td><td class='mono'>5</td><td class='mono'>140</td><td class='mono'>-65.0</td><td class='mono'>-63.0</td><td class='mono pos'>+2.0</td><td class='mono dim'>28/25</td></tr><tr><td>Network 15</td><td class='mono'>5</td><td class='mono'>140</td><td class='mono'>-65.0</td><td class='mono'>-63.0</td><td class='mono pos'>+2.0</td><td class='mono dim'>28/25</td></tr><tr><td>Network 16</td><td class='mono'>5</td><td class='mono'>140</td><td class='mono'>-65.0</td><td class='mono'>-63.0</td><td class='mono pos'>+2.0</td><td class='mono dim'>28/24</td></tr><tr><td>Network 23</td><td class='mono'>5</td><td class='mono'>140</td><td class='mono'>-65.0</td><td class='mono'>-63.0</td><td class='mono pos'>+2.0</td><td class='mono dim'>28/25</td></tr><tr><td>Network 36</td><td class='mono'>5</td><td class='mono'>140</td><td class='mono'>-65.0</td><td class='mono'>-63.0</td><td class='mono pos'>+2.0</td><td class='mono dim'>25/25</td></tr><tr><td>Network 37</td><td class='mono'>5</td><td class='mono'>140</td><td class='mono'>-65.0</td><td class='mono'>-63.0</td><td class='mono pos'>+2.0</td><td class='mono dim'>28/25</td></tr><tr><td>Network 25</td><td class='mono'>5</td><td class='mono'>149</td><td class='mono'>-56.0</td><td class='mono'>-56.0</td><td class='mono '>+0.0</td><td class='mono dim'>27/27</td></tr><tr><td>Network 28</td><td class='mono'>5</td><td class='mono'>149</td><td class='mono'>-55.3</td><td class='mono'>-56.0</td><td class='mono '>-0.7</td><td class='mono dim'>27/27</td></tr><tr><td>Network 20</td><td class='mono'>5</td><td class='mono'>157</td><td class='mono'>-61.2</td><td class='mono'>-56.0</td><td class='mono pos'>+5.2</td><td class='mono dim'>26/27</td></tr><tr><td>Network 21</td><td class='mono'>5</td><td class='mono'>157</td><td class='mono'>-61.2</td><td class='mono'>-56.0</td><td class='mono pos'>+5.2</td><td class='mono dim'>26/27</td></tr><tr><td>Network 22</td><td class='mono'>5</td><td class='mono'>157</td><td class='mono'>-61.2</td><td class='mono'>-56.0</td><td class='mono pos'>+5.2</td><td class='mono dim'>26/27</td></tr><tr><td>Network 28</td><td class='mono'>5</td><td class='mono'>157</td><td class='mono'>-70.3</td><td class='mono'>-69.0</td><td class='mono pos'>+1.3</td><td class='mono dim'>28/28</td></tr><tr><td>Network 31</td><td class='mono'>5</td><td class='mono'>157</td><td class='mono'>-70.3</td><td class='mono'>-69.0</td><td class='mono pos'>+1.3</td><td class='mono dim'>28/28</td></tr><tr><td>Network 02</td><td class='mono'>6</td><td class='mono'>5</td><td class='mono'>-54.0</td><td class='mono'>-59.2</td><td class='mono neg'>-5.2</td><td class='mono dim'>20/25</td></tr><tr><td>Network 31</td><td class='mono'>6</td><td class='mono'>53</td><td class='mono'>-85.0</td><td class='mono'>-88.2</td><td class='mono neg'>-3.2</td><td class='mono dim'>21/25</td></tr><tr><td>Network 24</td><td class='mono'>6</td><td class='mono'>69</td><td class='mono'>-48.0</td><td class='mono'>-43.2</td><td class='mono pos'>+4.8</td><td class='mono dim'>21/26</td></tr><tr><td>Network 24</td><td class='mono'>6</td><td class='mono'>133</td><td class='mono'>-69.0</td><td class='mono'>-68.0</td><td class='mono '>+1.0</td><td class='mono dim'>27/26</td></tr><tr><td>Network 24</td><td class='mono'>6</td><td class='mono'>165</td><td class='mono'>-59.0</td><td class='mono'>-56.0</td><td class='mono pos'>+3.0</td><td class='mono dim'>20/26</td></tr><tr><td>Network 03</td><td class='mono'>6</td><td class='mono'>197</td><td class='mono'>-49.0</td><td class='mono'>-49.2</td><td class='mono '>-0.2</td><td class='mono dim'>25/26</td></tr><tr><td>Network 04</td><td class='mono'>6</td><td class='mono'>197</td><td class='mono'>-49.0</td><td class='mono'>-49.2</td><td class='mono '>-0.2</td><td class='mono dim'>25/26</td></tr><tr><td>Network 24</td><td class='mono'>6</td><td class='mono'>197</td><td class='mono'>-61.9</td><td class='mono'>-62.0</td><td class='mono '>-0.1</td><td class='mono dim'>20/25</td></tr></tbody>
     </table></div>
+      </div>
+    </details>
   </section>
 
   <section>
-    <div class="sec-head"><h2>How the numbers were made</h2><div class="eyebrow">method</div></div>
+    <details class="sec">
+      <summary class="sec-head">
+        <h2>How the numbers were made</h2>
+        <span class="eyebrow">method</span>
+        <span class="sec-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="sec-body">
+    
     <div class="prose">
       <p>Beacons only, p95 of RSSI in dBm. Access points are paired by <strong>BSSID and
       frequency</strong>, never by name, because multi-BSSID radios reuse one SSID across bands.</p>
@@ -1419,6 +1545,8 @@ td.strong{font-weight:700;color:var(--ink)}
       Broadcom, and pooling the two compared a NanoPi BE200 against a Broadcom on a third of the
       channels.</p>
     </div>
+      </div>
+    </details>
   </section>
 </main>
 
@@ -1430,3 +1558,56 @@ td.strong{font-weight:700;color:var(--ink)}
     <div><div class="eyebrow">Antennas</div><p><a href="antennas.html">The Osprey was picked by measurement</a>, not by guess.</p></div>
   </div></div>
 </footer>
+
+<script>
+/* Collapsible sections: keep in-page anchors working, and offer one control to open everything. */
+(function () {
+  function openAncestors(el) {
+    /* Anchor ids sit on the <section>; the <details> is inside it, not above it.
+       So open both directions: every DETAILS above, and the section's own one below. */
+    for (var n = el; n && n !== document.body; n = n.parentElement) {
+      if (n.tagName === 'DETAILS' && !n.open) n.open = true;
+    }
+    if (el.tagName === 'SECTION') {
+      var own = el.querySelector('details.sec');
+      if (own && !own.open) own.open = true;
+    }
+  }
+  function target() {
+    if (!location.hash) return null;
+    try { return document.getElementById(decodeURIComponent(location.hash.slice(1))); }
+    catch (e) { return null; }
+  }
+  function reveal() {
+    var t = target();
+    if (!t) return;
+    openAncestors(t);
+    requestAnimationFrame(function () { t.scrollIntoView({ block: 'start' }); });
+  }
+  window.addEventListener('hashchange', reveal);
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!a) return;
+    var id = a.getAttribute('href').slice(1);
+    if (!id) return;
+    var t = document.getElementById(decodeURIComponent(id));
+    if (t) openAncestors(t);
+  });
+  var btn = document.querySelector('[data-expand-all]');
+  if (btn) {
+    var secs = document.querySelectorAll('details.sec');
+    var sync = function () {
+      var closed = Array.prototype.some.call(secs, function (d) { return !d.open; });
+      btn.textContent = closed ? 'Expand all' : 'Collapse all';
+    };
+    btn.addEventListener('click', function () {
+      var want = Array.prototype.some.call(secs, function (d) { return !d.open; });
+      Array.prototype.forEach.call(secs, function (d) { d.open = want; });
+      sync();
+    });
+    Array.prototype.forEach.call(secs, function (d) { d.addEventListener('toggle', sync); });
+    sync();
+  }
+  reveal();
+})();
+</script>
