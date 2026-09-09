@@ -672,7 +672,6 @@ main > .sec:first-child, main .shell > section:first-child .sec { border-top: 0;
       <div class="jump-title">On this page</div>
       <nav class="jump-list">
         <a href="#band-coverage-by-card">Band coverage by card</a>
-        <a href="#what-changed-since-v1-0-1">What changed since v1.0.1</a>
         <a href="#what-was-measured-on-hardware">What was measured on hardware</a>
         <a href="#set-the-country-or-lose-6-ghz">Set the country, or lose 6 GHz</a>
         <a href="#what-is-in-the-image">What is in the image</a>
@@ -831,76 +830,6 @@ main > .sec:first-child, main .shell > section:first-child .sec { border-top: 0;
     </details>
   </section>
 
-  <!-- ============ CHANGED ============ -->
-  <section id="what-changed-since-v1-0-1">
-    <details class="sec">
-      <summary class="sec-head">
-        <span class="sec-chev" aria-hidden="true">▸</span>
-        <h2>What changed since v1.0.1</h2>
-        <span class="eyebrow">since the last published image</span>
-      </summary>
-      <div class="sec-body">
-    
-
-    <div class="prose" style="margin-bottom: 24px;">
-      <p>
-        Everything below is new since v1.0.1, the previous download. Reflash to pick it up; a
-        running sensor keeps the name and the addressing it already has.
-      </p>
-    </div>
-
-    <div class="hard">
-      <div class="hard-row">
-        <h3>All 110 frequencies, and a clean firmware</h3>
-        <p>The image brings up <code>mon0</code> at boot and then leaves the radio alone, which is
-        what keeps 6 GHz available. Measured across three builds on hardware: <strong>0 of 110
-        frequencies disabled</strong> that way, against <strong>69 disabled</strong> when the image
-        scans for regulatory itself &mdash; all of 6 GHz among them, with an
-        <code>ADVANCED_SYSASSERT</code> and a SW reset 13 s into boot. WLAN Commander runs the scan
-        instead, with the target frequency known, which a boot-time scan cannot be.</p>
-      </div>
-      <div class="hard-row">
-        <h3>Sensors are named <code>WC-nanopi-&lt;last 3&gt;</code></h3>
-        <p>The <code>wlanpi-</code> prefix is dropped. The <code>_wlanpi._tcp</code> mDNS record
-        is now the only thing making a sensor recognisable to WLAN Commander's Add Device screen,
-        so do not remove it. Anything written against <code>wlanpi-nano-&lt;last 4&gt;</code>
-        needs updating.</p>
-      </div>
-      <div class="hard-row">
-        <h3>USB gadget addressing that survives a reboot</h3>
-        <p>Both gadget MACs derive from the board serial: stable across boots, and distinct between
-        units, so two sensors on one laptop cannot collide. That matters more than it sounds &mdash;
-        a gadget with a random MAC looks like a new DHCP client on every boot, and
-        <code>systemd-networkd</code> persists leases into a pool eleven addresses deep. The lease
-        database is cleared at gadget start, which also recovers a unit that has already filled
-        one.</p>
-      </div>
-      <div class="hard-row">
-        <h3>No serial console over USB-C</h3>
-        <p>The gadget is NCM only. WLANPi's own carries no ACM function either, and for good
-        reason: a host that will not configure a composite configures none of it, so an extra
-        serial interface beside the network one can cost you the network one on an iPhone or a Mac.
-        <strong>For a board in a case, the UART header is now the console.</strong></p>
-      </div>
-      <div class="hard-row">
-        <h3>A dirty filesystem is repaired, not fatal</h3>
-        <p>A sensor is switched off by pulling its power. Without <code>fsck.repair=yes</code> a
-        dirty ext4 needing more than a journal replay drops systemd to an emergency shell, and
-        that unit is indistinguishable from dead hardware: the PHY blinks, but no address, no
-        mDNS, no gadget, no way in.</p>
-      </div>
-      <div class="hard-row">
-        <h3>The SD card is measured once per boot</h3>
-        <p><code>wc-storage-check</code> times a 32 MiB write and publishes a verdict to
-        <code>/run/wlan-commander/storage.json</code>. Read speed is nearly useless here &mdash;
-        two very different cards both read 67&ndash;68 MB/s while writing 12 and 21 MB/s, so read
-        describes the RK3528 host controller rather than the card.</p>
-      </div>
-    </div>
-      </div>
-    </details>
-  </section>
-
   <!-- ============ VERIFIED ============ -->
   <section id="what-was-measured-on-hardware">
     <details class="sec">
@@ -1037,7 +966,32 @@ main > .sec:first-child, main .shell > section:first-child .sec { border-top: 0;
         unit in a case is reachable when the network is not. That is WLANPi's own addressing, on
         reserved space that cannot collide with the host's network. Both gadget MAC addresses are
         derived from the board serial, so two sensors on one laptop cannot collide and neither
-        exhausts the DHCP pool.</p>
+        exhausts the DHCP pool. It is an NCM ethernet gadget only, so the console is the UART
+        header.</p>
+      </div>
+      <div class="feat">
+        <h3>6 GHz stays unlocked</h3>
+        <p>The image brings up <code>mon0</code> at boot and then leaves the radio alone. That is
+        what keeps <strong>all 110 frequencies</strong> available on a clean boot, to 7115 MHz;
+        scanning for regulatory at boot instead costs 69 of them, 6 GHz among them.</p>
+      </div>
+      <div class="feat">
+        <h3>Named for the board, not the card</h3>
+        <p>Each unit comes up as <code>WC-nanopi-&lt;last 3&gt;</code> from the SoC serial, so a
+        reflashed sensor keeps the name it had. The <code>_wlanpi._tcp</code> mDNS record is what
+        WLAN Commander's Add Device screen matches on.</p>
+      </div>
+      <div class="feat">
+        <h3>It measures its own SD card</h3>
+        <p><code>wc-storage-check</code> times a 32 MiB write once per boot and publishes a verdict
+        to <code>/run/wlan-commander/storage.json</code>. Idle I/O priority, and it will not run
+        while <code>tcpdump</code> is alive.</p>
+      </div>
+      <div class="feat">
+        <h3>Losing power is not an event</h3>
+        <p>A sensor is switched off by pulling its cable, so the filesystem comes up dirty
+        routinely. <code>fsck.repair=yes</code> means that is repaired at boot rather than dropping
+        a headless unit into an emergency shell with no way in.</p>
       </div>
       <div class="feat">
         <h3>Orb Sensor, unclaimed</h3>
