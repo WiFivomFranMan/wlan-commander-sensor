@@ -195,35 +195,79 @@ main > .sec:first-child, main .shell > section:first-child .sec { border-top: 0;
 .sec > summary:focus-visible { outline: 2px solid var(--accent, var(--gold, #B85A18)); outline-offset: -2px; border-radius: 2px; }
 .sec-chev {
   font-family: "JetBrains Mono", monospace;
-  font-size: 17px; line-height: 1; flex: none;
+  font-size: 13px; line-height: 1; flex: none;
   width: 14px; text-align: center;
-  color: var(--ink-3, var(--muted, #78828E));
+  color: var(--accent, var(--gold, #B85A18));
   transition: transform .15s ease;
+  align-self: center;
 }
-.sec[open] > summary .sec-chev { transform: rotate(45deg); }
+.sec[open] > summary .sec-chev { transform: rotate(90deg); }
 .sec-body { padding: 4px 0 56px; }
 .sec-lede { margin: 0 0 24px; color: var(--ink-2); max-width: var(--measure, 72ch); }
 
-.secbar {
-  display: flex; align-items: center; gap: 14px;
-  padding: 18px 0 2px;
-  font-size: 13px;
-  color: var(--ink-3, var(--muted, #78828E));
+@media (max-width: 720px) {
+  .sec > summary { flex-wrap: wrap; gap: 6px 12px; }
+  .sec > summary > .eyebrow { margin-left: 0; text-align: left; width: 100%; order: 3; }
 }
-.secbar-btn {
-  font: inherit;
+
+/* ---------- section jump rail ---------- */
+.page { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 52px; align-items: start; }
+.page-main { min-width: 0; }
+.jump { position: sticky; top: 62px; padding: 26px 0 40px; min-width: 0; }
+.jump-title {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-3, var(--muted, #78828E));
+  margin: 0 0 12px 13px;
+}
+.jump-list { display: grid; gap: 1px; border-left: 1px solid var(--rule, var(--line, #D2D7DE)); }
+.jump-list a {
+  display: block;
+  padding: 7px 0 7px 13px;
+  margin-left: -1px;
+  border-left: 2px solid transparent;
+  font-size: 13.5px; line-height: 1.3;
+  color: var(--ink-2, #4E5762);
+  text-decoration: none;
+}
+.jump-list a:hover { color: var(--ink); }
+.jump-list a.on {
+  color: var(--accent, var(--gold, #B85A18));
+  border-left-color: var(--accent, var(--gold, #B85A18));
   font-weight: 600;
+}
+.jump-all {
+  margin: 16px 0 0 13px;
+  font: inherit; font-size: 12.5px; font-weight: 600;
   color: var(--accent, var(--gold, #B85A18));
   background: none;
   border: 1px solid var(--rule-strong, var(--line-2, #B4BCC6));
   border-radius: 3px;
-  padding: 5px 12px;
+  padding: 5px 11px;
   cursor: pointer;
 }
-.secbar-btn:hover { border-color: var(--accent, var(--gold, #B85A18)); }
-@media (max-width: 720px) {
-  .sec > summary { flex-wrap: wrap; gap: 6px 12px; }
-  .sec > summary > .eyebrow { margin-left: 0; text-align: left; width: 100%; order: 3; }
+.jump-all:hover { border-color: var(--accent, var(--gold, #B85A18)); }
+
+@media (max-width: 960px) {
+  .page { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .jump { position: static; padding: 18px 0 6px; }
+  .jump-title { margin-left: 0; }
+  .jump-list {
+    display: flex; gap: 8px;
+    border-left: 0;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .jump-list a {
+    flex: none;
+    padding: 6px 12px; margin: 0;
+    border: 1px solid var(--rule, var(--line, #D2D7DE));
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .jump-list a.on { border-color: var(--accent, var(--gold, #B85A18)); }
+  .jump-all { margin-left: 0; }
 }
 </style>
 
@@ -246,15 +290,30 @@ main > .sec:first-child, main .shell > section:first-child .sec { border-top: 0;
 </div></header>
 
 <main class="wrap">
-<div class="secbar"><button type="button" class="secbar-btn" data-expand-all>Expand all</button><span>7 sections &mdash; tap a heading to open it</span></div>
 
+
+  <div class="page">
+    <aside class="jump" aria-label="Sections on this page">
+      <div class="jump-title">On this page</div>
+      <nav class="jump-list">
+        <a href="#answer">It depends where the scanner lives</a>
+        <a href="#leaderboard">Per-band leaderboard</a>
+        <a href="#freq">What sampling one channel per band hid</a>
+        <a href="#null">The 6455 dip is mostly the AP, not the antenna</a>
+        <a href="#throughput">iperf3 to the wired NUC</a>
+        <a href="#contenders">The eight, by form factor</a>
+        <a href="#method">How every number was made</a>
+      </nav>
+      <button type="button" class="jump-all" data-expand-all>Expand all</button>
+    </aside>
+    <div class="page-main">
 
 <section id="answer">
     <details class="sec" open>
       <summary class="sec-head">
+        <span class="sec-chev" aria-hidden="true">▸</span>
         <h2>It depends where the scanner lives</h2>
         <span class="eyebrow">The answer</span>
-        <span class="sec-chev" aria-hidden="true">+</span>
       </summary>
       <div class="sec-body">
         <div class="sec-lede"><p>Raw power favours the big whips — but they only matter on a desk. For a <b>pocket scanner</b> the question is the best <em>small</em> antenna, and there the compact circular-pol Osprey trades blows with the bigger Dixingtek. Two picks, then the raw per-band winners.</p></div>
@@ -268,9 +327,9 @@ main > .sec:first-child, main .shell > section:first-child .sec { border-top: 0;
 <section id="leaderboard">
     <details class="sec">
       <summary class="sec-head">
+        <span class="sec-chev" aria-hidden="true">▸</span>
         <h2>Per-band leaderboard</h2>
         <span class="eyebrow">Controlled RSSI · band average</span>
-        <span class="sec-chev" aria-hidden="true">+</span>
       </summary>
       <div class="sec-body">
         <div class="sec-lede"><p>Mean p95 of the R670's beacons at the NanoPi across the three swept channels per band (2.4: 1/6/11 · 5: 36/149/157 · 6: 37/101/165). The air was clean (0 tx-retries), so received power is the honest antenna metric.</p></div>
@@ -283,9 +342,9 @@ main > .sec:first-child, main .shell > section:first-child .sec { border-top: 0;
 <section id="freq">
     <details class="sec">
       <summary class="sec-head">
+        <span class="sec-chev" aria-hidden="true">▸</span>
         <h2>What sampling one channel per band hid</h2>
         <span class="eyebrow">The channel sweep · compare across the band</span>
-        <span class="sec-chev" aria-hidden="true">+</span>
       </summary>
       <div class="sec-body">
         <div class="sec-lede"><p>Signal and throughput at every swept channel, 2.4→6&nbsp;GHz. This is the whole point of sweeping the certified AP
@@ -315,9 +374,9 @@ main > .sec:first-child, main .shell > section:first-child .sec { border-top: 0;
 <section id="null">
     <details class="sec">
       <summary class="sec-head">
+        <span class="sec-chev" aria-hidden="true">▸</span>
         <h2>The 6455 dip is mostly the AP, not the antenna</h2>
         <span class="eyebrow">What the sweep caught</span>
-        <span class="sec-chev" aria-hidden="true">+</span>
       </summary>
       <div class="sec-body">
   
@@ -335,9 +394,9 @@ main > .sec:first-child, main .shell > section:first-child .sec { border-top: 0;
 <section id="throughput">
     <details class="sec">
       <summary class="sec-head">
+        <span class="sec-chev" aria-hidden="true">▸</span>
         <h2>iperf3 to the wired NUC</h2>
         <span class="eyebrow">Controlled throughput · band average</span>
-        <span class="sec-chev" aria-hidden="true">+</span>
       </summary>
       <div class="sec-body">
         <div class="sec-lede"><p>NanoPi associated to the R670 on each swept channel, 80&nbsp;MHz EHT, 15&nbsp;s each way; values are the per-band mean of ↓ / ↑ in Mbit/s.</p></div>
@@ -353,9 +412,9 @@ main > .sec:first-child, main .shell > section:first-child .sec { border-top: 0;
 <section id="contenders">
     <details class="sec">
       <summary class="sec-head">
+        <span class="sec-chev" aria-hidden="true">▸</span>
         <h2>The eight, by form factor</h2>
         <span class="eyebrow">The contenders</span>
-        <span class="sec-chev" aria-hidden="true">+</span>
       </summary>
       <div class="sec-body">
         <div class="sec-lede"><p>Grouped pocket → desk, with polarization tagged. Photos and buy links where the antenna came from a listing —
@@ -372,9 +431,9 @@ main > .sec:first-child, main .shell > section:first-child .sec { border-top: 0;
 <section id="method">
     <details class="sec">
       <summary class="sec-head">
+        <span class="sec-chev" aria-hidden="true">▸</span>
         <h2>How every number was made</h2>
         <span class="eyebrow">Method &amp; provenance</span>
-        <span class="sec-chev" aria-hidden="true">+</span>
       </summary>
       <div class="sec-body">
   
@@ -395,6 +454,10 @@ main > .sec:first-child, main .shell > section:first-child .sec { border-top: 0;
       </div>
     </details>
   </section>
+
+    </div>
+  </div>
+
 
 <footer class="wrap">Antenna Shootout · WLAN lab · all RSSI figures p95 · R670 swept MANUAL with venue ChannelFly disabled · rebuilt from the corrected campaign only.</footer>
 </main>
@@ -543,8 +606,8 @@ const bandThr=(k,b,f)=>avg(RAW[k][b].map(x=>x[f]).filter(v=>v!=null));
 /* Collapsible sections: keep in-page anchors working, and offer one control to open everything. */
 (function () {
   function openAncestors(el) {
-    /* Anchor ids sit on the <section>; the <details> is inside it, not above it.
-       So open both directions: every DETAILS above, and the section's own one below. */
+    /* Anchor ids sit on the section element; the details is inside it, not above it.
+       So open both directions: every DETAILS above, and the section own one below. */
     for (var n = el; n && n !== document.body; n = n.parentElement) {
       if (n.tagName === 'DETAILS' && !n.open) n.open = true;
     }
@@ -588,6 +651,29 @@ const bandThr=(k,b,f)=>avg(RAW[k][b].map(x=>x[f]).filter(v=>v!=null));
     Array.prototype.forEach.call(secs, function (d) { d.addEventListener('toggle', sync); });
     sync();
   }
+
+  /* highlight the section the reader is in */
+  var links = Array.prototype.slice.call(document.querySelectorAll('.jump-list a'));
+  if (links.length) {
+    var marks = links.map(function (a) {
+      return { a: a, el: document.getElementById(a.getAttribute('href').slice(1)) };
+    }).filter(function (m) { return m.el; });
+    var ticking = false;
+    var spy = function () {
+      ticking = false;
+      var y = window.scrollY + 140, cur = marks[0];
+      for (var i = 0; i < marks.length; i++) {
+        if (marks[i].el.offsetTop <= y) cur = marks[i];
+      }
+      marks.forEach(function (m) { m.a.classList.toggle('on', m === cur); });
+    };
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(spy); }
+    }, { passive: true });
+    window.addEventListener('resize', spy);
+    spy();
+  }
+
   reveal();
 })();
 </script>
