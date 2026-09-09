@@ -963,11 +963,12 @@ footer {
             takes the laptop link with it. This adapter is one male into two females, so the supply
             goes on one leg and the laptop on the other, and its right angle keeps the stack out of
             the printed enclosure's way.</p>
-            <p class="part-note"><strong>Not tested here, and this one deserves the caveat.</strong>
-            An adapter like this routes power to one leg and USB 2.0 data to the other; whether this
-            board's UDC still enumerates a gadget while VBUS arrives from the neighbouring leg is
-            exactly the sort of thing that has to be measured rather than assumed. Buy it to try, not
-            to rely on.</p>
+            <p class="part-note">One is in the <a href="#printed">field rig below</a>, carrying power
+            from a pocket battery. <strong>What is untested is the other half of the claim</strong>:
+            an adapter like this routes power to one leg and USB 2.0 data to the other, and whether
+            this board's UDC still enumerates a gadget while VBUS arrives from the neighbouring leg
+            has to be measured rather than assumed. Power through it is proven; power
+            <em>and</em> the laptop link at once is not.</p>
             <p class="part-note">The PD100W and 10 Gbps ratings are irrelevant here in the same way
             the PoE splitter's 2.5G is: the board's port is USB 2.0 and the board wants 5 V.</p>
             <dl class="spec"><div><dt>Product</dt><dd>QIANRENON USB-C 1 male to 2 female, 90&deg;</dd></div><div><dt>Rated</dt><dd>PD 100 W, 10 Gb/s &mdash; both headroom</dd></div><div><dt>Use</dt><dd>Supply on one leg, host on the other</dd></div><div><dt>Price</dt><dd>$12.99</dd></div><div><dt>Source</dt><dd>Amazon <a class="mono" href="https://www.amazon.com/dp/B0DDPRWVD5" target="_blank" rel="noopener noreferrer">B0DDPRWVD5</a></dd></div></dl>
@@ -1383,7 +1384,7 @@ sudo dmesg | grep -i 'loaded firmware'  <span class="cm"># expect core 106</span
       <div class="eyebrow">photographed on a real build</div>
     </div>
 
-    <div class="prose" style="margin-bottom: 26px;">
+    <div class="prose" style="margin-bottom: 22px;">
       <p>
         The MakerWorld MagSafe enclosure listed above does not replace the aluminium case &mdash; the
         case slides into it. Everything in the assembly section still applies; these are the seven
@@ -1391,6 +1392,15 @@ sudo dmesg | grep -i 'loaded firmware'  <span class="cm"># expect core 106</span
         the build rather than a rendering.
       </p>
     </div>
+
+    <div class="shot" style="max-width: 380px;"><img src="images/field-rig.jpg" alt="The finished sensor magnet-mounted on the back of a phone, fed from a pocket battery through a right-angle USB-C lead and a one-to-two adapter" loading="lazy"></div>
+    <p class="caption" style="margin-bottom: 30px;">
+      What the whole thing is for: the sensor magnet-mounted on the back of a phone, the finned
+      aluminium case visible inside the print, an antenna on the corner, and power arriving from a
+      pocket battery through the short right-angle USB-C lead and a one-to-two adapter marked
+      <span class="mono">USB 3.2 10 Gb/s PD 100 W</span>. Nothing in this picture is bolted to
+      anything.
+    </p>
 
     <div class="steps">
       <div class="step">
