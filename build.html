@@ -566,6 +566,16 @@ footer {
 }
 .part-photo img { display: block; width: 100%; height: auto; border-radius: 2px; }
 
+.shot {
+  margin: 0 0 14px;
+  background: var(--photo-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 8px;
+  max-width: 520px;
+}
+.shot img { display: block; width: 100%; height: auto; border-radius: 2px; }
+
 .part-note { margin: 0 0 14px; font-size: 15.5px; color: var(--ink-2); max-width: var(--measure); }
 .part-note strong { color: var(--ink); }
 
@@ -696,7 +706,7 @@ footer {
       </div>
       <div class="masthead-side">
         <div class="statlist">
-          <div class="statrow"><span class="stat-label">Parts</span><span class="val">6 required, 5 optional</span></div>
+          <div class="statrow"><span class="stat-label">Parts</span><span class="val">6 required, 7 optional</span></div>
           <div class="statrow"><span class="stat-label">Radio</span><span class="val">Intel BE200, Wi-Fi 7</span></div>
           <div class="statrow"><span class="stat-label">Tools</span><span class="val">Small Phillips driver</span></div>
           <div class="statrow"><span class="stat-label">Soldering</span><span class="val">None</span></div>
@@ -822,6 +832,11 @@ footer {
             <p class="part-note">The M.2 card is held down by a single small screw, and the M.2
             standard specifies <strong>M2.5</strong>. An assortment is worth having because that screw
             is easy to lose and impossible to improvise.</p>
+            <p class="part-note">The printed enclosure below eats two more lengths:
+            <strong>M2.5 &times; 8 mm</strong> top-to-bottom at the antenna corners and
+            <strong>M2.5 &times; 14 mm</strong> for the four centre holes. <strong>This kit has the
+            8 mm and not the 14 mm</strong> &mdash; its ladder runs 12, 16, 20 and skips straight
+            over. Source the 14 mm separately if you are printing the enclosure.</p>
             <dl class="spec"><div><dt>Thread</dt><dd><strong>M2.5</strong>, the M.2 retaining size</dd></div><div><dt>Sizes</dt><dd>M2.5 &times; 3/4/5/6/8/10/12/16/20 mm</dd></div><div><dt>Head</dt><dd>Flat head, Phillips</dd></div><div><dt>Contents</dt><dd>620 pieces, flat head Phillips, with nuts and washers</dd></div><div><dt>Price</dt><dd>$9.99</dd></div><div><dt>Source</dt><dd>Amazon <a class="mono" href="https://www.amazon.com/dp/B0B3J58MMW" target="_blank" rel="noopener noreferrer">B0B3J58MMW</a></dd></div></dl>
             <p class="part-links"><a href="https://www.amazon.com/dp/B0B3J58MMW" target="_blank" rel="noopener noreferrer">Amazon</a></p>
           </div>
@@ -897,7 +912,7 @@ footer {
       </details>
       <details class="part">
         <summary>
-          <span class="part-thumb part-thumb-none" aria-hidden="true">PoE</span>
+          <img class="part-thumb" src="images/poe-splitter.jpg" alt="REVODATA PoE splitter with USB-C output" loading="lazy" width="72" height="72">
           <span class="sum-text">
             <span class="sum-title">PoE splitter, USB-C output</span>
             <span class="sum-line">One cable does power and network</span>
@@ -906,6 +921,7 @@ footer {
           <span class="sum-chev" aria-hidden="true">+</span>
         </summary>
         <div class="part-detail">
+          <div class="part-photo"><img src="images/poe-splitter.jpg" alt="REVODATA PoE splitter with USB-C output" loading="lazy"></div>
           <div class="part-body">
             <p class="part-note">For a sensor that lives where there is no outlet &mdash; a ceiling
             grid, a rack door, a riser cupboard. The splitter takes 48 V PoE in on one RJ45 and
@@ -920,10 +936,70 @@ footer {
             goes somewhere awkward. You also need a short RJ45 patch lead from the splitter to the
             board, which is not in the box.</p>
             <p class="part-note">The board's PHY is gigabit, so the 2.5G rating is headroom rather
-            than a benefit. <strong>Not tested here</strong> &mdash; the specifications below are
-            the listing's, not measurements.</p>
-            <dl class="spec"><div><dt>Product</dt><dd>REVODATA 2.5G Type-C PoE splitter</dd></div><div><dt>Model</dt><dd><span class="mono strong">TYPEC0504G</span></dd></div><div><dt>Standards</dt><dd>IEEE 802.3af / 802.3at</dd></div><div><dt>Output</dt><dd>USB-C, <strong>5 V / 4 A</strong>, 20 W</dd></div><div><dt>Data</dt><dd>2.5 Gb/s passthrough</dd></div><div><dt>Also needs</dt><dd>A short RJ45 patch lead, splitter to board</dd></div><div><dt>Price</dt><dd>Not recorded here &mdash; check the listing</dd></div><div><dt>Source</dt><dd>Amazon <a class="mono" href="https://www.amazon.com/dp/B0CHW5K5F4" target="_blank" rel="noopener noreferrer">B0CHW5K5F4</a></dd></div></dl>
+            than a benefit. The USB-C splitter below is the way to keep the gadget link while this
+            is powering the board. <strong>Not tested here</strong> &mdash; the specifications below
+            are the listing's, not measurements.</p>
+            <dl class="spec"><div><dt>Product</dt><dd>REVODATA 2.5G Type-C PoE splitter</dd></div><div><dt>Model</dt><dd><span class="mono strong">TYPEC0504G</span></dd></div><div><dt>Standards</dt><dd>IEEE 802.3af / 802.3at</dd></div><div><dt>Output</dt><dd>USB-C, <strong>5 V / 4 A</strong>, 20 W</dd></div><div><dt>Data</dt><dd>2.5 Gb/s passthrough</dd></div><div><dt>Also needs</dt><dd>A short RJ45 patch lead, splitter to board</dd></div><div><dt>Price</dt><dd>$15.29</dd></div><div><dt>Source</dt><dd>Amazon <a class="mono" href="https://www.amazon.com/dp/B0CHW5K5F4" target="_blank" rel="noopener noreferrer">B0CHW5K5F4</a></dd></div></dl>
             <p class="part-links"><a href="https://www.amazon.com/dp/B0CHW5K5F4" target="_blank" rel="noopener noreferrer">Amazon</a></p>
+          </div>
+        </div>
+      </details>
+      <details class="part">
+        <summary>
+          <img class="part-thumb" src="images/usbc-splitter.jpg" alt="90-degree USB-C one-to-two adapter" loading="lazy" width="72" height="72">
+          <span class="sum-text">
+            <span class="sum-title">USB-C one-to-two adapter, 90&deg;</span>
+            <span class="sum-line">Power and the gadget link on one port</span>
+          </span>
+          <span class="chip chip-untested">Optional</span>
+          <span class="sum-chev" aria-hidden="true">+</span>
+        </summary>
+        <div class="part-detail">
+          <div class="part-photo"><img src="images/usbc-splitter.jpg" alt="90-degree USB-C one-to-two adapter" loading="lazy"></div>
+          <div class="part-body">
+            <p class="part-note">The board has <strong>one</strong> USB-C port, and it is both how you
+            power the sensor and how you reach it at <span class="mono">198.18.42.1</span> over the
+            NCM gadget. Anything permanent in that port &mdash; a PoE splitter, a wall supply &mdash;
+            takes the laptop link with it. This adapter is one male into two females, so the supply
+            goes on one leg and the laptop on the other, and its right angle keeps the stack out of
+            the printed enclosure's way.</p>
+            <p class="part-note"><strong>Not tested here, and this one deserves the caveat.</strong>
+            An adapter like this routes power to one leg and USB 2.0 data to the other; whether this
+            board's UDC still enumerates a gadget while VBUS arrives from the neighbouring leg is
+            exactly the sort of thing that has to be measured rather than assumed. Buy it to try, not
+            to rely on.</p>
+            <p class="part-note">The PD100W and 10 Gbps ratings are irrelevant here in the same way
+            the PoE splitter's 2.5G is: the board's port is USB 2.0 and the board wants 5 V.</p>
+            <dl class="spec"><div><dt>Product</dt><dd>QIANRENON USB-C 1 male to 2 female, 90&deg;</dd></div><div><dt>Rated</dt><dd>PD 100 W, 10 Gb/s &mdash; both headroom</dd></div><div><dt>Use</dt><dd>Supply on one leg, host on the other</dd></div><div><dt>Price</dt><dd>$12.99</dd></div><div><dt>Source</dt><dd>Amazon <a class="mono" href="https://www.amazon.com/dp/B0DDPRWVD5" target="_blank" rel="noopener noreferrer">B0DDPRWVD5</a></dd></div></dl>
+            <p class="part-links"><a href="https://www.amazon.com/dp/B0DDPRWVD5" target="_blank" rel="noopener noreferrer">Amazon</a></p>
+          </div>
+        </div>
+      </details>
+      <details class="part">
+        <summary>
+          <img class="part-thumb" src="images/usba-rightangle.jpg" alt="90-degree USB-A extension cables" loading="lazy" width="72" height="72">
+          <span class="sum-text">
+            <span class="sum-title">USB-A extension, 90&deg;</span>
+            <span class="sum-line">Stops a USB radio levering on the port</span>
+          </span>
+          <span class="chip chip-untested">Optional</span>
+          <span class="sum-chev" aria-hidden="true">+</span>
+        </summary>
+        <div class="part-detail">
+          <div class="part-photo"><img src="images/usba-rightangle.jpg" alt="90-degree USB-A extension cables" loading="lazy"></div>
+          <div class="part-body">
+            <p class="part-note">The board has one USB 2.0 Type-A host port, and that is where a USB
+            radio goes &mdash; an MT7921U, or the MT7925U inside a Netgear A9000. Those adapters are
+            heavy and stick straight out, which is a lever on a through-hole connector every time the
+            sensor is moved or bagged. A 10 cm right angle turns that into a cable pulling on a cable.
+            The pack has one up-angle and one down-angle, so whichever way the port faces in your
+            enclosure, one of them lies flat.</p>
+            <p class="part-note"><strong>USB 2.0, which costs nothing here.</strong> The board's
+            Type-A port is USB 2.0 whatever you plug into it, so a USB 3 radio is already running at
+            USB 2.0 speeds and this cable takes nothing further away. It is the board that caps this,
+            not the extension.</p>
+            <dl class="spec"><div><dt>Product</dt><dd>JUXINICE 90&deg; USB 2.0 male to female</dd></div><div><dt>Length</dt><dd>10 cm / 4 in, flat and pliable</dd></div><div><dt>Quantity</dt><dd>2 per pack &mdash; one up-angle, one down-angle</dd></div><div><dt>Fits</dt><dd>The board's single USB 2.0 Type-A host port</dd></div><div><dt>Price</dt><dd>$9.99 for two</dd></div><div><dt>Source</dt><dd>Amazon <a class="mono" href="https://www.amazon.com/dp/B0CDM7G5WH" target="_blank" rel="noopener noreferrer">B0CDM7G5WH</a></dd></div></dl>
+            <p class="part-links"><a href="https://www.amazon.com/dp/B0CDM7G5WH" target="_blank" rel="noopener noreferrer">Amazon</a></p>
           </div>
         </div>
       </details>
@@ -941,6 +1017,10 @@ footer {
           <div class="part-photo"><img src="images/magnet-ring.jpg" alt="MagSafe magnet rings" loading="lazy"></div>
           <div class="part-body">
             <p class="part-note">For sticking the finished sensor to something steel, or to a 3D-printed mount. Sold for DIY and print-in projects rather than as a phone accessory.</p>
+            <p class="part-note"><strong>The ring has a polarity and it is easy to fit backwards.</strong>
+            A MagSafe array is a ring of alternating poles, so a ring seated the wrong way up repels
+            the one in the phone case instead of latching. Offer it up to the case you actually
+            intend to stick it to <em>before</em> committing it, and mark the face that held.</p>
             <dl class="spec"><div><dt>Type</dt><dd>Magnet ring, MagSafe-compatible</dd></div><div><dt>Outer &oslash;</dt><dd>53.9 mm / 2.12 in</dd></div><div><dt>Inner &oslash;</dt><dd>45.8 mm / 1.80 in</dd></div><div><dt>Thickness</dt><dd>2.6 mm / 0.10 in</dd></div><div><dt>Price</dt><dd>$7.99</dd></div><div><dt>Intended use</dt><dd>DIY and 3D printing, accessory side</dd></div><div><dt>Source</dt><dd>Amazon <a class="mono" href="https://www.amazon.com/dp/B0GGNLD59P" target="_blank" rel="noopener noreferrer">B0GGNLD59P</a></dd></div></dl>
             <p class="part-links"><a href="https://www.amazon.com/dp/B0GGNLD59P" target="_blank" rel="noopener noreferrer">Amazon</a></p>
           </div>
@@ -958,17 +1038,19 @@ footer {
         </summary>
         <div class="part-detail">
           <div class="part-body">
-            <p class="part-note">An alternative to the case bundled with the board: a
-            community-published MagSafe case for the NanoPi Zero 2 that you print yourself. This is
-            the route to a sensor that sticks to a steel ceiling grid, a rack door or a tripod
-            plate. If you go this way, buy the board on its own rather than the
-            <strong>with case</strong> option, and pair it with the magnet ring above.</p>
-            <p class="part-note"><strong>Neither printed nor measured here.</strong> Read the model
-            page for the magnet size, screws and print settings it expects &mdash; we have not
-            checked that the ring listed above is the one this design is built around, and a
-            MagSafe case is only as good as its magnet fit. The stock case also carries the thermal
-            pad that the BE200 needs to dump heat into; a printed one in PLA does not, so plan
-            where that heat goes before you rely on it.</p>
+            <p class="part-note">A community-published MagSafe enclosure for the NanoPi Zero 2 that
+            you print yourself. This is the route to a sensor that sticks to a steel ceiling grid, a
+            rack door or a tripod plate. Pair it with the magnet ring above.</p>
+            <p class="part-note"><strong>It does not replace the stock case &mdash; it wraps it.</strong>
+            The finned aluminium case goes inside the print, so the thermal pad and the metal it
+            dumps into are still in the stack, and the external antennas still terminate on the
+            board. <strong>Buy the board with its case</strong>, not on its own. An earlier version of
+            this page said the opposite and warned about heat going nowhere in PLA; both were wrong,
+            and printing one is what showed it.</p>
+            <p class="part-note"><strong>Printed and built here.</strong> See
+            <a href="#printed">fitting the printed enclosure</a> below for the parts of it that are
+            not obvious: which screw lengths, which way the magnet ring goes, and where the pigtails
+            run. Read the model page for print settings.</p>
             <dl class="spec"><div><dt>Type</dt><dd>Printable case, MagSafe</dd></div><div><dt>Fits</dt><dd>NanoPi Zero 2</dd></div><div><dt>Price</dt><dd>Free &mdash; you supply the filament</dd></div><div><dt>Source</dt><dd>MakerWorld <a class="mono" href="https://makerworld.com/en/models/3266641-nanopi-zero-2-case-magsafe" target="_blank" rel="noopener noreferrer">model 3266641</a></dd></div></dl>
             <p class="part-links"><a href="https://makerworld.com/en/models/3266641-nanopi-zero-2-case-magsafe" target="_blank" rel="noopener noreferrer">MakerWorld</a></p>
           </div>
@@ -1294,6 +1376,107 @@ sudo dmesg | grep -i 'loaded firmware'  <span class="cm"># expect core 106</span
     </div>
   </section>
 
+  <!-- ================= PRINTED ENCLOSURE ================= -->
+  <section id="printed">
+    <div class="sec-head">
+      <h2>Fitting the printed enclosure</h2>
+      <div class="eyebrow">photographed on a real build</div>
+    </div>
+
+    <div class="prose" style="margin-bottom: 26px;">
+      <p>
+        The MakerWorld MagSafe enclosure listed above does not replace the aluminium case &mdash; the
+        case slides into it. Everything in the assembly section still applies; these are the seven
+        things that are not obvious until you have one in your hands, and each one is a photograph of
+        the build rather than a rendering.
+      </p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">01</div>
+        <div>
+          <h3>Get the stock antennas out by the cover, not the antenna</h3>
+          <p>Push the <strong>corner of the antenna cover</strong> to release it. Pushing on the
+          antenna itself is how you damage one: it is a thin flexible element on a fragile lead, and
+          it is not what the retention is holding.</p>
+          <div class="shot"><img src="images/assembly-antenna-cover.jpg" alt="Pushing the corner of the antenna cover to release the stock antennas" loading="lazy"></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">02</div>
+        <div>
+          <h3>Run the pigtails through the case passthroughs</h3>
+          <p>The aluminium case has passthroughs that let the coax out beside the boards, so nothing
+          is pinched between case halves. Slack is not a problem &mdash; there is a void above the
+          board that stores the excess neatly, and coiled slack in there is better than a taut lead
+          pulling on a U.FL.</p>
+          <div class="shot"><img src="images/assembly-passthrough.jpg" alt="Case passthroughs beside the boards, with cable slack stored in the void above the board" loading="lazy"></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">03</div>
+        <div>
+          <h3>Dress the coax flat over the card</h3>
+          <p>The BE200 prints its own connector map: <span class="mono">MAIN</span> is
+          <strong>2</strong> and <span class="mono">AUX</span> is <strong>1</strong>, marked with
+          triangles beside each U.FL pad. Populate both and lay the leads across the module so
+          nothing stands proud of the card &mdash; the lid closes onto this.</p>
+          <div class="shot"><img src="images/assembly-cable-routing.jpg" alt="BE200 seated with both U.FL leads attached and dressed flat across the module" loading="lazy"></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">04</div>
+        <div>
+          <h3>Slide the case in through the cable relief</h3>
+          <p>The notch moulded into the print is not only cable clearance &mdash; it is the entry the
+          case slides in past. Line the case up on that side rather than trying to drop it in
+          square.</p>
+          <div class="shot"><img src="images/assembly-frame-notch.jpg" alt="The printed frame, showing the cable relief notch used to slide the case in" loading="lazy"></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">05</div>
+        <div>
+          <h3>Push the SMA boot in as it goes</h3>
+          <p>The rubber boot on the SMA lead catches on the enclosure lip on the way in. Press it in
+          with a fingernail while the case slides rather than forcing the case &mdash; the thing that
+          gives if you force it is the connector, not the print.</p>
+          <div class="shot"><img src="images/assembly-sma-boot.jpg" alt="Pushing the SMA boot in while the case slides into the printed enclosure" loading="lazy"></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">06</div>
+        <div>
+          <h3>Check the magnet ring's polarity before you commit it</h3>
+          <p>A MagSafe array is a ring of alternating poles, so a ring seated upside down pushes the
+          phone case away instead of latching. Offer it up to the case you actually intend to stick
+          it to, find the face that holds, and <strong>mark it</strong> &mdash; the two faces are
+          identical to look at.</p>
+          <div class="shot"><img src="images/assembly-magnet-polarity.jpg" alt="Magnet ring fitted into the printed back plate, with the working face marked UP" loading="lazy"></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">07</div>
+        <div>
+          <h3>Two screw lengths, and the kit only has one of them</h3>
+          <p><strong>M2.5 &times; 8 mm</strong> runs the enclosure top to bottom at the two antenna
+          corners. <strong>M2.5 &times; 14 mm</strong> takes the four centre holes. The 620-piece
+          assortment listed above covers the 8 mm and <strong>not</strong> the 14 mm &mdash; its
+          ladder goes 12, 16, 20 &mdash; so buy those separately or you will get to the last step and
+          stop.</p>
+          <div class="shot"><img src="images/assembly-screws.jpg" alt="Assembled enclosure from the back, showing which screws take which length" loading="lazy"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= UART ================= -->
   <section id="uart">
     <div class="sec-head">
@@ -1354,8 +1537,10 @@ screen /dev/cu.usbserial-XXXX 1500000</pre>
         build.
       </p>
       <p>
-        Photographs of a real build would be better than any of these, and you own those outright.
-        Send them over and they go in.
+        The <a href="#printed">printed enclosure</a> section is the exception and the better kind:
+        those seven are photographs of this build, taken and annotated here, and they are the only
+        pictures on this page that show something we can vouch for. More of those, and fewer
+        sellers&rsquo;, is the direction this page wants to go &mdash; send yours over and they go in.
       </p>
     </div>
   </section>
