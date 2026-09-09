@@ -533,7 +533,7 @@ footer {
   <div class="shell">
     <div class="masthead-grid">
       <div>
-        <div class="eyebrow">WLAN Commander &nbsp;/&nbsp; sensor image &nbsp;/&nbsp; v1.0.1</div>
+        <div class="eyebrow">WLAN Commander &nbsp;/&nbsp; sensor image &nbsp;/&nbsp; v1.0.7</div>
         <h1>NanoPi Zero2<span class="thin">Wi-Fi 7 capture sensor</span></h1>
         <p class="lede">
           An Armbian image that turns a <strong>FriendlyElec NanoPi Zero2</strong> and an
@@ -549,18 +549,18 @@ footer {
           <div class="statrow"><span class="stat-label">Kernel</span><span class="val">7.3.0-rc1-bleedingedge-rockchip64</span></div>
           <div class="statrow"><span class="stat-label">Board</span><span class="val">NanoPi Zero2 &middot; Rockchip RK3528</span></div>
           <div class="statrow"><span class="stat-label">Base</span><span class="val">Armbian &middot; Debian trixie</span></div>
-          <div class="statrow"><span class="stat-label">Image</span><span class="val">418 MB compressed</span></div>
-          <div class="statrow"><span class="stat-label">Built</span><span class="val">4 September 2026</span></div>
+          <div class="statrow"><span class="stat-label">Image</span><span class="val">419 MB compressed</span></div>
+          <div class="statrow"><span class="stat-label">Built</span><span class="val">7 September 2026</span></div>
         </div>
       </div>
     </div>
 
     <div class="getrow">
-      <a class="btn" href="https://github.com/WiFivomFranMan/wlan-commander-sensor/releases/download/v1.0.1/wlan-commander-nanopi-zero2-v1.0.1-bleedingedge.img.xz">
-        Download v1.0.1 <span class="sz">.img.xz &middot; 418 MB</span>
+      <a class="btn" href="https://github.com/WiFivomFranMan/wlan-commander-sensor/releases/download/v1.0.7/wlan-commander-nanopi-zero2-v1.0.7-bleedingedge.img.xz">
+        Download v1.0.7 <span class="sz">.img.xz &middot; 419 MB</span>
       </a>
       <div class="hash">
-        <span class="mono">sha256 93af0312dbdd0f480ae3a591a390bf5d8a82fb878c25b58626226eec0a1b9af3</span>
+        <span class="mono">sha256 6e3c08ac97cc4e71ec6bacdedeeb43fef7dd0d196a85e383e3a5d1ca1931a494</span>
       </div>
     </div>
   </div>
@@ -710,6 +710,73 @@ footer {
     </p>
   </section>
 
+  <!-- ============ CHANGED ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>What changed since v1.0.1</h2>
+      <div class="eyebrow">Six versions, one download</div>
+    </div>
+
+    <div class="prose" style="margin-bottom: 24px;">
+      <p>
+        v1.0.2 to v1.0.6 were built and never published. Everything below is in this image.
+        <strong>If you are running v1.0.3 or v1.0.4, reflash</strong> &mdash; those two shipped a
+        boot-time regulatory scan that cost you 6 GHz.
+      </p>
+    </div>
+
+    <div class="hard">
+      <div class="hard-row">
+        <h3>The boot-time regulatory scan is gone</h3>
+        <p>Three builds compared on hardware settled it: no boot scan gives <strong>0 of 110
+        frequencies disabled</strong> and a clean firmware, while either scan ordering gives
+        <strong>69 disabled</strong> &mdash; all of 6 GHz among them &mdash; with an
+        <code>ADVANCED_SYSASSERT</code> and a SW reset 13 s into boot. The scan was never the
+        image's to do; WLAN Commander does it with the target frequency known, which a boot-time
+        scan cannot be.</p>
+      </div>
+      <div class="hard-row">
+        <h3>Sensors are named <code>WC-nanopi-&lt;last 3&gt;</code></h3>
+        <p>The <code>wlanpi-</code> prefix is dropped. The <code>_wlanpi._tcp</code> mDNS record
+        is now the only thing making a sensor recognisable to WLAN Commander's Add Device screen,
+        so do not remove it. Anything written against <code>wlanpi-nano-&lt;last 4&gt;</code>
+        needs updating.</p>
+      </div>
+      <div class="hard-row">
+        <h3>The USB gadget's MAC addresses are pinned</h3>
+        <p>They were random on every boot, so each boot looked like a new DHCP client to
+        <code>systemd-networkd</code>, which persists leases. The pool is 11 addresses, so the
+        <strong>twelfth boot found it full</strong> and the attached computer got nothing while
+        the sensor still reported <code>usb0</code> as configured and routable. Both MACs now
+        derive from the board serial, and the lease database is dropped at gadget start, which
+        recovers a unit already wedged.</p>
+      </div>
+      <div class="hard-row">
+        <h3>No serial console over USB-C</h3>
+        <p>The CDC-ACM function is removed. A host that will not configure a composite configures
+        none of it, and one unit logged <code>dwc3: failed to enable ep0out</code> on every boot
+        and never enumerated on an iPhone or a Mac. WLANPi's own gadget carries no ACM function
+        either. The cost is real: for a board in a case, the UART header is now the only
+        console.</p>
+      </div>
+      <div class="hard-row">
+        <h3>A dirty filesystem is repaired, not fatal</h3>
+        <p>A sensor is switched off by pulling its power. Without <code>fsck.repair=yes</code> a
+        dirty ext4 needing more than a journal replay drops systemd to an emergency shell, and
+        that unit is indistinguishable from dead hardware: the PHY blinks, but no address, no
+        mDNS, no gadget, no way in.</p>
+      </div>
+      <div class="hard-row">
+        <h3>The SD card is measured once per boot</h3>
+        <p><code>wc-storage-check</code> times a 32 MiB write and publishes a verdict to
+        <code>/run/wlan-commander/storage.json</code>. Read speed is nearly useless here &mdash;
+        two very different cards both read 67&ndash;68 MB/s while writing 12 and 21 MB/s, so read
+        describes the RK3528 host controller rather than the card. The thresholds are not backed
+        by an observed failure.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ VERIFIED ============ -->
   <section>
     <div class="sec-head">
@@ -754,7 +821,7 @@ footer {
           </tr>
           <tr>
             <td>USB-C gadget</td>
-            <td>NCM ethernet plus a serial console</td>
+            <td>NCM ethernet, MACs pinned to the board serial</td>
             <td>Host reaches the sensor at 198.18.42.1</td>
             <td><span class="chip chip-ok">Verified</span></td>
           </tr>
@@ -826,9 +893,11 @@ footer {
       </div>
       <div class="feat">
         <h3>USB-C is a whole sensor link</h3>
-        <p>One cable to a laptop gives an ethernet interface at <code>198.18.42.1</code> and a
-        serial console, so a unit in a case is reachable when the network is not. That is
-        WLANPi's own addressing, on reserved space that cannot collide with the host's network.</p>
+        <p>One cable to a laptop gives an ethernet interface at <code>198.18.42.1</code>, so a
+        unit in a case is reachable when the network is not. That is WLANPi's own addressing, on
+        reserved space that cannot collide with the host's network. Both gadget MAC addresses are
+        derived from the board serial, so two sensors on one laptop cannot collide and neither
+        exhausts the DHCP pool.</p>
       </div>
       <div class="feat">
         <h3>Orb Sensor, unclaimed</h3>
@@ -862,7 +931,7 @@ footer {
           <h3>Write the card</h3>
           <p>Any standard imaging tool reads the <code>.img.xz</code> directly. From a shell:</p>
           <pre><span class="cm"># Replace /dev/sdX with the card. The wrong device loses its data.</span>
-xz -dc wlan-commander-nanopi-zero2-v1.0.1-bleedingedge.img.xz \
+xz -dc wlan-commander-nanopi-zero2-v1.0.7-bleedingedge.img.xz \
   | sudo dd of=/dev/sdX bs=4M status=progress conv=fsync</pre>
         </div>
       </div>
@@ -892,9 +961,10 @@ xz -dc wlan-commander-nanopi-zero2-v1.0.1-bleedingedge.img.xz \
       <div class="step">
         <div class="step-n">04</div>
         <div>
-          <h3>Bring up a monitor interface</h3>
-          <p>The <code>wc-monitor</code> helper scans first and creates the monitor afterwards,
-          which is the ordering the Intel firmware wants.</p>
+          <h3>The monitor interface is already there</h3>
+          <p><code>mon0</code> is created at boot and nothing else happens to it. The image runs
+          no regulatory scan of its own &mdash; that was the fault, not the fix, and WLAN Commander
+          does the scan correctly with the target frequency known. To tune one by hand:</p>
           <pre>sudo wc-monitor up 6775 160</pre>
         </div>
       </div>
@@ -988,7 +1058,7 @@ WC_ORB=no ./build.sh          <span class="cm"># leave Orb Sensor out</span></pr
       </div>
       <div>
         <div class="eyebrow">Provenance</div>
-        <p class="mono">commit c96ae9a<br>armbian 6d07521a<br>branch bleedingedge</p>
+        <p class="mono">commit b42c222<br>armbian 6d07521a<br>branch bleedingedge</p>
       </div>
       <div>
         <div class="eyebrow">Lineage</div>
