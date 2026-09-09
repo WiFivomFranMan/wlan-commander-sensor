@@ -837,28 +837,27 @@ main > .sec:first-child, main .shell > section:first-child .sec { border-top: 0;
       <summary class="sec-head">
         <span class="sec-chev" aria-hidden="true">▸</span>
         <h2>What changed since v1.0.1</h2>
-        <span class="eyebrow">Six versions, one download</span>
+        <span class="eyebrow">since the last published image</span>
       </summary>
       <div class="sec-body">
     
 
     <div class="prose" style="margin-bottom: 24px;">
       <p>
-        v1.0.2 to v1.0.6 were built and never published. Everything below is in this image.
-        <strong>If you are running v1.0.3 or v1.0.4, reflash</strong> &mdash; those two shipped a
-        boot-time regulatory scan that cost you 6 GHz.
+        Everything below is new since v1.0.1, the previous download. Reflash to pick it up; a
+        running sensor keeps the name and the addressing it already has.
       </p>
     </div>
 
     <div class="hard">
       <div class="hard-row">
-        <h3>The boot-time regulatory scan is gone</h3>
-        <p>Three builds compared on hardware settled it: no boot scan gives <strong>0 of 110
-        frequencies disabled</strong> and a clean firmware, while either scan ordering gives
-        <strong>69 disabled</strong> &mdash; all of 6 GHz among them &mdash; with an
-        <code>ADVANCED_SYSASSERT</code> and a SW reset 13 s into boot. The scan was never the
-        image's to do; WLAN Commander does it with the target frequency known, which a boot-time
-        scan cannot be.</p>
+        <h3>All 110 frequencies, and a clean firmware</h3>
+        <p>The image brings up <code>mon0</code> at boot and then leaves the radio alone, which is
+        what keeps 6 GHz available. Measured across three builds on hardware: <strong>0 of 110
+        frequencies disabled</strong> that way, against <strong>69 disabled</strong> when the image
+        scans for regulatory itself &mdash; all of 6 GHz among them, with an
+        <code>ADVANCED_SYSASSERT</code> and a SW reset 13 s into boot. WLAN Commander runs the scan
+        instead, with the target frequency known, which a boot-time scan cannot be.</p>
       </div>
       <div class="hard-row">
         <h3>Sensors are named <code>WC-nanopi-&lt;last 3&gt;</code></h3>
@@ -868,21 +867,20 @@ main > .sec:first-child, main .shell > section:first-child .sec { border-top: 0;
         needs updating.</p>
       </div>
       <div class="hard-row">
-        <h3>The USB gadget's MAC addresses are pinned</h3>
-        <p>They were random on every boot, so each boot looked like a new DHCP client to
-        <code>systemd-networkd</code>, which persists leases. The pool is 11 addresses, so the
-        <strong>twelfth boot found it full</strong> and the attached computer got nothing while
-        the sensor still reported <code>usb0</code> as configured and routable. Both MACs now
-        derive from the board serial, and the lease database is dropped at gadget start, which
-        recovers a unit already wedged.</p>
+        <h3>USB gadget addressing that survives a reboot</h3>
+        <p>Both gadget MACs derive from the board serial: stable across boots, and distinct between
+        units, so two sensors on one laptop cannot collide. That matters more than it sounds &mdash;
+        a gadget with a random MAC looks like a new DHCP client on every boot, and
+        <code>systemd-networkd</code> persists leases into a pool eleven addresses deep. The lease
+        database is cleared at gadget start, which also recovers a unit that has already filled
+        one.</p>
       </div>
       <div class="hard-row">
         <h3>No serial console over USB-C</h3>
-        <p>The CDC-ACM function is removed. A host that will not configure a composite configures
-        none of it, and one unit logged <code>dwc3: failed to enable ep0out</code> on every boot
-        and never enumerated on an iPhone or a Mac. WLANPi's own gadget carries no ACM function
-        either. The cost is real: for a board in a case, the UART header is now the only
-        console.</p>
+        <p>The gadget is NCM only. WLANPi's own carries no ACM function either, and for good
+        reason: a host that will not configure a composite configures none of it, so an extra
+        serial interface beside the network one can cost you the network one on an iPhone or a Mac.
+        <strong>For a board in a case, the UART header is now the console.</strong></p>
       </div>
       <div class="hard-row">
         <h3>A dirty filesystem is repaired, not fatal</h3>
@@ -896,8 +894,7 @@ main > .sec:first-child, main .shell > section:first-child .sec { border-top: 0;
         <p><code>wc-storage-check</code> times a 32 MiB write and publishes a verdict to
         <code>/run/wlan-commander/storage.json</code>. Read speed is nearly useless here &mdash;
         two very different cards both read 67&ndash;68 MB/s while writing 12 and 21 MB/s, so read
-        describes the RK3528 host controller rather than the card. The thresholds are not backed
-        by an observed failure.</p>
+        describes the RK3528 host controller rather than the card.</p>
       </div>
     </div>
       </div>

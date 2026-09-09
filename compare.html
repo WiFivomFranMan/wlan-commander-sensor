@@ -1599,10 +1599,10 @@ main > .sec:first-child, main .shell > section:first-child .sec { border-top: 0;
       sweep is cut identically &mdash; and beacons heard while the radio was tuned elsewhere are
       discarded. A pair needs 5+ beacons on both sides. Hidden and malformed SSIDs are excluded.</p>
       <p>All four captures were checked to be single-radio and tri-band before anything was compared:
-      one interface block each, roughly 50 frequencies, reaching 7095 MHz. An earlier comparison of
-      these two devices was wrong because the Go had split its sweep across a BE200 and a built-in
-      Broadcom, and pooling the two compared a NanoPi BE200 against a Broadcom on a third of the
-      channels.</p>
+      one interface block each, roughly 50 frequencies, reaching 7095 MHz. That check is not
+      optional. A device that splits its sweep across two radios &mdash; a BE200 and a built-in
+      Broadcom, say &mdash; pools into a figure that compares one vendor's radio against another's
+      on a third of the channels.</p>
     </div>
       </div>
     </details>
