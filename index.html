@@ -677,7 +677,6 @@ main > .sec:first-child, main .shell > section:first-child .sec { border-top: 0;
         <a href="#what-is-in-the-image">What is in the image</a>
         <a href="#flash-it-and-boot-it">Flash it and boot it</a>
         <a href="#why-the-move-off-6-1-was-hard">Why the move off 6.1 was hard</a>
-        <a href="#build-it-yourself">Build it yourself</a>
       </nav>
       <button type="button" class="jump-all" data-expand-all>Expand all</button>
     </aside>
@@ -1051,8 +1050,7 @@ xz -dc wlan-commander-nanopi-zero2-v1.0.7-bleedingedge.img.xz \
         <div>
           <h3>Log in</h3>
           <p>User <code>wlanpi</code>, password <code>wlanpi</code>, over the network or straight
-          down the USB-C cable at <code>ssh wlanpi@198.18.42.1</code>. No SSH key is installed
-          unless you put one in the build tree beforehand.</p>
+          down the USB-C cable at <code>ssh wlanpi@198.18.42.1</code>. No SSH key is installed.</p>
           <p class="warn">A reflash resets the password and removes any key you added by hand.
           Change the password before putting a unit on a network you do not control.</p>
         </div>
@@ -1133,32 +1131,7 @@ xz -dc wlan-commander-nanopi-zero2-v1.0.7-bleedingedge.img.xz \
     </details>
   </section>
 
-  <!-- ============ BUILD ============ -->
-  <section id="build-it-yourself">
-    <details class="sec">
-      <summary class="sec-head">
-        <span class="sec-chev" aria-hidden="true">▸</span>
-        <h2>Build it yourself</h2>
-        <span class="eyebrow">Ubuntu or Debian host</span>
-      </summary>
-      <div class="sec-body">
-    
-
-    <div class="prose" style="margin-bottom: 20px;">
-      <p>
-        The build clones Armbian at a pinned commit, copies this repository's
-        <code>userpatches/</code> over it and compiles a kernel. Expect 15 to 30 minutes cold
-        and about three warm. Previous images are archived, never deleted.
-      </p>
-    </div>
-
-    <pre>./build.sh                    <span class="cm"># mainline 7.3-rc, the default</span>
-WC_BRANCH=edge ./build.sh     <span class="cm"># mainline 7.2.y, the stable branch</span>
-WC_BRANCH=vendor ./build.sh   <span class="cm"># Rockchip 6.1, rollback only</span>
-WC_ORB=no ./build.sh          <span class="cm"># leave Orb Sensor out</span></pre>
-      </div>
-    </details>
-  </section>
+  
 
     </div>
   </div>
@@ -1172,7 +1145,7 @@ WC_ORB=no ./build.sh          <span class="cm"># leave Orb Sensor out</span></pr
       <div>
         <div class="eyebrow">Downloads</div>
         <p><a href="https://github.com/WiFivomFranMan/wlan-commander-sensor/releases">All releases</a><br>
-        The build tree that produces these images is not published.</p>
+        The build tree that produces these images is not published yet.</p>
       </div>
       <div>
         <div class="eyebrow">Provenance</div>
