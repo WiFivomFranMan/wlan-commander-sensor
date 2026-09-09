@@ -1029,7 +1029,7 @@ footer {
       </details>
       <details class="part">
         <summary>
-          <span class="part-thumb part-thumb-none" aria-hidden="true">STL</span>
+          <img class="part-thumb" src="images/printed-case.jpg" alt="The printed MagSafe enclosure, built, holding the aluminium case on the back of a phone" loading="lazy" width="72" height="72">
           <span class="sum-text">
             <span class="sum-title">3D-printed MagSafe case</span>
             <span class="sum-line">Free community design &middot; MakerWorld</span>
@@ -1038,6 +1038,7 @@ footer {
           <span class="sum-chev" aria-hidden="true">+</span>
         </summary>
         <div class="part-detail">
+          <div class="part-photo"><img src="images/printed-case.jpg" alt="The printed MagSafe enclosure, built, holding the aluminium case on the back of a phone" loading="lazy"></div>
           <div class="part-body">
             <p class="part-note">A community-published MagSafe enclosure for the NanoPi Zero 2 that
             you print yourself. This is the route to a sensor that sticks to a steel ceiling grid, a
@@ -1059,7 +1060,7 @@ footer {
       </details>
       <details class="part">
         <summary>
-          <span class="part-thumb part-thumb-none" aria-hidden="true">UART</span>
+          <img class="part-thumb" src="images/uart-cable.jpg" alt="FTDI TTL-232R-3V3 USB to UART cable" loading="lazy" width="72" height="72">
           <span class="sum-text">
             <span class="sum-title">USB serial console cable</span>
             <span class="sum-line">The only console, since v1.0.7</span>
@@ -1068,11 +1069,15 @@ footer {
           <span class="sum-chev" aria-hidden="true">+</span>
         </summary>
         <div class="part-detail">
-          
+          <div class="part-photo"><img src="images/uart-cable.jpg" alt="FTDI TTL-232R-3V3 USB to UART cable" loading="lazy"></div>
           <div class="part-body">
             <p class="part-note">For watching the board boot, or recovering one that will not come up on the network. <strong>This is now the only console.</strong> v1.0.7 removed the CDC-ACM function from the USB gadget &mdash; it stopped some hosts enumerating the gadget at all &mdash; so a unit in a case has no console over USB-C any more. <strong>Do not buy a cheap CP2102</strong> for this board &mdash; see <a href="#uart">the console runs at 1.5 Mbaud</a>.</p>
-            <dl class="spec"><div><dt>Recommended</dt><dd>FTDI TTL-232R-3V3</dd></div><div><dt>Chip</dt><dd>FT232R, 300 baud to <strong>3 Mbaud</strong></dd></div><div><dt>Logic level</dt><dd>3.3 V signals</dd></div><div><dt>Wire colours</dt><dd>Documented by FTDI: black GND, orange TX, yellow RX, red +5 V</dd></div><div><dt>Connect</dt><dd>GND, TX, RX only. <strong>Leave red disconnected</strong></dd></div></dl>
-            <p class="part-links"><a href="https://ftdichip.com/products/ttl-232r-3v3/" target="_blank" rel="noopener noreferrer">FTDI</a></p>
+            <dl class="spec"><div><dt>Recommended</dt><dd>FTDI TTL-232R-3V3</dd></div><div><dt>Chip</dt><dd>FT232R, 300 baud to <strong>3 Mbaud</strong></dd></div><div><dt>Logic level</dt><dd>3.3 V signals</dd></div><div><dt>Wire colours</dt><dd>Documented by FTDI: black GND, orange TX, yellow RX, red +5 V</dd></div><div><dt>Connect</dt><dd>GND, TX, RX only. <strong>Leave red disconnected</strong></dd></div><div><dt>Price</dt><dd>$17.99</dd></div><div><dt>Source</dt><dd>Amazon <a class="mono" href="https://www.amazon.com/dp/B00DDF8TV6" target="_blank" rel="noopener noreferrer">B00DDF8TV6</a></dd></div></dl>
+            <p class="part-note"><strong>Buy the FTDI-branded part.</strong> Listings exist that put
+            the string <span class="mono">TTL-232R-3V3</span> in the title under someone else's brand
+            for about the same money, and the chip inside is what decides whether 1.5 Mbaud works.
+            The ASIN above is FTDI's own.</p>
+            <p class="part-links"><a href="https://www.amazon.com/dp/B00DDF8TV6" target="_blank" rel="noopener noreferrer">Amazon</a> &middot; <a href="https://ftdichip.com/products/ttl-232r-3v3/" target="_blank" rel="noopener noreferrer">FTDI</a></p>
           </div>
         </div>
       </details>
