@@ -696,7 +696,7 @@ footer {
       </div>
       <div class="masthead-side">
         <div class="statlist">
-          <div class="statrow"><span class="stat-label">Parts</span><span class="val">6 required, 4 optional</span></div>
+          <div class="statrow"><span class="stat-label">Parts</span><span class="val">6 required, 5 optional</span></div>
           <div class="statrow"><span class="stat-label">Radio</span><span class="val">Intel BE200, Wi-Fi 7</span></div>
           <div class="statrow"><span class="stat-label">Tools</span><span class="val">Small Phillips driver</span></div>
           <div class="statrow"><span class="stat-label">Soldering</span><span class="val">None</span></div>
@@ -705,7 +705,7 @@ footer {
       </div>
     </div>
     <div class="getrow">
-      <a class="btn" href="./">Get the image <span class="sz">v1.0.1 &middot; 418 MB</span></a>
+      <a class="btn" href="./">Get the image <span class="sz">v1.0.7 &middot; 419 MB</span></a>
       <div class="hash">Every part below is listed with its manufacturer part number or ASIN, so a
       dead link is an inconvenience rather than a dead end.</div>
     </div>
@@ -897,6 +897,38 @@ footer {
       </details>
       <details class="part">
         <summary>
+          <span class="part-thumb part-thumb-none" aria-hidden="true">PoE</span>
+          <span class="sum-text">
+            <span class="sum-title">PoE splitter, USB-C output</span>
+            <span class="sum-line">One cable does power and network</span>
+          </span>
+          <span class="chip chip-untested">Optional</span>
+          <span class="sum-chev" aria-hidden="true">+</span>
+        </summary>
+        <div class="part-detail">
+          <div class="part-body">
+            <p class="part-note">For a sensor that lives where there is no outlet &mdash; a ceiling
+            grid, a rack door, a riser cupboard. The splitter takes 48 V PoE in on one RJ45 and
+            gives you data out on a second RJ45 plus <strong>5 V at up to 4 A over USB-C</strong>,
+            which is more than this board and a BE200 will ever draw. 802.3af alone budgets
+            12.95 W at the powered device, so an <span class="mono">af</span> switch port is
+            enough; <span class="mono">at</span> is headroom.</p>
+            <p class="part-note"><strong>It occupies the USB-C port.</strong> That port is how you
+            get the NCM gadget link at <span class="mono">198.18.42.1</span> from a laptop, so a
+            PoE-powered sensor is reached over ethernet or not at all &mdash; and since v1.0.7
+            there is no serial console on that port either. Budget for the UART header if the unit
+            goes somewhere awkward. You also need a short RJ45 patch lead from the splitter to the
+            board, which is not in the box.</p>
+            <p class="part-note">The board's PHY is gigabit, so the 2.5G rating is headroom rather
+            than a benefit. <strong>Not tested here</strong> &mdash; the specifications below are
+            the listing's, not measurements.</p>
+            <dl class="spec"><div><dt>Product</dt><dd>REVODATA 2.5G Type-C PoE splitter</dd></div><div><dt>Model</dt><dd><span class="mono strong">TYPEC0504G</span></dd></div><div><dt>Standards</dt><dd>IEEE 802.3af / 802.3at</dd></div><div><dt>Output</dt><dd>USB-C, <strong>5 V / 4 A</strong>, 20 W</dd></div><div><dt>Data</dt><dd>2.5 Gb/s passthrough</dd></div><div><dt>Also needs</dt><dd>A short RJ45 patch lead, splitter to board</dd></div><div><dt>Price</dt><dd>Not recorded here &mdash; check the listing</dd></div><div><dt>Source</dt><dd>Amazon <a class="mono" href="https://www.amazon.com/dp/B0CHW5K5F4" target="_blank" rel="noopener noreferrer">B0CHW5K5F4</a></dd></div></dl>
+            <p class="part-links"><a href="https://www.amazon.com/dp/B0CHW5K5F4" target="_blank" rel="noopener noreferrer">Amazon</a></p>
+          </div>
+        </div>
+      </details>
+      <details class="part">
+        <summary>
           <img class="part-thumb" src="images/magnet-ring.jpg" alt="MagSafe magnet rings" loading="lazy" width="72" height="72">
           <span class="sum-text">
             <span class="sum-title">MagSafe magnet rings</span>
@@ -947,7 +979,7 @@ footer {
           <span class="part-thumb part-thumb-none" aria-hidden="true">UART</span>
           <span class="sum-text">
             <span class="sum-title">USB serial console cable</span>
-            <span class="sum-line">Only if the console matters to you</span>
+            <span class="sum-line">The only console, since v1.0.7</span>
           </span>
           <span class="chip chip-untested">Optional</span>
           <span class="sum-chev" aria-hidden="true">+</span>
@@ -955,7 +987,7 @@ footer {
         <div class="part-detail">
           
           <div class="part-body">
-            <p class="part-note">Only needed if you want to watch the board boot, or recover one that will not come up on the network. <strong>Do not buy a cheap CP2102</strong> for this board &mdash; see <a href="#uart">the console runs at 1.5 Mbaud</a>.</p>
+            <p class="part-note">For watching the board boot, or recovering one that will not come up on the network. <strong>This is now the only console.</strong> v1.0.7 removed the CDC-ACM function from the USB gadget &mdash; it stopped some hosts enumerating the gadget at all &mdash; so a unit in a case has no console over USB-C any more. <strong>Do not buy a cheap CP2102</strong> for this board &mdash; see <a href="#uart">the console runs at 1.5 Mbaud</a>.</p>
             <dl class="spec"><div><dt>Recommended</dt><dd>FTDI TTL-232R-3V3</dd></div><div><dt>Chip</dt><dd>FT232R, 300 baud to <strong>3 Mbaud</strong></dd></div><div><dt>Logic level</dt><dd>3.3 V signals</dd></div><div><dt>Wire colours</dt><dd>Documented by FTDI: black GND, orange TX, yellow RX, red +5 V</dd></div><div><dt>Connect</dt><dd>GND, TX, RX only. <strong>Leave red disconnected</strong></dd></div></dl>
             <p class="part-links"><a href="https://ftdichip.com/products/ttl-232r-3v3/" target="_blank" rel="noopener noreferrer">FTDI</a></p>
           </div>
@@ -1243,7 +1275,7 @@ sudo rm /var/tmp/w.bin</pre>
           <h3>Flash the card and boot</h3>
           <p>Write the image, insert the card, and give it about two minutes: it resizes the root
           filesystem and reboots once on its own.</p>
-          <pre>xz -dc wlan-commander-nanopi-zero2-v1.0.1-bleedingedge.img.xz \
+          <pre>xz -dc wlan-commander-nanopi-zero2-v1.0.7-bleedingedge.img.xz \
   | sudo dd of=/dev/sdX bs=4M status=progress conv=fsync</pre>
         </div>
       </div>
