@@ -153,19 +153,11 @@ Pro OTG tests are deferred, not a promised charging fix.
 
 ## Current automation boundary
 
-The website checkout currently has **no GitHub remote**; Cloudflare Pages is
-an explicit ad-hoc deployment, not a git-triggered build. Its checked-in
-`.github/workflows/release.yml` is a template, not an exercised release service.
-It currently updates only the OTA entry and does not download/update the factory
-record. **Do not dispatch it for a unified release as-is.** The local sequence
-above is the working route. To enable CI, first add factory asset/metadata and
-signature checks, configure a real remote and scoped deployment secrets, and
-exercise a dry run. Never copy private signing keys into CI.
+GitHub Actions is prohibited for WLAN Commander. Build, test, sign and publish only on the owner’s Mac and Linux build machines. Do not create, enable or dispatch workflows. The old website workflow templates have been removed. The local publication sequence above remains the supported route. Keep signing keys on their authorized machine and retain immutable artifact/source receipts.
 
-This README/runbook repository push does not deploy wlancommander.com. A
-website deploy does not create a GitHub release. A GitHub prerelease does not
-automatically update the apps. The version, immutable assets and public catalogue
-connect those three destinations.
+The canonical local checkouts are `WLAN Commander` for the app, `wlan-commander-sensor-v2` for private sensor build sources, `wlancommander-website` for the maintained website, and `wlan-commander-esp32` for published firmware source. This `wlan-commander-sensor` repository contains the public overview, redirects and publishing contract; corresponding source archives belong beside signed immutable release assets. Do not push private lab logs or credential-bearing source history here.
+
+This repository’s Git push does not deploy wlancommander.com. A website deploy does not create a GitHub release. A GitHub prerelease does not automatically update the apps. The version, immutable assets and public catalogue connect those destinations.
 
 ## Recovery from publication failure
 
