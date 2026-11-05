@@ -85,6 +85,13 @@ Pro OTG tests are deferred, not a promised charging fix.
    recompression is needed, do it before signing and verify the full decompressed
    image hash is unchanged. Keep each GitHub asset below its per-file limit.
    Never advertise an optional `.p7` chain unless it exists.
+   Generate the machine references with the sensor repository's
+   `tools/release/generate-machine-refs.py --version <v> --out <release dir>`
+   (deterministic and offline): `wlan-commander-sensor-<v>-openapi.json`,
+   `-mcp-tools.json` and `-mqtt-schema.json`. Sign and checksum each one like the
+   images (`sign-artifact.sh --backend openssl`). The website builds its REST, MCP
+   and MQTT reference pages and `llms.txt` from these files, so a release without
+   them leaves the agent documentation describing the previous release.
 3. Prepare a public release manifest and notes with artifact hashes/sizes,
    source/kernel revisions, actual tests and remaining limits. Package the
    exact corresponding sources, patches, dependency pins, licenses and build
@@ -93,7 +100,9 @@ Pro OTG tests are deferred, not a promised charging fix.
    that firmware. A screenshot or signed image alone is not corresponding source.
 4. Create a **draft** GitHub prerelease in `WiFivomFranMan/wlan-commander-sensor`.
    Attach factory and OTA archives, both signatures/checksums, corresponding
-   sources and public manifest. Review the complete draft before publishing.
+   sources, public manifest, and the three machine-reference files with their
+   `.sig` and `.sha256`. They are always GitHub release assets, even when the
+   factory image is served from R2. Review the complete draft before publishing.
    Leave legacy stable/board-specific releases untouched.
 5. Publish the GitHub prerelease **before** making an updater offer. Download
    the public factory and OTA assets independently, stream their full hashes,
