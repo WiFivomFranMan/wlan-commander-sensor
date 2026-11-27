@@ -14,6 +14,8 @@ and [the screenshot console guide](https://wlancommander.com/guides/sensor-conso
 | Guide screenshots | Website `public/assets/guides/`, with private QA originals elsewhere | Redacted PNGs linked by guide Markdown |
 | App/portal/sensor update offer | Website `data/releases.json` | Generated `public/releases.json` |
 | Factory download panel | Website `data/unified-factory.json` | Generated Downloads page |
+| Configurator version, signature and first-boot evidence | Website `data/image-configurator.json` | Generated `/downloads/configure/` |
+| Changelog and release history | Website `data/sensor-releases.json`, synced from GitHub releases | Generated `/sensors/changelog/` |
 | GitHub overview | This repository's `README.md` | Repository landing page |
 | Legacy GitHub Pages URLs | This repository's redirect HTML | Current canonical guide/field-note URLs |
 
@@ -74,6 +76,12 @@ owner waived the full GA matrix for the October 2026 public beta; state every
 remaining hardware/feature limit. A waiver does not claim that a check passed.
 Pro OTG tests are deferred, not a promised charging fix.
 
+Build Linux executables, firmware, kernels and images natively over SSH on the
+designated Linux NUC, after verifying its identity. Native cross-compilers are
+allowed; containers and GitHub Actions are prohibited. Apple builds and release
+signing stay on the Mac. Transfer final deliverables and unsigned signing inputs,
+keep private keys off the NUC, and clean build intermediates on both hosts.
+
 1. Build through `packaging/unified` with exact input pins. Save the runtime,
    kernel, build-tool and any distribution-tool revisions separately. Require
    read-only image checks on both factory slots, boot/initramfs consistency,
@@ -98,19 +106,57 @@ Pro OTG tests are deferred, not a promised charging fix.
    instructions. Exclude private credentials, raw device logs and recovery
    backups. Include the full corresponding C5 firmware source when distributing
    that firmware. A screenshot or signed image alone is not corresponding source.
+   Build the source archive with the sensor repository's
+   `tools/export-public-source.py --provenance <build>/embedded-provenance.json --out <release dir>`
+   from a clean checkout at the image's commit; it takes the version and revisions
+   from the image and writes the archive, its receipt and the exclusion list.
 4. Create a **draft** GitHub prerelease in `WiFivomFranMan/wlan-commander-sensor`.
    Attach factory and OTA archives, both signatures/checksums, corresponding
    sources, public manifest, and the three machine-reference files with their
    `.sig` and `.sha256`. They are always GitHub release assets, even when the
    factory image is served from R2. Review the complete draft before publishing.
    Leave legacy stable/board-specific releases untouched.
+   If the factory archive exceeds GitHub's per-file limit, publish that exact
+   signed archive and its sidecars to the existing owned R2 download host at
+   `https://downloads.wlancommander.com/wlan-commander-sensor/VERSION/FILENAME`.
+   Refuse an existing object rather than replacing it. Include its URL, full
+   digest and byte count in the GitHub manifest/release notes. OTA and sources
+   remain GitHub assets. This changes delivery only, not the A/B layout or trust
+   key. Remove any temporary authenticated uploader after completion/failure.
 5. Publish the GitHub prerelease **before** making an updater offer. Download
    the public factory and OTA assets independently, stream their full hashes,
    and verify the downloaded signatures with the shipped public key. Compare
    every byte count/digest with the local release manifest. A HEAD request,
    GitHub asset listing or checksum sidecar alone is insufficient.
-6. In the website checkout, update the factory record from the actual artifact
-   (size and SHA-256 computed, never typed), then preview the OTA entry:
+6. Prepare a reviewed `first-boot-record.json` from this exact image's source
+   and actual hardware evidence: accepted factory boards, raw geometry, sizing
+   planner, progress messages and supported configuration files. Do not inherit
+   earlier hardware rows as new measurements. An unmeasured experimental beta
+   may explicitly use `hardware_checks: []` and
+   `hardware_qualification_pending: true`; the page then states that the layout
+   is computed and hardware QA is pending. GA entries still require measurements.
+   The configurator's beta record must contain the exact signed factory bytes
+   and signature. A new version without a reviewed first-boot record fails before
+   the publisher changes any website data.
+
+   In the website checkout, run the one-command publisher. It previews the
+   factory record, configurator record, OTA entry and changelog sync, and writes nothing
+   without `--yes`; with `--yes` it also rebuilds and runs the gates:
+
+   ```sh
+   .venv/bin/python scripts/publish_sensor_release.py --version "$VERSION" \
+     --artifacts "$ARTIFACT_DIR" --public-key "$PUBLIC_KEY" \
+     --configurator-first-boot "$ARTIFACT_DIR/first-boot-record.json"
+   # Review the four diffs; repeat with --yes.
+   ```
+
+   Pages take the version, file names and URLs from the data files, so no page
+   is edited for a release. Confirm that Downloads and the configurator offer
+   the same version, byte count, digest and signature; preserve older version
+   records and their source/evidence labels. The steps it runs, for when one must be run alone,
+   are the two helpers below and `scripts/sync_sensor_releases.py`. Update the
+   factory record from the actual artifact (size and SHA-256 computed, never
+   typed), then preview the OTA entry:
 
    ```sh
    # VERSION and ARTIFACT_DIR refer to the reviewed, signed local release.
@@ -131,6 +177,11 @@ Pro OTG tests are deferred, not a promised charging fix.
      --notes-url "https://github.com/WiFivomFranMan/wlan-commander-sensor/releases/tag/unified-v$VERSION"
    # Review the diff; repeat the same command with --yes to write data/releases.json.
    ```
+
+   For a factory hosted on the owned download domain, pass its exact versioned
+   URL using `update_unified_factory.py --download-url`. The helper accepts only
+   the canonical version/file path. Verify the complete public factory archive
+   and signature independently even when it uses a different download host.
 
    `data/unified-factory.json` must contain this version's **factory** URL,
    computed `size_bytes`, `sha256`, and matching `.sha256`/`.sig` URLs. The

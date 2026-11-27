@@ -1,7 +1,7 @@
 # WLAN Commander Sensor — unified images and documentation
 
 WLAN Commander Sensor has one **unified A/B factory image** for NanoPi Zero2,
-Raspberry Pi 4, Raspberry Pi 5, WLAN Pi Pro (CM4) and WLAN Pi Go (CM4).
+Raspberry Pi 4, Raspberry Pi 5, WLAN Pi Pro (CM4) and generic CM4 carriers.
 Radio, display and USB features depend on the installed hardware and the
 release's tested coverage. The original Pi 4 R4 display HAT needs an explicit
 profile; see the installation guide before flashing.
@@ -18,11 +18,15 @@ GitHub's “Latest” release may still be an older stable NanoPi image: use the
 unified Downloads panel or the `wlan-commander-sensor` entry in
 [the updater catalogue](https://wlancommander.com/releases.json).
 
+The current experimental beta is [2.1.45](https://github.com/WiFivomFranMan/wlan-commander-sensor/releases/tag/unified-v2.1.45), with MT7921 USB/MT7925 PCIe helpers, A7Z bounded disk buffering and updated CM4/RadSec support. Exact-image physical boot, mobile UI and combined-radio/slow-link qualification remain pending. MT7925 levels are estimates; 6 GHz reference calibration and full-band sweeping are unqualified. Buffering counts overwritten unread bytes and has no durable reconnect cursor.
+
+**Stock 8 GB WLAN Pi Go support is paused:** the generic factory image does not fit it. A7Z UFS needs its board-specific installation procedure; do not raw-flash the generic factory file onto it.
+
 ## Choose the correct artifact
 
 | Artifact | Use |
 | --- | --- |
-| `wlan-commander-sensor-VERSION-factory.img.xz` | First installation on a card or the Go's exposed eMMC. Erases the target. Data expands on first boot. |
+| `wlan-commander-sensor-VERSION-factory.img.xz` | First installation on supported removable media. Erases the target. Data expands on first boot. |
 | `wlan-commander-sensor-VERSION-ota.img.xz` | Signed update of an existing `unified-ab-v2` installation. Preserves Data. Do not flash onto blank media or stock WLAN Pi storage. |
 | `.img.xz.sig` | Detached signature under the image's pinned WLAN Commander release key. |
 | `.img.xz.sha256` | Full compressed-artifact checksum; factory and OTA have different hashes. |
@@ -34,7 +38,7 @@ screens, use the device setup QR or the readable one-time code. Supported direct
 USB setup can fill the code automatically at `https://198.18.42.1/`.
 USB and display exceptions are documented in the installation guide.
 
-The unified image uses a pinned, patched shared **Linux 7.3.0-rc1+** kernel.
+The unified image uses a pinned, patched shared **Linux 7.3.0+** kernel.
 It is not the stock Armbian kernel described by the old NanoPi-only page.
 Experimental Qualcomm STR/MLO advertisement, FTM and relative spectrum support
 have separate limits and are not general Wi-Fi 7 certification claims.
